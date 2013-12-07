@@ -1,5 +1,10 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Light" />
-
+    <style name="loading_small" parent="@android:style/Widget.ProgressBar.Small">
+        <item name="android:background">@anim/loading</item>
+        <item name="android:layout_width">21dip</item>
+        <item name="android:layout_height">21dip</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
 </resources>

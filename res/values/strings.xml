@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">CommonLibrary</string>
+    <string name="app_name">library</string>
+    
+    <string name="common_refresh_finish">完成刷新！</string>
+    <string name="common_loading_more_text">更多</string>
+    <string name="common_loading_text">加载中&#8230;</string>
+    <string name="common_loading_end_text">已加载全部</string>
+    <string name="common_release_refresh_text">松开后刷新</string>
+    <string name="common_pull_refresh_text">下拉进行刷新</string>
+    <string name="common_refreshing_text">正在刷新&#8230;</string>
 </resources>
