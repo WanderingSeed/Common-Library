@@ -1,17 +1,3 @@
-/* Copyright (c) 2011-2013 Tang Ke
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.morgan.library.widget.slidemenu;
 
 import android.content.Context;
@@ -44,8 +30,6 @@ import com.morgan.library.widget.slidemenu.ScrollDetectors.ScrollDetector;
 /**
  * Swipe left/right to show the hidden menu behind the content view, Use {@link ScrollDetector} to custom the rule of
  * MotionEvent intercept
- * 
- * @author Tank
  * 
  */
 public class SlideMenu extends ViewGroup {
@@ -140,7 +124,7 @@ public class SlideMenu extends ViewGroup {
         }
         setPrimaryShadowDrawable(primaryShadowDrawable);
 
-        Drawable secondaryShadowDrawable = a.getDrawable(R.styleable.SlideMenu_primaryShadowDrawable);
+        Drawable secondaryShadowDrawable = a.getDrawable(R.styleable.SlideMenu_sencondaryShadowDrawable);
         if (null == secondaryShadowDrawable) {
             secondaryShadowDrawable = new GradientDrawable(Orientation.LEFT_RIGHT, new int[] { Color.argb(99, 0, 0, 0),
                     Color.TRANSPARENT });
@@ -511,7 +495,6 @@ public class SlideMenu extends ViewGroup {
                 }
             }
         }
-
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -542,7 +525,6 @@ public class SlideMenu extends ViewGroup {
                 mLastMotionX = x;
                 return false;
             }
-
             drag(mLastMotionX, x);
             mLastMotionX = x;
             break;
@@ -559,7 +541,6 @@ public class SlideMenu extends ViewGroup {
             mIsTapContent = false;
             break;
         }
-
         return true;
     }
 
@@ -958,8 +939,6 @@ public class SlideMenu extends ViewGroup {
 
     /**
      * Add view role for {@link #SlidingMenu}
-     * 
-     * @author Tank
      * 
      */
     public static class LayoutParams extends MarginLayoutParams {

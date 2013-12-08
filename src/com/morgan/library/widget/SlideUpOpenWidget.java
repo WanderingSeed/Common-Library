@@ -13,9 +13,14 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.Scroller;
+
 import com.morgan.library.R;
 
-public class SlidePageWidget extends LinearLayout {
+public class SlideUpOpenWidget extends LinearLayout {
+    
+    private static final int DEFAULT_MINIMUM_VELOCITY = 2000;
+    private static final int DEFAULT_ANIMATION_TIME = 800;
+    private float mUpPercent = 0.5f;
     private float mStartY, mTempY;
     private Scroller mScroller;
     private boolean mMovable, mGone;
@@ -26,17 +31,13 @@ public class SlidePageWidget extends LinearLayout {
     private float mMaximumVelocity;
     private int mMinimumVelocity;
 
-    public SlidePageWidget(Context context) {
-        this(context, null);
-    }
-
-    public SlidePageWidget(Context context, AttributeSet attrs) {
+    public SlideUpOpenWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SlidePage);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SlideUpOpen);
         mScroller = new Scroller(context, new BounceInterpolator());
         mImageView = new ImageView(context);
-        int imageResource = ta.getResourceId(R.styleable.SlidePage_image, -1);
+        int imageResource = ta.getResourceId(R.styleable.SlideUpOpen_coverImage, -1);
         if (imageResource != -1) {
             mImageView.setImageResource(imageResource);
         } else {
@@ -47,7 +48,7 @@ public class SlidePageWidget extends LinearLayout {
         this.addView(mImageView);
         ta.recycle();
         final ViewConfiguration configuration = ViewConfiguration.get(context);
-        mMinimumVelocity = 2000;
+        mMinimumVelocity = DEFAULT_MINIMUM_VELOCITY;
         mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
     }
 
@@ -80,20 +81,18 @@ public class SlidePageWidget extends LinearLayout {
                 int initialVelocity = (int) velocityTracker.getYVelocity();
                 if ((Math.abs(initialVelocity) > mMinimumVelocity) && getChildCount() > 0) {
                     mScroller = new Scroller(mContext, new DecelerateInterpolator());
-                    mScroller.startScroll(0, (int) (mStartY - mTempY) - getHeight(), 0, getHeight()
-                            - (int) (mStartY - mTempY), 1000);
+                    mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (getHeight() - (mStartY - mTempY)), DEFAULT_ANIMATION_TIME);
                     invalidate();
                     mGone = true;
                 } else {
                     mTempY = event.getY();
-                    if ((mStartY - mTempY) > getHeight() * 0.4) {
+                    if ((mStartY - mTempY) > getHeight() * mUpPercent) {
                         mScroller = new Scroller(mContext, new DecelerateInterpolator());
-                        mScroller.startScroll(0, (int) (mStartY - mTempY) - getHeight(), 0, getHeight()
-                                - (int) (mStartY - mTempY), 1000);
+                        mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (getHeight() - (mStartY - mTempY)), DEFAULT_ANIMATION_TIME);
                         invalidate();
                         mGone = true;
                     } else {
-                        mScroller.startScroll(0, (int) (mTempY - mStartY), 0, (int) (mStartY - mTempY), 1000);
+                        mScroller.startScroll(0, (int) (mStartY -mTempY), 0, (int) (mTempY - mStartY), DEFAULT_ANIMATION_TIME);
                         invalidate();
                     }
                 }
@@ -112,10 +111,8 @@ public class SlidePageWidget extends LinearLayout {
             if (mScroller.computeScrollOffset()) {
                 int oldY = getScrollY();
                 int y = mScroller.getCurrY();
-                if (oldY != y && !mGone) {
-                    scrollTo(0, -y);
-                } else if (mGone) {
-                    scrollTo(0, getHeight() + y);
+                if (oldY != y) {
+                    scrollTo(0, y);
                 }
                 invalidate();
                 return;
@@ -132,10 +129,6 @@ public class SlidePageWidget extends LinearLayout {
 
     public interface OnSlidePageGoneListener {
         public void onSlidePageGone();
-    }
-
-    public OnSlidePageGoneListener getSlidePageGoneListener() {
-        return mSlidePageGoneListener;
     }
 
     public void setOnSlidePageGoneListener(OnSlidePageGoneListener mSlidePageGoneListener) {

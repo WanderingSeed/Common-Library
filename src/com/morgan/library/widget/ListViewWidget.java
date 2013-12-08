@@ -32,6 +32,7 @@ import com.morgan.library.R;
  */
 public class ListViewWidget extends ListView implements OnScrollListener {
 
+    private static final int REFRESH_VIEW_MAX_HEIGHT = 280;
     // State of pull down to refresh
     private final static int PULL_TO_REFRESH = 0X1001;
     // State of Can release to refresh
@@ -97,6 +98,8 @@ public class ListViewWidget extends ListView implements OnScrollListener {
     private boolean mIsBack;
     // When list size is 0, show this message.
     private String mNoDataMessage;
+    
+    private boolean mNoDataInList;
 
     public interface OnLoadDataListener {
         public void OnLoadData();
@@ -173,6 +176,7 @@ public class ListViewWidget extends ListView implements OnScrollListener {
     };
 
     public void addUserTopHeaderView(View v) {
+        mUserTopHeaderView.removeAllViews();
         mUserTopHeaderView.addView(v);
         measureView(v);
         mUserTopHeaderHeight = v.getMeasuredHeight();
@@ -180,6 +184,7 @@ public class ListViewWidget extends ListView implements OnScrollListener {
     }
 
     public void addUserBottomHeaderView(View v) {
+        mUserBottomHeaderView.removeAllViews();
         mUserBottomHeaderView.addView(v);
         measureView(v);
         mUserHeaderHeight += v.getMeasuredHeight();
@@ -208,7 +213,7 @@ public class ListViewWidget extends ListView implements OnScrollListener {
         } catch (Exception e) {
             scrollEnd = false;
         }
-        if (scrollEnd && !mIsLoadAll && mIsFinished && !mIsRecored) {
+        if (scrollEnd && !mIsLoadAll && mIsFinished && !mIsRecored && !mNoDataInList) {
             loadData();
         }
     }
@@ -236,7 +241,6 @@ public class ListViewWidget extends ListView implements OnScrollListener {
                     changeHeaderViewByState();
                 }
                 mIsRecored = false;
-                mIsBack = false;
             }
             break;
 
@@ -262,7 +266,6 @@ public class ListViewWidget extends ListView implements OnScrollListener {
                 } else if (mStatus == PULL_TO_REFRESH) {
                     if (tempY - mStartY >= mRefreshHeaderHeight + 30 && mScrollState == SCROLL_STATE_TOUCH_SCROLL) {
                         mStatus = RELEASE_TO_REFRESH;
-                        mIsBack = true;
                         changeHeaderViewByState();
                     } else if (tempY - mStartY <= 0) {
                         mStatus = DONE;
@@ -279,10 +282,10 @@ public class ListViewWidget extends ListView implements OnScrollListener {
                 if (mStatus == RELEASE_TO_REFRESH || mStatus == PULL_TO_REFRESH
                         && mScrollState == SCROLL_STATE_TOUCH_SCROLL) {
                     int topPadding;
-                    if ((tempY - mStartY) <= 280) {
+                    if ((tempY - mStartY) <= REFRESH_VIEW_MAX_HEIGHT) {
                         topPadding = (int) ((tempY - mStartY - mRefreshHeaderHeight));
                     } else {
-                        topPadding = 280 - mRefreshHeaderHeight;
+                        topPadding = REFRESH_VIEW_MAX_HEIGHT - mRefreshHeaderHeight;
                     }
                     mRefreshHeaderView.setPadding(mRefreshHeaderView.getPaddingLeft(), topPadding,
                             mRefreshHeaderView.getPaddingRight(), mRefreshHeaderView.getPaddingBottom());
@@ -302,6 +305,7 @@ public class ListViewWidget extends ListView implements OnScrollListener {
             mHeaderProgressBar.setVisibility(View.GONE);
             mHeaderRefreshArrow.setVisibility(View.VISIBLE);
             mHeaderRefreshArrow.clearAnimation();
+            mIsBack = true;
             mHeaderRefreshArrow.startAnimation(mRefreshArrowAnimation);
             mHeaderStatus.setText(R.string.common_release_refresh_text);
             break;
@@ -326,6 +330,7 @@ public class ListViewWidget extends ListView implements OnScrollListener {
             refreshData();
             break;
         case DONE:
+            mIsBack = false;
             mHeaderRefreshArrow.setImageResource(R.drawable.icon_refresh_arrow);
             mHeaderProgressBar.setVisibility(View.GONE);
             mHeaderStatus.setText(R.string.common_pull_refresh_text);
@@ -441,6 +446,11 @@ public class ListViewWidget extends ListView implements OnScrollListener {
         if (message == SUCCESS_GET_DATA || message == FINISH_GET_DATA || message == ERROR_GET_DATA) {
             if (ListViewWidget.this.getAdapter() != null && ListViewWidget.this.getAdapter().getCount() == 2) {
                 mFooterStatus.setText(mNoDataMessage);
+                mFooterView.setOnClickListener(null);
+                mNoDataInList = true;
+            } else {
+                mNoDataInList = false;
+                mFooterView.setOnClickListener(mMoreDataListener);
             }
             mIsFinished = true;
         }

@@ -4,8 +4,8 @@
     <declare-styleable name="ListViewWidget">
         <attr name="noDataMessage" format="string" />
     </declare-styleable>
-    <declare-styleable name="SlidePage">
-        <attr name="image" format="reference" />
+    <declare-styleable name="SlideUpOpen">
+        <attr name="coverImage" format="reference" />
     </declare-styleable>
 
     <attr name="slideMenuStyle" format="reference" />
@@ -27,4 +27,5 @@
             <enum name="secondaryMenu" value="2" />
         </attr>
     </declare-styleable>
+
 </resources>

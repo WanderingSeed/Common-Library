@@ -10,13 +10,6 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 
-/**
- * Provide base implements of {@link ViewPager}, {@link HorizontalScrollView}, {@link WebView} scroll detect, You can
- * use {@link ScrollDetectorFactory} to add your own implements of {@link ScrollDetector}
- * 
- * @author Tank
- * 
- */
 public class ScrollDetectors {
     private static final WeakHashMap<Class<?>, ScrollDetector> IMPLES = new WeakHashMap<Class<?>, ScrollDetector>();
     private static ScrollDetectorFactory mFactory;
@@ -75,12 +68,6 @@ public class ScrollDetectors {
         return imple;
     }
 
-    /**
-     * Base implements of {@link ScrollDetector} for {@link ViewPager}
-     * 
-     * @author Tank
-     * 
-     */
     private static class ViewPagerScrollDetector implements ScrollDetector {
 
         @Override
@@ -103,12 +90,6 @@ public class ScrollDetectors {
 
     }
 
-    /**
-     * Base implements of {@link ScrollDetector} for {@link WebView}
-     * 
-     * @author Tank
-     * 
-     */
     private static class WebViewScrollDetector implements ScrollDetector {
 
         @Override
@@ -147,12 +128,6 @@ public class ScrollDetectors {
 
     }
 
-    /**
-     * Base implements of {@link ScrollDetector} for {@link HorizontalScrollView}
-     * 
-     * @author Tank
-     * 
-     */
     private static class HorizontalScrollViewScrollDetector implements ScrollDetector {
 
         @Override
@@ -186,11 +161,6 @@ public class ScrollDetectors {
         mFactory = factory;
     }
 
-    /**
-     * 
-     * @author Tank
-     * 
-     */
     public interface ScrollDetector {
         public boolean canScrollHorizontal(View v, int direction);
 
