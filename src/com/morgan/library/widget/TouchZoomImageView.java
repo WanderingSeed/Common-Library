@@ -14,7 +14,7 @@ import android.widget.ImageView;
  * 
  * @author jgc 2013-6-16
  */
-public class TouchZoomImageWidget extends ImageView {
+public class TouchZoomImageView extends ImageView {
     // 表示当前没有状态
     static final int NONE = 0;
     // 表示当前处于移动状态
@@ -55,7 +55,7 @@ public class TouchZoomImageWidget extends ImageView {
     // 设置一个最小值以便能够双指缩放
     private static final int MIN_LENGTH = 150;
 
-    public TouchZoomImageWidget(Context context, AttributeSet attrs) {
+    public TouchZoomImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.setPadding(0, 0, 0, 0);
         this.setScaleType(ScaleType.FIT_XY);

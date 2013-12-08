@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/list_view_widget_user_above_progress_header"
+        android:id="@+id/pull_to_refresh_listview_user_above_progress_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
@@ -14,18 +14,18 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/list_view_widget_refresh_header"
+        android:id="@+id/pull_to_refresh_listview_refresh_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal" >
 
         <ProgressBar
-            android:id="@+id/list_view_widget_header_progress_bar"
+            android:id="@+id/pull_to_refresh_listview_header_progress_bar"
             style="@style/loading_small" />
 
         <ImageView
-            android:id="@+id/list_view_widget_header_arrow"
+            android:id="@+id/pull_to_refresh_listview_header_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:minHeight="50dp"
@@ -34,7 +34,7 @@
             android:src="@drawable/icon_refresh_arrow" />
 
         <TextView
-            android:id="@+id/list_view_widget_header_status"
+            android:id="@+id/pull_to_refresh_listview_header_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -43,7 +43,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/list_view_widget_user_below_progress_header"
+        android:id="@+id/pull_to_refresh_listview_user_below_progress_header"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"

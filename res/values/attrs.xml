@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="ListViewWidget">
+    <declare-styleable name="PullToRefreshListView">
         <attr name="noDataMessage" format="string" />
     </declare-styleable>
-    <declare-styleable name="SlideUpOpen">
+    <declare-styleable name="SlideUpOpenWidget">
         <attr name="coverImage" format="reference" />
     </declare-styleable>
 

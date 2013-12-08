@@ -34,10 +34,10 @@ public class SlideUpOpenWidget extends LinearLayout {
     public SlideUpOpenWidget(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SlideUpOpen);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.SlideUpOpenWidget);
         mScroller = new Scroller(context, new BounceInterpolator());
         mImageView = new ImageView(context);
-        int imageResource = ta.getResourceId(R.styleable.SlideUpOpen_coverImage, -1);
+        int imageResource = ta.getResourceId(R.styleable.SlideUpOpenWidget_coverImage, -1);
         if (imageResource != -1) {
             mImageView.setImageResource(imageResource);
         } else {

@@ -7,11 +7,11 @@
     android:padding="5dp" >
 
     <ProgressBar
-        android:id="@+id/list_view_widget_footer_progress_bar"
+        android:id="@+id/pull_to_refresh_listview_footer_progress_bar"
         style="@style/loading_small" />
 
     <TextView
-        android:id="@+id/list_view_widget_footer_status"
+        android:id="@+id/pull_to_refresh_listview_footer_status"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"

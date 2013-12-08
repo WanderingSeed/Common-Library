@@ -30,7 +30,7 @@ import com.morgan.library.R;
  * @author Morgan.Ji
  * 
  */
-public class ListViewWidget extends ListView implements OnScrollListener {
+public class PullToRefreshListView extends ListView implements OnScrollListener {
 
     private static final int REFRESH_VIEW_MAX_HEIGHT = 280;
     // State of pull down to refresh
@@ -109,10 +109,10 @@ public class ListViewWidget extends ListView implements OnScrollListener {
         public void OnRefreshData();
     }
 
-    public ListViewWidget(Context context, AttributeSet attrs) {
+    public PullToRefreshListView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ListViewWidget);
-        mNoDataMessage = ta.getString(R.styleable.ListViewWidget_noDataMessage);
+        TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.PullToRefreshListView);
+        mNoDataMessage = ta.getString(R.styleable.PullToRefreshListView_noDataMessage);
         ta.recycle();
         this.mContext = context;
         init();
@@ -141,19 +141,19 @@ public class ListViewWidget extends ListView implements OnScrollListener {
 
         mInflater = LayoutInflater.from(mContext);
 
-        mFooterView = (LinearLayout) mInflater.inflate(R.layout.list_view_widget_footer, null);
-        mFooterProgressBar = (ProgressBar) mFooterView.findViewById(R.id.list_view_widget_footer_progress_bar);
-        mFooterStatus = (TextView) mFooterView.findViewById(R.id.list_view_widget_footer_status);
+        mFooterView = (LinearLayout) mInflater.inflate(R.layout.pull_to_refresh_listview_footer, null);
+        mFooterProgressBar = (ProgressBar) mFooterView.findViewById(R.id.pull_to_refresh_listview_footer_progress_bar);
+        mFooterStatus = (TextView) mFooterView.findViewById(R.id.pull_to_refresh_listview_footer_status);
         mFooterProgressBar.setVisibility(View.GONE);
 
-        mHeaderView = (LinearLayout) mInflater.inflate(R.layout.list_view_widget_header, null);
-        mUserTopHeaderView = (LinearLayout) mHeaderView.findViewById(R.id.list_view_widget_user_above_progress_header);
+        mHeaderView = (LinearLayout) mInflater.inflate(R.layout.pull_to_refresh_listview_header, null);
+        mUserTopHeaderView = (LinearLayout) mHeaderView.findViewById(R.id.pull_to_refresh_listview_user_above_progress_header);
         mUserBottomHeaderView = (LinearLayout) mHeaderView
-                .findViewById(R.id.list_view_widget_user_below_progress_header);
-        mRefreshHeaderView = (LinearLayout) mHeaderView.findViewById(R.id.list_view_widget_refresh_header);
-        mHeaderProgressBar = (ProgressBar) mRefreshHeaderView.findViewById(R.id.list_view_widget_header_progress_bar);
-        mHeaderStatus = (TextView) mRefreshHeaderView.findViewById(R.id.list_view_widget_header_status);
-        mHeaderRefreshArrow = (ImageView) mRefreshHeaderView.findViewById(R.id.list_view_widget_header_arrow);
+                .findViewById(R.id.pull_to_refresh_listview_user_below_progress_header);
+        mRefreshHeaderView = (LinearLayout) mHeaderView.findViewById(R.id.pull_to_refresh_listview_refresh_header);
+        mHeaderProgressBar = (ProgressBar) mRefreshHeaderView.findViewById(R.id.pull_to_refresh_listview_header_progress_bar);
+        mHeaderStatus = (TextView) mRefreshHeaderView.findViewById(R.id.pull_to_refresh_listview_header_status);
+        mHeaderRefreshArrow = (ImageView) mRefreshHeaderView.findViewById(R.id.pull_to_refresh_listview_header_arrow);
         measureView(mRefreshHeaderView);
         mRefreshHeaderOriginalTopPadding = mRefreshHeaderView.getPaddingTop();
         mRefreshHeaderHeight = mRefreshHeaderView.getMeasuredHeight();
@@ -444,7 +444,7 @@ public class ListViewWidget extends ListView implements OnScrollListener {
             break;
         }
         if (message == SUCCESS_GET_DATA || message == FINISH_GET_DATA || message == ERROR_GET_DATA) {
-            if (ListViewWidget.this.getAdapter() != null && ListViewWidget.this.getAdapter().getCount() == 2) {
+            if (PullToRefreshListView.this.getAdapter() != null && PullToRefreshListView.this.getAdapter().getCount() == 2) {
                 mFooterStatus.setText(mNoDataMessage);
                 mFooterView.setOnClickListener(null);
                 mNoDataInList = true;
