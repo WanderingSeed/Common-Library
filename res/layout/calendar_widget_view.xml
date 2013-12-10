@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/calendar_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/year_month_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingTop="20dp"
+        android:text="八月 2013"
+        android:textColor="@color/black"
+        android:textSize="19sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.34dp"
+        android:background="#7fcfed" />
+
+    <LinearLayout
+        android:id="@+id/week_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="一"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="32dp"
+            android:background="@color/canlendar_divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="二"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="32dp"
+            android:background="@color/canlendar_divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="三"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="32dp"
+            android:background="@color/canlendar_divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="四"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="32dp"
+            android:background="@color/canlendar_divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="五"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="32dp"
+            android:background="@color/canlendar_divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="六"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <View
+            android:layout_width="0.7dp"
+            android:layout_height="32dp"
+            android:background="@color/canlendar_divider_color" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            android:layout_weight="1.0"
+            android:gravity="center"
+            android:text="日"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/canlendar_divider_color" />
+
+    <com.morgan.library.widget.CalendarViewFlipper
+        android:id="@+id/journal_calender_flipper"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="0.7dp"
+        android:background="@color/canlendar_divider_color" />
+
+</LinearLayout>
