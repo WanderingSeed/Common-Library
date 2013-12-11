@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:np="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="300dp"
+        android:layout_height="289.5dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="13.4dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            android:text="@string/select"
+            android:textColor="#33b5e5"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.4dp"
+            android:background="#33b5e5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <net.simonvt.numberpicker.NumberPicker
+                android:id="@+id/provincePicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                np:internalMaxWidth="80dp" />
+
+            <net.simonvt.numberpicker.NumberPicker
+                android:id="@+id/cityPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@color/white"
+                np:internalMaxWidth="80dp" />
+
+            <net.simonvt.numberpicker.NumberPicker
+                android:id="@+id/areaPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:background="@color/white"
+                np:internalMaxWidth="80dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.4dp"
+            android:background="#d1d1d1" />
+
+        <TextView
+            android:id="@+id/finish"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/dialog_finish_btn_bg"
+            android:gravity="center"
+            android:text="@string/finish"
+            android:textColor="@color/common_black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="201dp"
+        android:layout_height="265dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="13.4dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:text="@string/select"
+            android:textColor="#33b5e5"
+            android:textSize="22sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.4dp"
+            android:background="#33b5e5" />
+
+        <net.simonvt.numberpicker.NumberPicker
+            android:id="@+id/numberPicker"
+            android:layout_width="wrap_content"
+            android:background="@color/white"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1.4dp"
+            android:background="#d1d1d1" />
+
+        <TextView
+            android:id="@+id/finish"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/dialog_finish_btn_bg"
+            android:gravity="center"
+            android:text="@string/finish"
+            android:textColor="@color/common_black"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>
