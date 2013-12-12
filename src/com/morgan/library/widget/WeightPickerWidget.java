@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.morgan.library.R;
+import com.morgan.library.utils.StrUtils;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
@@ -25,7 +26,7 @@ public class WeightPickerWidget extends Dialog {
     private int mCurrentValue;
 
     public WeightPickerWidget(Context context) {
-        super(context, R.style.dialog);
+        super(context, R.style.picker_dialog);
     }
 
     @Override
@@ -45,7 +46,7 @@ public class WeightPickerWidget extends Dialog {
         mPicker.setOnValueChangedListener(mOnValueChangeListener);
         mPicker.setUnit(UNIT);
         mPicker.setWrapSelectorWheel(false);
-        if (!StrUtil.isEmpty(mTitle)) {
+        if (!StrUtils.isEmpty(mTitle)) {
             mTitleTextView.setText(mTitle);
         }
         if (mCurrentValue != 0) {

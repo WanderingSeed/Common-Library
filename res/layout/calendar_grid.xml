@@ -15,13 +15,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="0"
-            android:text="一"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -31,13 +30,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="1"
-            android:text="二"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -47,13 +45,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="2"
-            android:text="三"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -63,13 +60,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="3"
-            android:text="四"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -79,13 +75,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="4"
-            android:text="五"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -95,13 +90,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="5"
-            android:text="六"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -111,7 +105,6 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="6"
-            android:text="日"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -119,7 +112,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1px"
+        android:layout_height="0.67dp"
         android:background="@color/canlendar_divider_color" />
 
     <LinearLayout
@@ -133,13 +126,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="7"
-            android:text="一"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -149,13 +141,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="8"
-            android:text="二"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -165,13 +156,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="9"
-            android:text="三"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -181,13 +171,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="10"
-            android:text="四"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -197,13 +186,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="11"
-            android:text="五"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -213,13 +201,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="12"
-            android:text="六"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -229,7 +216,6 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="13"
-            android:text="日"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -237,7 +223,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1px"
+        android:layout_height="0.67dp"
         android:background="@color/canlendar_divider_color" />
 
     <LinearLayout
@@ -251,13 +237,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="14"
-            android:text="一"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -267,13 +252,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="15"
-            android:text="二"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -283,13 +267,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="16"
-            android:text="三"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -299,13 +282,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="17"
-            android:text="四"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -315,13 +297,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="18"
-            android:text="五"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -331,13 +312,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="19"
-            android:text="六"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -347,7 +327,6 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="20"
-            android:text="日"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -355,7 +334,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1px"
+        android:layout_height="0.67dp"
         android:background="@color/canlendar_divider_color" />
 
     <LinearLayout
@@ -369,13 +348,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="21"
-            android:text="一"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -385,13 +363,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="22"
-            android:text="二"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -401,13 +378,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="23"
-            android:text="三"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -417,13 +393,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="24"
-            android:text="四"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -433,13 +408,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="25"
-            android:text="五"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -449,13 +423,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="26"
-            android:text="六"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -465,7 +438,6 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="27"
-            android:text="日"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -473,7 +445,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1px"
+        android:layout_height="0.67dp"
         android:background="@color/canlendar_divider_color" />
 
     <LinearLayout
@@ -487,13 +459,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="28"
-            android:text="一"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -503,13 +474,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="29"
-            android:text="二"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -519,13 +489,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="30"
-            android:text="三"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -535,13 +504,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="31"
-            android:text="四"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -551,13 +519,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="32"
-            android:text="五"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -567,13 +534,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="33"
-            android:text="六"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -583,7 +549,6 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="34"
-            android:text="日"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -591,7 +556,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1px"
+        android:layout_height="0.67dp"
         android:background="@color/canlendar_divider_color" />
 
     <LinearLayout
@@ -605,13 +570,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="35"
-            android:text="一"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -621,13 +585,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="36"
-            android:text="二"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -637,13 +600,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="37"
-            android:text="三"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -653,13 +615,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="38"
-            android:text="四"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -669,13 +630,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="39"
-            android:text="五"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -685,13 +645,12 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="40"
-            android:text="六"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
 
         <View
-            android:layout_width="1px"
+            android:layout_width="0.67dp"
             android:layout_height="35dp"
             android:background="@color/canlendar_divider_color" />
 
@@ -701,7 +660,6 @@
             android:layout_weight="1.0"
             android:gravity="center"
             android:tag="41"
-            android:text="日"
             android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -709,7 +667,7 @@
 
     <View
         android:layout_width="fill_parent"
-        android:layout_height="1px"
+        android:layout_height="0.67dp"
         android:background="@color/canlendar_divider_color" />
 
 </LinearLayout>

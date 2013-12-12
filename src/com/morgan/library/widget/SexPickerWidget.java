@@ -21,7 +21,7 @@ public class SexPickerWidget extends Dialog {
     private final String[] sex = new String[] { "男", "女" };
 
     public SexPickerWidget(Context context) {
-        super(context, R.style.dialog);
+        super(context, R.style.picker_dialog);
     }
 
     @Override

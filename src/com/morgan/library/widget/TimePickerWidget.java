@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.morgan.library.R;
+import com.morgan.library.utils.StrUtils;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
@@ -24,7 +25,7 @@ public class TimePickerWidget extends Dialog {
     private int mHour, mMinute;
 
     public TimePickerWidget(Context context) {
-        super(context, R.style.dialog);
+        super(context, R.style.picker_dialog);
     }
 
     @Override
@@ -64,7 +65,7 @@ public class TimePickerWidget extends Dialog {
         mHourPicker.setValue(mHour);
         mMinutePicker.setValue(mMinute);
 
-        if (!StrUtil.isEmpty(mTitle)) {
+        if (!StrUtils.isEmpty(mTitle)) {
             mTitleTextView.setText(mTitle);
         }
         updateTitle();

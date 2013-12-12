@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -120,6 +121,6 @@ public class StrUtils {
                 hs = hs + stmp;
             }
         }
-        return hs.toUpperCase();
+        return hs.toUpperCase(Locale.CHINESE);
     }
 }

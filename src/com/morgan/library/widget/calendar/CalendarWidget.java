@@ -398,9 +398,12 @@ public class CalendarWidget extends LinearLayout {
 
         public boolean isToday()
         {
-            Date date1 = this.date;
+            Calendar calander1 = Calendar.getInstance();
+            Calendar calander2 = Calendar.getInstance();
+            calander1.setTime(this.date);
             Date date2 = new Date();
-            Boolean ret = date1.getYear() == date2.getYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate();
+            calander2.setTime(date2);
+            Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR) && calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH) && calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
             return ret;
         }
 
@@ -408,9 +411,11 @@ public class CalendarWidget extends LinearLayout {
         {
             if (mCurrentSelectedDate == null) { return false; }
 
-            Date date1 = this.date;
-            Date date2 = mCurrentSelectedDate;
-            Boolean ret = date1.getYear() == date2.getYear() && date1.getMonth() == date2.getMonth() && date1.getDate() == date2.getDate();
+            Calendar calander1 = Calendar.getInstance();
+            Calendar calander2 = Calendar.getInstance();
+            calander1.setTime(this.date);
+            calander2.setTime(mCurrentSelectedDate);
+            Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR) && calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH) && calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
             return ret;
 
         }

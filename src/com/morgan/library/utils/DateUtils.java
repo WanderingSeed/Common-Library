@@ -3,6 +3,7 @@ package com.morgan.library.utils;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class DateUtils {
 
@@ -20,7 +21,7 @@ public class DateUtils {
             return "";
         }
         try {
-            DateFormat formatDate = new SimpleDateFormat(format);
+            DateFormat formatDate = new SimpleDateFormat(format, Locale.CHINESE);
             timeString = formatDate.format(date);
         } catch (Exception e) {
             e.printStackTrace();

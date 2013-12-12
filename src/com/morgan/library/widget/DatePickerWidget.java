@@ -28,7 +28,7 @@ public class DatePickerWidget extends Dialog {
     private Calendar mCalendar;
 
     public DatePickerWidget(Context context) {
-        super(context, R.style.dialog);
+        super(context, R.style.picker_dialog);
     }
 
     @Override
@@ -100,7 +100,7 @@ public class DatePickerWidget extends Dialog {
         mMonthPicker.setValue(mMonth);
         mDayPicker.setValue(mDay);
 
-        if (!StrUtil.isEmpty(mTitle)) {
+        if (!StrUtils.isEmpty(mTitle)) {
             mTitleTextView.setText(mTitle);
         }
         updateTitle();

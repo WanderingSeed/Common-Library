@@ -73,7 +73,7 @@
             android:background="@drawable/dialog_finish_btn_bg"
             android:gravity="center"
             android:text="@string/finish"
-            android:textColor="@color/common_black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 

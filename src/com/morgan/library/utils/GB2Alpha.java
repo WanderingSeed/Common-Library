@@ -1,5 +1,7 @@
 package com.morgan.library.utils;
 
+import java.util.Locale;
+
 public class GB2Alpha {
 
     // 字母Z使用了两个标签，这里有２７个值
@@ -118,6 +120,6 @@ public class GB2Alpha {
         if (StrUtils.isEmpty(result) || "0".equals(result)) {
             result = "#";
         }
-        return result.toUpperCase();
+        return result.toUpperCase(Locale.CHINESE);
     }
 }

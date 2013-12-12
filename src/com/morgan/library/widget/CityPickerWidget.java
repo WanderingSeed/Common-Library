@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.morgan.library.R;
+import com.morgan.library.utils.FileUtils;
+import com.morgan.library.utils.StrUtils;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
@@ -30,7 +32,7 @@ public class CityPickerWidget extends Dialog {
     private List<String> mCurrentAreas = new ArrayList<String>();
 
     public CityPickerWidget(Context context) {
-        super(context, R.style.dialog);
+        super(context, R.style.picker_dialog);
     }
 
     @Override
@@ -39,9 +41,9 @@ public class CityPickerWidget extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.city_picker_dialog);
 
-        mProvinces = FileUtil.getAllProvinces();
-        mCitys = FileUtil.getAllCities();
-        mAreas = FileUtil.getAllAreas();
+        mProvinces = FileUtils.getAllProvinces();
+        mCitys = FileUtils.getAllCities();
+        mAreas = FileUtils.getAllAreas();
 
         mProvincePicker = (NumberPicker)findViewById(R.id.provincePicker);
         mCityPicker = (NumberPicker)findViewById(R.id.cityPicker);
@@ -124,7 +126,7 @@ public class CityPickerWidget extends Dialog {
         mAreaPicker.setValue(areaIndex);
         mAreaPicker.setWrapSelectorWheel(false);
 
-        if (!StrUtil.isEmpty(mTitle)) {
+        if (!StrUtils.isEmpty(mTitle)) {
             mTitleTextView.setText(mTitle);
         }
         updateTitle();

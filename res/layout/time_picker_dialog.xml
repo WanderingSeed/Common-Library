@@ -53,8 +53,8 @@
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
                 android:background="@color/white"
-                android:text=":"
-                android:textColor="@color/common_black"
+                android:text="@string/character_colon"
+                android:textColor="@color/black"
                 android:textSize="28sp" />
 
             <net.simonvt.numberpicker.NumberPicker
@@ -77,7 +77,7 @@
             android:background="@drawable/dialog_finish_btn_bg"
             android:gravity="center"
             android:text="@string/finish"
-            android:textColor="@color/common_black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
 
