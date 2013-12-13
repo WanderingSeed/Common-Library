@@ -45,11 +45,14 @@ public class FallBallView extends ImageView {
         public void dispatchMessage(Message msg)
         {
             if (msg.what == ANIMATION_MOVE) {
-                FallBallView.this.setTranslationX(msg.arg1);
-                FallBallView.this.setTranslationY(msg.arg2);
+                // FallBallWidget.this.setTranslationX(msg.arg1);
+                // FallBallWidget.this.setTranslationY(msg.arg2);
+                FallBallView.this.layout(mStartX + msg.arg1, mStartY + msg.arg2, mStartX + msg.arg1 + getWidth(), mStartY + msg.arg2
+                        + getHeight());
             } else if (msg.what == ANIMATION_END) {
-                FallBallView.this.setTranslationX(0);
-                FallBallView.this.setTranslationY(0);
+                // FallBallWidget.this.setTranslationX(0);
+                // FallBallWidget.this.setTranslationY(0);
+                FallBallView.this.layout(mStartX, mStartY, mStartX + getWidth(), mStartY + getHeight());
                 FallBallView.this.setVisibility(View.INVISIBLE);
                 if (null != mOnFallListener) {
                     mOnFallListener.onfalled();
