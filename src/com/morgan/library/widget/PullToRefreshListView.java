@@ -307,7 +307,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
             mHeaderRefreshArrow.clearAnimation();
             mIsBack = true;
             mHeaderRefreshArrow.startAnimation(mRefreshArrowAnimation);
-            mHeaderStatus.setText(R.string.common_release_refresh_text);
+            mHeaderStatus.setText(R.string.refresh_after_release);
             break;
         case PULL_TO_REFRESH:
             mHeaderProgressBar.setVisibility(View.GONE);
@@ -318,12 +318,12 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
                 mHeaderRefreshArrow.clearAnimation();
                 mHeaderRefreshArrow.startAnimation(mRefreshArrowReverseAnimation);
             }
-            mHeaderStatus.setText(R.string.common_pull_refresh_text);
+            mHeaderStatus.setText(R.string.pull_to_refresh);
             break;
         case REFRESHING:
             mHeaderRefreshArrow.setVisibility(View.GONE);
             mHeaderProgressBar.setVisibility(View.VISIBLE);
-            mHeaderStatus.setText(R.string.common_refreshing_text);
+            mHeaderStatus.setText(R.string.refreshing_now);
             mRefreshHeaderView.setPadding(mRefreshHeaderView.getPaddingLeft(), mRefreshHeaderOriginalTopPadding,
                     mRefreshHeaderView.getPaddingRight(), mRefreshHeaderView.getPaddingBottom());
             mRefreshHeaderView.invalidate();
@@ -333,7 +333,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
             mIsBack = false;
             mHeaderRefreshArrow.setImageResource(R.drawable.icon_refresh_arrow);
             mHeaderProgressBar.setVisibility(View.GONE);
-            mHeaderStatus.setText(R.string.common_pull_refresh_text);
+            mHeaderStatus.setText(R.string.pull_to_refresh);
             mRefreshHeaderView.setPadding(mRefreshHeaderView.getPaddingLeft(), -1 * mRefreshHeaderHeight,
                     mRefreshHeaderView.getPaddingRight(), mRefreshHeaderView.getPaddingBottom());
             mRefreshHeaderView.invalidate();
@@ -344,7 +344,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
     private void loadData() {
         mIsFinished = false;
         mFooterProgressBar.setVisibility(View.VISIBLE);
-        mFooterStatus.setText(getResources().getString(R.string.common_loading_text));
+        mFooterStatus.setText(getResources().getString(R.string.loading_now));
         mDataLoader.OnLoadData();
     }
 
@@ -421,7 +421,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
         if (message == SUCCESS_GET_DATA || message == FINISH_GET_DATA || message == ERROR_GET_DATA) {
             if (mStatus == REFRESHING) {
                 if (message != ERROR_GET_DATA) {
-                    Toast.makeText(mContext, R.string.common_refresh_finish, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, R.string.finish_refresh, Toast.LENGTH_SHORT).show();
                 }
                 mStatus = DONE;
                 changeHeaderViewByState();
@@ -433,14 +433,14 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
         switch (message) {
         case SUCCESS_GET_DATA:
             mIsLoadAll = false;
-            mFooterStatus.setText(R.string.common_loading_more_text);
+            mFooterStatus.setText(R.string.more);
             break;
         case FINISH_GET_DATA:
             mIsLoadAll = true;
-            mFooterStatus.setText(R.string.common_loading_end_text);
+            mFooterStatus.setText(R.string.all_data_loaded);
             break;
         case ERROR_GET_DATA:
-            mFooterStatus.setText(R.string.common_loading_more_text);
+            mFooterStatus.setText(R.string.all_data_loaded);
             break;
         }
         if (message == SUCCESS_GET_DATA || message == FINISH_GET_DATA || message == ERROR_GET_DATA) {

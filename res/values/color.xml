@@ -2,9 +2,9 @@
 <resources>
     <color name="black">#000</color>
     <color name="white">#fff</color>
-    
+    <color name="eight_blue">#cc33b5e5</color>
+
     <color name="canlendar_divider_color">#dbe3e5</color>
     <color name="calendar_other_day_color">#b28d99a6</color>
     <color name="calendar_select_day_color">#33b5e5</color>
-    <color name="eight_blue">#cc33b5e5</color>
 </resources>
