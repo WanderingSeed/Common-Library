@@ -102,11 +102,11 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
     private boolean mNoDataInList;
 
     public interface OnLoadDataListener {
-        public void OnLoadData();
+        public void onLoadData();
     }
 
     public interface OnRefreshDataListener {
-        public void OnRefreshData();
+        public void onRefreshData();
     }
 
     public PullToRefreshListView(Context context, AttributeSet attrs) {
@@ -345,12 +345,12 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
         mIsFinished = false;
         mFooterProgressBar.setVisibility(View.VISIBLE);
         mFooterStatus.setText(getResources().getString(R.string.loading_now));
-        mDataLoader.OnLoadData();
+        mDataLoader.onLoadData();
     }
 
     private void refreshData() {
         mIsFinished = false;
-        mDataRefresher.OnRefreshData();
+        mDataRefresher.onRefreshData();
     }
 
     /**
