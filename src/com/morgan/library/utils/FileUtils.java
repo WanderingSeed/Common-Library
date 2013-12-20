@@ -26,21 +26,24 @@ public class FileUtils {
     /**
      * 追加内容到文件中
      * 
-     * @param filePath 文件的路径
-     * @param content 想要写入的信息
+     * @param filePath
+     *            文件的路径
+     * @param content
+     *            想要写入的信息
      */
-    public static void writeFile(String filePath, String content)
-    {
+    public static void writeFile(String filePath, String content) {
         writeFile(filePath, content, true);
     }
 
     /**
-     * @param filePath 文件的路径
-     * @param content 想要写入的信息
-     * @param append 添加方式(true为追加,false为覆盖)
+     * @param filePath
+     *            文件的路径
+     * @param content
+     *            想要写入的信息
+     * @param append
+     *            添加方式(true为追加,false为覆盖)
      */
-    public static void writeFile(String filePath, String content, boolean append)
-    {
+    public static void writeFile(String filePath, String content, boolean append) {
         FileWriter fw = null;
         PrintWriter pw = null;
         try {
@@ -75,13 +78,14 @@ public class FileUtils {
      * @param inputStream
      * @return
      */
-    public static String readFile(String filePath)
-    {
+    public static String readFile(String filePath) {
         BufferedInputStream buffered = null;
         String content = "";
         try {
             File file = new File(filePath);
-            if (file.exists()) { return ""; }
+            if (file.exists()) {
+                return "";
+            }
             buffered = new BufferedInputStream(new FileInputStream(file));
             byte[] buffer = new byte[buffered.available()];
             buffered.read(buffer);
@@ -100,8 +104,7 @@ public class FileUtils {
         return content;
     }
 
-    public static boolean storeImage(Bitmap bitmap, String filePath)
-    {
+    public static boolean storeImage(Bitmap bitmap, String filePath) {
         boolean result = false;
         FileOutputStream b = null;
         try {
@@ -121,8 +124,7 @@ public class FileUtils {
         return result;
     }
 
-    public static void copyFile(File sourceFile, File targetFile) throws IOException
-    {
+    public static void copyFile(File sourceFile, File targetFile) throws IOException {
         BufferedInputStream inBuff = null;
         BufferedOutputStream outBuff = null;
         try {
@@ -140,14 +142,14 @@ public class FileUtils {
             outBuff.flush();
         } finally {
             // 关闭流
-            if (inBuff != null) inBuff.close();
-            if (outBuff != null) outBuff.close();
+            if (inBuff != null)
+                inBuff.close();
+            if (outBuff != null)
+                outBuff.close();
         }
     }
 
-
-    public static String readFile(String filePath, String charset)
-    {
+    public static String readFile(String filePath, String charset) {
         StringBuffer FileContent = new StringBuffer();
         try {
             FileInputStream inputStream = new FileInputStream(filePath);
@@ -163,8 +165,7 @@ public class FileUtils {
         return FileContent.toString();
     }
 
-    public static void getAllAddress(List<String> provinces, List<List<String>> cities, List<List<List<String>>> areas)
-    {
+    public static void getAllAddress(List<String> provinces, List<List<String>> cities, List<List<List<String>>> areas) {
         String json = "";
         try {
             json = readFile(getCityDataPath(), "utf-8");
@@ -204,8 +205,7 @@ public class FileUtils {
         }
     }
 
-    public static List<String> getAllProvinces()
-    {
+    public static List<String> getAllProvinces() {
         List<String> provinces = new ArrayList<String>();
         String json = "";
         try {
@@ -227,8 +227,7 @@ public class FileUtils {
 
     }
 
-    public static List<List<String>> getAllCities()
-    {
+    public static List<List<String>> getAllCities() {
         List<List<String>> cities = new ArrayList<List<String>>();
         String json = "";
         try {
@@ -255,8 +254,7 @@ public class FileUtils {
         return cities;
     }
 
-    public static List<List<List<String>>> getAllAreas()
-    {
+    public static List<List<List<String>>> getAllAreas() {
         List<List<List<String>>> areas = new ArrayList<List<List<String>>>();
         String json = "";
         try {
@@ -287,8 +285,7 @@ public class FileUtils {
         return areas;
     }
 
-    private static String getCityDataPath()
-    {
+    private static String getCityDataPath() {
         String pkg = FileUtils.class.getName();
         int dot = pkg.lastIndexOf('.');
         if (dot != -1) {

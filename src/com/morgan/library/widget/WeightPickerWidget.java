@@ -30,18 +30,17 @@ public class WeightPickerWidget extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_picker_dialog);
-        mPicker = (NumberPicker)findViewById(R.id.numberPicker);
+        mPicker = (NumberPicker) findViewById(R.id.numberPicker);
         mPicker.setMinValue(FIRST_HEIGHT);
         mPicker.setMaxValue(LAST_HEIGHT);
         mPicker.setValue(START_HEIGHT);
         mPicker.setFocusable(true);
         mPicker.setFocusableInTouchMode(true);
-        mTitleTextView = (TextView)findViewById(R.id.title);
-        mFinishBtn = (TextView)findViewById(R.id.finish);
+        mTitleTextView = (TextView) findViewById(R.id.title);
+        mFinishBtn = (TextView) findViewById(R.id.finish);
         mFinishBtn.setOnClickListener(mFinishClickListener);
         mPicker.setOnValueChangedListener(mOnValueChangeListener);
         mPicker.setUnit(UNIT);
@@ -59,19 +58,17 @@ public class WeightPickerWidget extends Dialog {
     }
 
     private OnDismissListener mOnDissmissListener = new OnDismissListener() {
-        
+
         @Override
-        public void onDismiss(DialogInterface dialog)
-        {
+        public void onDismiss(DialogInterface dialog) {
             mPicker.clearInputTextFocus();
         }
     };
 
     private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
-        
+
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             mPicker.clearInputTextFocus();
             WeightPickerWidget.this.dismiss();
             mOnFinishClickListener.onClick(v);
@@ -79,45 +76,38 @@ public class WeightPickerWidget extends Dialog {
     };
 
     private OnValueChangeListener mOnValueChangeListener = new OnValueChangeListener() {
-        
+
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             if (mShowValueOnTitle) {
                 mTitleTextView.setText(newVal + UNIT);
             }
         }
     };
 
-    public void setInitValue(int value)
-    {
+    public void setInitValue(int value) {
         if (null == mPicker) {
             mCurrentValue = value;
         }
     }
 
-    public String getCurrentValue()
-    {
+    public String getCurrentValue() {
         return mPicker.getValue() + UNIT;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         mTitle = title;
     }
 
-    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener)
-    {
+    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener) {
         this.mOnFinishClickListener = clickListener;
     }
 
-    public boolean isShowValueOnTitle()
-    {
+    public boolean isShowValueOnTitle() {
         return mShowValueOnTitle;
     }
 
-    public void setShowValueOnTitle(boolean mShowValueOnTitle)
-    {
+    public void setShowValueOnTitle(boolean mShowValueOnTitle) {
         this.mShowValueOnTitle = mShowValueOnTitle;
     }
 }

@@ -29,13 +29,12 @@ public class TimePickerWidget extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.time_picker_dialog);
 
-        mHourPicker = (NumberPicker)findViewById(R.id.hourPicker);
-        mMinutePicker = (NumberPicker)findViewById(R.id.minutePicker);
+        mHourPicker = (NumberPicker) findViewById(R.id.hourPicker);
+        mMinutePicker = (NumberPicker) findViewById(R.id.minutePicker);
         mHourPicker.setMinValue(0);
         mHourPicker.setMaxValue(23);
         mHourPicker.setFormatter(NumberPicker.getTwoDigitFormatter());
@@ -50,8 +49,8 @@ public class TimePickerWidget extends Dialog {
         mMinutePicker.setFormatter(NumberPicker.getTwoDigitFormatter());
         mMinutePicker.setOnValueChangedListener(mOnMinuteChangeListener);
 
-        mTitleTextView = (TextView)findViewById(R.id.title);
-        mFinishBtn = (TextView)findViewById(R.id.finish);
+        mTitleTextView = (TextView) findViewById(R.id.title);
+        mFinishBtn = (TextView) findViewById(R.id.finish);
         mFinishBtn.setOnClickListener(mFinishClickListener);
 
         if (mInitTimeByNow) {
@@ -60,7 +59,7 @@ public class TimePickerWidget extends Dialog {
             mMinute = calendar.get(Calendar.MINUTE);
         } else {
             mHour = DEFAULT_HOUR;
-            mMinute =DEFAULT_MINUTE;
+            mMinute = DEFAULT_MINUTE;
         }
         mHourPicker.setValue(mHour);
         mMinutePicker.setValue(mMinute);
@@ -75,8 +74,7 @@ public class TimePickerWidget extends Dialog {
     private OnDismissListener mOnDissmissListener = new OnDismissListener() {
 
         @Override
-        public void onDismiss(DialogInterface dialog)
-        {
+        public void onDismiss(DialogInterface dialog) {
             mHourPicker.clearInputTextFocus();
             mMinutePicker.clearInputTextFocus();
         }
@@ -85,8 +83,7 @@ public class TimePickerWidget extends Dialog {
     private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
 
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             mHourPicker.clearInputTextFocus();
             mMinutePicker.clearInputTextFocus();
             TimePickerWidget.this.dismiss();
@@ -97,8 +94,7 @@ public class TimePickerWidget extends Dialog {
     private OnValueChangeListener mOnHourChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mHour = newVal;
             updateTitle();
         }
@@ -107,8 +103,7 @@ public class TimePickerWidget extends Dialog {
     private OnValueChangeListener mOnMinuteChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             if (oldVal == mMinutePicker.getMaxValue() && newVal == mMinutePicker.getMinValue()) {
                 if (mHourPicker.getValue() < mHourPicker.getMaxValue()) {
                     mHourPicker.setValue(mHourPicker.getValue() + 1);
@@ -128,40 +123,33 @@ public class TimePickerWidget extends Dialog {
         }
     };
 
-    private void updateTitle()
-    {
+    private void updateTitle() {
         if (mShowValueOnTitle) {
             mTitleTextView.setText(format(mHour) + ":" + format(mMinute));
         }
     }
 
-    public String getCurrentValue()
-    {
+    public String getCurrentValue() {
         return format(mHour) + ":" + format(mMinute);
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         mTitle = title;
     }
 
-    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener)
-    {
+    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener) {
         this.mOnFinishClickListener = clickListener;
     }
 
-    public boolean isShowValueOnTitle()
-    {
+    public boolean isShowValueOnTitle() {
         return mShowValueOnTitle;
     }
 
-    public void setShowValueOnTitle(boolean mShowValueOnTitle)
-    {
+    public void setShowValueOnTitle(boolean mShowValueOnTitle) {
         this.mShowValueOnTitle = mShowValueOnTitle;
     }
 
-    public String format(int value)
-    {
+    public String format(int value) {
         String result;
         if (value < 10) {
             result = "0" + value;

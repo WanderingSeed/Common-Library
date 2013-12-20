@@ -36,8 +36,7 @@ public class CityPickerWidget extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.city_picker_dialog);
 
@@ -45,9 +44,9 @@ public class CityPickerWidget extends Dialog {
         mCitys = FileUtils.getAllCities();
         mAreas = FileUtils.getAllAreas();
 
-        mProvincePicker = (NumberPicker)findViewById(R.id.provincePicker);
-        mCityPicker = (NumberPicker)findViewById(R.id.cityPicker);
-        mAreaPicker = (NumberPicker)findViewById(R.id.areaPicker);
+        mProvincePicker = (NumberPicker) findViewById(R.id.provincePicker);
+        mCityPicker = (NumberPicker) findViewById(R.id.cityPicker);
+        mAreaPicker = (NumberPicker) findViewById(R.id.areaPicker);
         mProvincePicker.setMinValue(0);
         mProvincePicker.setOnValueChangedListener(mOnProvinceChangeListener);
         mProvincePicker.setDisplayedValues(mProvinces.toArray(new String[mProvinces.size()]));
@@ -72,8 +71,8 @@ public class CityPickerWidget extends Dialog {
         mAreaPicker.setMaxTextLength(4);
         mAreaPicker.setInputAble(false);
 
-        mTitleTextView = (TextView)findViewById(R.id.title);
-        mFinishBtn = (TextView)findViewById(R.id.finish);
+        mTitleTextView = (TextView) findViewById(R.id.title);
+        mFinishBtn = (TextView) findViewById(R.id.finish);
         mFinishBtn.setOnClickListener(mFinishClickListener);
 
         int index = 0, cityIndex = 0, areaIndex = 0;
@@ -135,8 +134,7 @@ public class CityPickerWidget extends Dialog {
     private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
 
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             mOnFinishClickListener.onClick(v);
             CityPickerWidget.this.dismiss();
         }
@@ -145,8 +143,7 @@ public class CityPickerWidget extends Dialog {
     /**
      * Updates the city wheel
      */
-    private void updateCities(List<String> cities)
-    {
+    private void updateCities(List<String> cities) {
         mCityPicker.setValue(0);
         mCityPicker.setMaxValue(0);
         mCityPicker.setDisplayedValues(cities.toArray(new String[cities.size()]));
@@ -162,13 +159,12 @@ public class CityPickerWidget extends Dialog {
     /**
      * Updates the area wheel
      */
-    private void updateAreas(List<String> areas)
-    {
+    private void updateAreas(List<String> areas) {
         mAreaPicker.setValue(0);
         mAreaPicker.setMaxValue(0);
         mAreaPicker.setDisplayedValues(areas.toArray(new String[areas.size()]));
-        mAreaPicker.setMaxValue(areas.size() > 0 ? areas.size()- 1 : 0);
-        mAreaPicker.setValue(areas.size() > 0 ? (areas.size() - 1) / 2:0);
+        mAreaPicker.setMaxValue(areas.size() > 0 ? areas.size() - 1 : 0);
+        mAreaPicker.setValue(areas.size() > 0 ? (areas.size() - 1) / 2 : 0);
         mAreaPicker.invalidate();
         if (areas.size() > 0) {
             mArea = mCurrentAreas.get((areas.size() - 1) / 2);
@@ -179,8 +175,7 @@ public class CityPickerWidget extends Dialog {
         updateTitle();
     }
 
-    private void updateTitle()
-    {
+    private void updateTitle() {
         if (mShowValueOnTitle) {
             mTitleTextView.setText(mProvince + " " + mCity + " " + mArea);
         }
@@ -189,8 +184,7 @@ public class CityPickerWidget extends Dialog {
     private OnValueChangeListener mOnProvinceChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mProvince = mProvinces.get(newVal);
             mCurrentCitys = mCitys.get(newVal);
             mCurrentCityAreas = mAreas.get(newVal);
@@ -201,8 +195,7 @@ public class CityPickerWidget extends Dialog {
     private OnValueChangeListener mOnCityChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mCity = mCurrentCitys.get(newVal);
             mCurrentAreas = mCurrentCityAreas.get(newVal);
             updateAreas(mCurrentAreas);
@@ -212,15 +205,13 @@ public class CityPickerWidget extends Dialog {
     private OnValueChangeListener mOnAreaChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mArea = mCurrentAreas.get(newVal);
             updateTitle();
         }
     };
 
-    public void setInitValue(String province, String city, String area)
-    {
+    public void setInitValue(String province, String city, String area) {
         if (null == mProvincePicker) {
             mProvince = province;
             mCity = city;
@@ -228,28 +219,23 @@ public class CityPickerWidget extends Dialog {
         }
     }
 
-    public String getCurrentValue()
-    {
+    public String getCurrentValue() {
         return mProvince + " " + mCity + " " + mArea;
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         mTitle = title;
     }
 
-    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener)
-    {
+    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener) {
         this.mOnFinishClickListener = clickListener;
     }
 
-    public boolean isShowValueOnTitle()
-    {
+    public boolean isShowValueOnTitle() {
         return mShowValueOnTitle;
     }
 
-    public void setShowValueOnTitle(boolean mShowValueOnTitle)
-    {
+    public void setShowValueOnTitle(boolean mShowValueOnTitle) {
         this.mShowValueOnTitle = mShowValueOnTitle;
     }
 }

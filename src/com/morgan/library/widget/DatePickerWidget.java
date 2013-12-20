@@ -32,15 +32,14 @@ public class DatePickerWidget extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.date_picker_dialog);
 
         mCalendar = Calendar.getInstance();
-        mYearPicker = (NumberPicker)findViewById(R.id.yearPicker);
-        mMonthPicker = (NumberPicker)findViewById(R.id.monthPicker);
-        mDayPicker = (NumberPicker)findViewById(R.id.dayPicker);
+        mYearPicker = (NumberPicker) findViewById(R.id.yearPicker);
+        mMonthPicker = (NumberPicker) findViewById(R.id.monthPicker);
+        mDayPicker = (NumberPicker) findViewById(R.id.dayPicker);
 
         if (mMinYear != 0) {
             mYearPicker.setMinValue(mMinYear);
@@ -67,8 +66,8 @@ public class DatePickerWidget extends Dialog {
         mDayPicker.setFocusableInTouchMode(true);
         mDayPicker.setOnValueChangedListener(mOnDayChangeListener);
 
-        mTitleTextView = (TextView)findViewById(R.id.title);
-        mFinishBtn = (TextView)findViewById(R.id.finish);
+        mTitleTextView = (TextView) findViewById(R.id.title);
+        mFinishBtn = (TextView) findViewById(R.id.finish);
         mFinishBtn.setOnClickListener(mFinishClickListener);
 
         if (mYear == 0) {
@@ -108,10 +107,9 @@ public class DatePickerWidget extends Dialog {
     }
 
     private OnDismissListener mOnDissmissListener = new OnDismissListener() {
-        
+
         @Override
-        public void onDismiss(DialogInterface dialog)
-        {
+        public void onDismiss(DialogInterface dialog) {
             mYearPicker.clearInputTextFocus();
             mMonthPicker.clearInputTextFocus();
             mDayPicker.clearInputTextFocus();
@@ -119,10 +117,9 @@ public class DatePickerWidget extends Dialog {
     };
 
     private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
-        
+
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             mYearPicker.clearInputTextFocus();
             mMonthPicker.clearInputTextFocus();
             mDayPicker.clearInputTextFocus();
@@ -131,8 +128,7 @@ public class DatePickerWidget extends Dialog {
         }
     };
 
-    private void setDayRange()
-    {
+    private void setDayRange() {
         int currentValue = mDayPicker.getValue();
         if (mYear == mMinYear && mMonth == mMinMonth) {
             mDayPicker.setValue(mMinDay);
@@ -156,8 +152,7 @@ public class DatePickerWidget extends Dialog {
         mDayPicker.setValue(currentValue);
     }
 
-    private void setMonthRange()
-    {
+    private void setMonthRange() {
         if (mYear == mMinYear) {
             mMonthPicker.setMinValue(mMinMonth);
             mMonthPicker.setMaxValue(12);
@@ -170,8 +165,7 @@ public class DatePickerWidget extends Dialog {
         }
     }
 
-    private void updateTitle()
-    {
+    private void updateTitle() {
         if (mShowValueOnTitle) {
             mTitleTextView.setText(mYear + "年" + mMonth + "月" + mDay + "日");
         }
@@ -180,8 +174,7 @@ public class DatePickerWidget extends Dialog {
     private OnValueChangeListener mOnYearChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mYear = newVal;
             mCalendar.set(Calendar.YEAR, newVal);
             updateDayPicker();
@@ -192,8 +185,7 @@ public class DatePickerWidget extends Dialog {
     private OnValueChangeListener mOnMonthChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mMonth = newVal;
             mCalendar.set(Calendar.MONTH, newVal - 1);
             updateDayPicker();
@@ -204,46 +196,38 @@ public class DatePickerWidget extends Dialog {
     private OnValueChangeListener mOnDayChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             mDay = newVal;
             updateTitle();
         }
     };
 
-    public void updateDayPicker()
-    {
+    public void updateDayPicker() {
         setMonthRange();
         setDayRange();
     }
 
-    public String getCurrentValue()
-    {
+    public String getCurrentValue() {
         return mYear + "-" + format(mMonth) + "-" + format(mDay);
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         mTitle = title;
     }
 
-    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener)
-    {
+    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener) {
         this.mOnFinishClickListener = clickListener;
     }
 
-    public boolean isShowValueOnTitle()
-    {
+    public boolean isShowValueOnTitle() {
         return mShowValueOnTitle;
     }
 
-    public void setShowValueOnTitle(boolean mShowValueOnTitle)
-    {
+    public void setShowValueOnTitle(boolean mShowValueOnTitle) {
         this.mShowValueOnTitle = mShowValueOnTitle;
     }
 
-    public String format(int value)
-    {
+    public String format(int value) {
         String result;
         if (value < 10) {
             result = "0" + value;
@@ -253,8 +237,7 @@ public class DatePickerWidget extends Dialog {
         return result;
     }
 
-    public void setInitValue(String date)
-    {
+    public void setInitValue(String date) {
         if (!StrUtils.isEmpty(date) && mYearPicker == null) {
             StringTokenizer t = new StringTokenizer(date, "-");
             int size = t.countTokens();
@@ -266,8 +249,7 @@ public class DatePickerWidget extends Dialog {
         }
     }
 
-    public void setMinValue(String date)
-    {
+    public void setMinValue(String date) {
         if (!StrUtils.isEmpty(date)) {
             StringTokenizer t = new StringTokenizer(date, "-");
             int size = t.countTokens();
@@ -279,8 +261,7 @@ public class DatePickerWidget extends Dialog {
         }
     }
 
-    public void setMaxValue(String date)
-    {
+    public void setMaxValue(String date) {
         if (!StrUtils.isEmpty(date)) {
             StringTokenizer t = new StringTokenizer(date, "-");
             int size = t.countTokens();

@@ -7,8 +7,9 @@ import android.view.MotionEvent;
 
 /**
  * 一个可以控制是否可以滑动的ViewPager
+ * 
  * @author Morgan.Ji
- *
+ * 
  */
 public class CustomViewPager extends ViewPager {
 
@@ -23,26 +24,22 @@ public class CustomViewPager extends ViewPager {
     }
 
     @Override
-    public void scrollTo(int x, int y)
-    {
+    public void scrollTo(int x, int y) {
         if (scrollAble) {
             super.scrollTo(x, y);
         }
     }
 
-    public boolean isScrollAble()
-    {
+    public boolean isScrollAble() {
         return scrollAble;
     }
 
-    public void setScrollAble(boolean scrollAble)
-    {
+    public void setScrollAble(boolean scrollAble) {
         this.scrollAble = scrollAble;
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent arg0)
-    {
+    public boolean onInterceptTouchEvent(MotionEvent arg0) {
         if (scrollAble) {
             return super.onInterceptTouchEvent(arg0);
         } else {

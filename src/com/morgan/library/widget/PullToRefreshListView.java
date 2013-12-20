@@ -98,7 +98,7 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
     private boolean mIsBack;
     // When list size is 0, show this message.
     private String mNoDataMessage;
-    
+
     private boolean mNoDataInList;
 
     public interface OnLoadDataListener {
@@ -147,11 +147,13 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
         mFooterProgressBar.setVisibility(View.GONE);
 
         mHeaderView = (LinearLayout) mInflater.inflate(R.layout.pull_to_refresh_listview_header, null);
-        mUserTopHeaderView = (LinearLayout) mHeaderView.findViewById(R.id.pull_to_refresh_listview_user_above_progress_header);
+        mUserTopHeaderView = (LinearLayout) mHeaderView
+                .findViewById(R.id.pull_to_refresh_listview_user_above_progress_header);
         mUserBottomHeaderView = (LinearLayout) mHeaderView
                 .findViewById(R.id.pull_to_refresh_listview_user_below_progress_header);
         mRefreshHeaderView = (LinearLayout) mHeaderView.findViewById(R.id.pull_to_refresh_listview_refresh_header);
-        mHeaderProgressBar = (ProgressBar) mRefreshHeaderView.findViewById(R.id.pull_to_refresh_listview_header_progress_bar);
+        mHeaderProgressBar = (ProgressBar) mRefreshHeaderView
+                .findViewById(R.id.pull_to_refresh_listview_header_progress_bar);
         mHeaderStatus = (TextView) mRefreshHeaderView.findViewById(R.id.pull_to_refresh_listview_header_status);
         mHeaderRefreshArrow = (ImageView) mRefreshHeaderView.findViewById(R.id.pull_to_refresh_listview_header_arrow);
         measureView(mRefreshHeaderView);
@@ -444,7 +446,8 @@ public class PullToRefreshListView extends ListView implements OnScrollListener 
             break;
         }
         if (message == SUCCESS_GET_DATA || message == FINISH_GET_DATA || message == ERROR_GET_DATA) {
-            if (PullToRefreshListView.this.getAdapter() != null && PullToRefreshListView.this.getAdapter().getCount() == 2) {
+            if (PullToRefreshListView.this.getAdapter() != null
+                    && PullToRefreshListView.this.getAdapter().getCount() == 2) {
                 mFooterStatus.setText(mNoDataMessage);
                 mFooterView.setOnClickListener(null);
                 mNoDataInList = true;

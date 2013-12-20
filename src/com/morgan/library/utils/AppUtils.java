@@ -12,13 +12,11 @@ public class AppUtils {
 
     private static final String TAG = AppUtils.class.getName();
 
-    public static void installLauncherShortCut(Intent intent, String shortCutName, Bitmap icon)
-    {
+    public static void installLauncherShortCut(Intent intent, String shortCutName, Bitmap icon) {
         installLauncherShortCut(intent, shortCutName, icon, false);
     }
 
-    public static void installLauncherShortCut(Intent intent, String shortCutName, Bitmap icon, boolean duplicate)
-    {
+    public static void installLauncherShortCut(Intent intent, String shortCutName, Bitmap icon, boolean duplicate) {
         Intent shortCutIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
         shortCutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, shortCutName);
         shortCutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, icon);
@@ -33,15 +31,16 @@ public class AppUtils {
      * 
      * @return
      */
-    public static PackageInfo getPackageInfo()
-    {
+    public static PackageInfo getPackageInfo() {
         PackageInfo info = null;
         try {
-            info = APPContext.getContext().getPackageManager().getPackageInfo(APPContext.getContext().getPackageName(), 0);
+            info = APPContext.getContext().getPackageManager()
+                    .getPackageInfo(APPContext.getContext().getPackageName(), 0);
         } catch (NameNotFoundException e) {
             Log.e(TAG, "获取安装包信息失败", e);
         }
-        if (info == null) info = new PackageInfo();
+        if (info == null)
+            info = new PackageInfo();
         return info;
     }
 }

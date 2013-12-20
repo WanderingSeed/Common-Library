@@ -29,8 +29,7 @@ public class HttpUtils {
     private final static int RETRY_TIME = 3;
     private static String appUserAgent;
 
-    private static HttpClient getHttpClient()
-    {
+    private static HttpClient getHttpClient() {
         HttpClient httpClient = new HttpClient();
         // 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
         httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
@@ -45,8 +44,7 @@ public class HttpUtils {
         return httpClient;
     }
 
-    private static GetMethod getHttpGet(String url, String userAgent)
-    {
+    private static GetMethod getHttpGet(String url, String userAgent) {
         GetMethod httpGet = new GetMethod(url);
         httpGet.getParams().setSoTimeout(TIMEOUT_SOCKET);
         httpGet.setRequestHeader("Host", HOST_URL);
@@ -55,8 +53,7 @@ public class HttpUtils {
         return httpGet;
     }
 
-    private static PostMethod getHttpPost(String url, String userAgent)
-    {
+    private static PostMethod getHttpPost(String url, String userAgent) {
         PostMethod httpPost = new PostMethod(url);
         httpPost.getParams().setSoTimeout(TIMEOUT_SOCKET);
         httpPost.setRequestHeader("Host", HOST_URL);
@@ -65,8 +62,7 @@ public class HttpUtils {
         return httpPost;
     }
 
-    private static String getUserAgent()
-    {
+    private static String getUserAgent() {
         if (appUserAgent == null || appUserAgent == "") {
             StringBuilder ua = new StringBuilder("Morgan");
             ua.append('/' + AppUtils.getPackageInfo().versionName + '_' + AppUtils.getPackageInfo().versionCode);// App版本
@@ -84,8 +80,7 @@ public class HttpUtils {
      * @param url
      * @throws AppException
      */
-    public static String get(String url)
-    {
+    public static String get(String url) {
         Logger.i(TAG, "get request: " + url);
         String userAgent = getUserAgent();
         HttpClient httpClient = null;
@@ -137,8 +132,7 @@ public class HttpUtils {
         return responseBody;
     }
 
-    public static String post(String url, Map<String, Object> params)
-    {
+    public static String post(String url, Map<String, Object> params) {
         return post(url, params, null);
     }
 
@@ -150,8 +144,7 @@ public class HttpUtils {
      * @param files
      * @throws AppException
      */
-    public static String post(String url, Map<String, Object> params, Map<String, File> files)
-    {
+    public static String post(String url, Map<String, Object> params, Map<String, File> files) {
         Logger.i(TAG, "post request: " + url + " params: " + params.toString());
         String userAgent = getUserAgent();
         HttpClient httpClient = null;
@@ -231,8 +224,7 @@ public class HttpUtils {
      * @param files
      * @throws AppException
      */
-    public static String postJson(String url, String json)
-    {
+    public static String postJson(String url, String json) {
         Logger.i(TAG, "post request: " + url + " params: " + json);
         String userAgent = getUserAgent();
         HttpClient httpClient = null;

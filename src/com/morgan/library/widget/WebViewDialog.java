@@ -39,8 +39,7 @@ public class WebViewDialog extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -54,8 +53,7 @@ public class WebViewDialog extends Dialog {
     }
 
     @SuppressLint("SetJavaScriptEnabled")
-    private void setUpWebView()
-    {
+    private void setUpWebView() {
         webViewContainer = new RelativeLayout(getContext());
 
         mWebView = new WebView(getContext());
@@ -79,35 +77,30 @@ public class WebViewDialog extends Dialog {
     private class WeiboWebViewClient extends WebViewClient {
 
         @Override
-        public boolean shouldOverrideUrlLoading(WebView view, String url)
-        {
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
         }
 
         @Override
-        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl)
-        {
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             super.onReceivedError(view, errorCode, description, failingUrl);
             dismiss();
         }
 
         @Override
-        public void onPageStarted(WebView view, String url, Bitmap favicon)
-        {
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
         }
 
         @Override
-        public void onPageFinished(WebView view, String url)
-        {
+        public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
             mContent.setBackgroundColor(Color.TRANSPARENT);
             mWebView.setVisibility(View.VISIBLE);
         }
 
-        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error)
-        {
+        public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
             handler.proceed();
         }
     }

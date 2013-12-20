@@ -10,10 +10,10 @@ import java.util.UUID;
 
 public class StrUtils {
 
-    public static String encodeUrl(String requestUrl, Map<String, Object> params)
-    {
+    public static String encodeUrl(String requestUrl, Map<String, Object> params) {
         StringBuilder url = new StringBuilder(requestUrl);
-        if (url.indexOf("?") < 0) url.append('?');
+        if (url.indexOf("?") < 0)
+            url.append('?');
 
         for (String name : params.keySet()) {
             url.append('&');
@@ -35,8 +35,7 @@ public class StrUtils {
      * @param parameter
      * @return
      */
-    public static String Format(String url, Object... parameter)
-    {
+    public static String Format(String url, Object... parameter) {
         String result = url;
         for (int i = 0; i < parameter.length; i++) {
             int startPoint = -1;
@@ -56,43 +55,46 @@ public class StrUtils {
      * @param str
      * @return
      */
-    public static boolean isEmpty(String str)
-    {
-        if (str == null || "".equals(str.trim())) { return true; }
-        return false;
-    }
-
-    private static boolean isChinese(char c)
-    {
-        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
-                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
-                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
-                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) { return true; }
-        return false;
-    }
-
-    // 完整的判断中文汉字和符号
-    public static boolean isChinese(String strName)
-    {
-        char[] ch = strName.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            char c = ch[i];
-            if (isChinese(c)) { return true; }
+    public static boolean isEmpty(String str) {
+        if (str == null || "".equals(str.trim())) {
+            return true;
         }
         return false;
     }
 
-    public static String generateId()
-    {
+    private static boolean isChinese(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
+            return true;
+        }
+        return false;
+    }
+
+    // 完整的判断中文汉字和符号
+    public static boolean isChinese(String strName) {
+        char[] ch = strName.toCharArray();
+        for (int i = 0; i < ch.length; i++) {
+            char c = ch[i];
+            if (isChinese(c)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String generateId() {
         UUID uuid = UUID.randomUUID();
         String uniqueId = uuid.toString();
         return uniqueId;
     }
 
-    public static String encryptToMD5(String info)
-    {
+    public static String encryptToMD5(String info) {
         byte[] digesta = null;
         try {
             // 得到一个md5的消息摘要
@@ -109,8 +111,7 @@ public class StrUtils {
         return rs;
     }
 
-    public static String byte2hex(byte[] b)
-    {
+    public static String byte2hex(byte[] b) {
         String hs = "";
         String stmp = "";
         for (int n = 0; n < b.length; n++) {

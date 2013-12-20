@@ -62,32 +62,27 @@ public class CalendarWidget extends LinearLayout {
         void onSelectedDate(Date date);
     }
 
-    public void setCalendarWidgetListener(CalendarWidgetListener l)
-    {
+    public void setCalendarWidgetListener(CalendarWidgetListener l) {
         mCalendarWidgetListener = l;
     }
 
     AnimationListener animationListener = new AnimationListener() {
         @Override
-        public void onAnimationStart(Animation animation)
-        {
+        public void onAnimationStart(Animation animation) {
             inAnimation = true;
         }
 
         @Override
-        public void onAnimationRepeat(Animation animation)
-        {
+        public void onAnimationRepeat(Animation animation) {
         }
 
         @Override
-        public void onAnimationEnd(Animation animation)
-        {
+        public void onAnimationEnd(Animation animation) {
             // 当动画完成后调用
             new Handler().postDelayed(new Runnable() {
 
                 @Override
-                public void run()
-                {
+                public void run() {
                     CreateGirdView();
                     inAnimation = false;
                 }
@@ -101,14 +96,13 @@ public class CalendarWidget extends LinearLayout {
         initView();
     }
 
-    private void initView()
-    {
+    private void initView() {
         LayoutInflater.from(mContext).inflate(R.layout.calendar_widget_view, this);
         // Get first day of week based on locale and populate the day headers
         initDateTime();
 
-        mViewFlipper = (ViewFlipper)findViewById(R.id.journal_calender_flipper);
-        mYearMonthTextView = (TextView)findViewById(R.id.year_month_text);
+        mViewFlipper = (ViewFlipper) findViewById(R.id.journal_calender_flipper);
+        mYearMonthTextView = (TextView) findViewById(R.id.year_month_text);
 
         CreateGirdView();
 
@@ -124,8 +118,7 @@ public class CalendarWidget extends LinearLayout {
         mViewFlipper.setOnTouchListener(new OnTouchListener() {
 
             @Override
-            public boolean onTouch(View v, MotionEvent event)
-            {
+            public boolean onTouch(View v, MotionEvent event) {
                 mGesture.onTouchEvent(event);
                 return true;
             }
@@ -133,24 +126,27 @@ public class CalendarWidget extends LinearLayout {
         updateYearMonthTitle();
     }
 
-    private void CreateGirdView()
-    {
+    private void CreateGirdView() {
         initList();
         if (mViewFlipper.getChildCount() > 0) {
             mViewFlipper.removeAllViews();
         }
-        if (gView1 == null) gView1 = new CalendarGridView(mContext);
+        if (gView1 == null)
+            gView1 = new CalendarGridView(mContext);
         Date firstDayOfMonth = getFirstDayOfMonth((mMonth == 1 ? mYear - 1 : mYear), (mMonth == 1 ? 12 : mMonth - 1));
         int f = getWeekDay(firstDayOfMonth);
         Date lastDayOfMonth = getLastDayOfMonth((mMonth == 1 ? mYear - 1 : mYear), (mMonth == 1 ? 12 : mMonth - 1));
         int l = f + getDaysOfMonth(firstDayOfMonth, lastDayOfMonth);
 
         gView1.setListDay(initList(firstDayOfMonth, f), f, l);
-        if (gView2 == null) gView2 = new CalendarGridView(mContext);
-        if (mSeletectDate >= 0) gView2.setSelectedPositon(mSeletectDate);
+        if (gView2 == null)
+            gView2 = new CalendarGridView(mContext);
+        if (mSeletectDate >= 0)
+            gView2.setSelectedPositon(mSeletectDate);
         gView2.setListDay(mDays, mIndexOfFirstDay, mIndexOfLastDay);
 
-        if (gView3 == null) gView3 = new CalendarGridView(mContext);
+        if (gView3 == null)
+            gView3 = new CalendarGridView(mContext);
         firstDayOfMonth = getFirstDayOfMonth((mMonth == 12 ? mYear + 1 : mYear), (mMonth == 12 ? 1 : mMonth + 1));
         f = getWeekDay(firstDayOfMonth);
         lastDayOfMonth = getLastDayOfMonth((mMonth == 12 ? mYear + 1 : mYear), (mMonth == 12 ? 1 : mMonth + 1));
@@ -162,8 +158,7 @@ public class CalendarWidget extends LinearLayout {
         mViewFlipper.addView(gView1);
 
         gView2.setOnItemClickListener(new OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Day day = null;
                 if (position < mIndexOfFirstDay) {
                     pre();
@@ -181,21 +176,22 @@ public class CalendarWidget extends LinearLayout {
                     mSeletectDate = nextMonthPosition;
                     day = gView3.getItem(nextMonthPosition);
                 } else {
-                    day = (Day)gView2.getItem(position);
+                    day = (Day) gView2.getItem(position);
                     gView2.setSelectedPositon(position);
                     mSeletectDate = position;
                     mCurrentSelectedDate = day.date;
                     gView2.notifyDataSetChanged();
                 }
                 mCurrentSelectedDate = day.date;
-                if (mCalendarWidgetListener != null) mCalendarWidgetListener.onSelectedDate(mCurrentSelectedDate);
+                if (mCalendarWidgetListener != null)
+                    mCalendarWidgetListener.onSelectedDate(mCurrentSelectedDate);
             }
         });
     }
 
-    public void pre()
-    {
-        if (inAnimation) return;
+    public void pre() {
+        if (inAnimation)
+            return;
         mSeletectDate = -1;
         mViewFlipper.setInAnimation(slideRightIn);
         mViewFlipper.setOutAnimation(slideRightOut);
@@ -205,9 +201,9 @@ public class CalendarWidget extends LinearLayout {
         updateYearMonthTitle();
     }
 
-    public void next()
-    {
-        if (inAnimation) return;
+    public void next() {
+        if (inAnimation)
+            return;
         mSeletectDate = -1;
         mViewFlipper.setInAnimation(slideLeftIn);
         mViewFlipper.setOutAnimation(slideLeftOut);
@@ -223,15 +219,13 @@ public class CalendarWidget extends LinearLayout {
      * 
      * @param bundle
      */
-    private void initDateTime()
-    {
+    private void initDateTime() {
         Calendar calendar = Calendar.getInstance();
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH) + 1;
     }
 
-    private ArrayList<Day> initList(Date firstDayOfMonth, int f)
-    {
+    private ArrayList<Day> initList(Date firstDayOfMonth, int f) {
         ArrayList<Day> days = new ArrayList<Day>();
 
         int listSize = 42;
@@ -246,7 +240,7 @@ public class CalendarWidget extends LinearLayout {
         long monthStart = firstDayOfMonth.getTime();
         for (int i = f; i < listSize; i++) {
 
-            long mills = monthStart + (i - f) * (long)86400000;
+            long mills = monthStart + (i - f) * (long) 86400000;
             Day day = new Day(mills);
             days.add(day);
         }
@@ -257,8 +251,7 @@ public class CalendarWidget extends LinearLayout {
     /**
      * 初始化日历
      */
-    private void initList()
-    {
+    private void initList() {
         mDays.clear();
         Date firstDayOfMonth = getFirstDayOfMonth(mYear, mMonth);
         mIndexOfFirstDay = getWeekDay(firstDayOfMonth);
@@ -277,20 +270,18 @@ public class CalendarWidget extends LinearLayout {
         // 填上剩下的所有日期
         long monthStart = firstDayOfMonth.getTime();
         for (int i = mIndexOfFirstDay; i < listSize; i++) {
-            long mills = monthStart + (i - mIndexOfFirstDay) * (long)86400000;
+            long mills = monthStart + (i - mIndexOfFirstDay) * (long) 86400000;
             Day day = new Day(mills);
             mDays.add(day);
         }
     }
 
-    public void updateYearMonthTitle()
-    {
+    public void updateYearMonthTitle() {
         String strYearMonth = mMonth + "月  " + mYear;
         mYearMonthTextView.setText(strYearMonth);
     }
 
-    private void calculateYear(boolean isNext)
-    {
+    private void calculateYear(boolean isNext) {
         if (isNext) {
             mMonth += 1;
         } else {
@@ -306,8 +297,7 @@ public class CalendarWidget extends LinearLayout {
         }
     }
 
-    public void showDate(String date)
-    {
+    public void showDate(String date) {
         if (!StrUtils.isEmpty(date)) {
             StringTokenizer t = new StringTokenizer(date, "-");
             int size = t.countTokens();
@@ -322,8 +312,7 @@ public class CalendarWidget extends LinearLayout {
         }
     }
 
-    public void showDate(Date date)
-    {
+    public void showDate(Date date) {
         mSeletectDate = -1;
 
         Calendar calendar = Calendar.getInstance();
@@ -336,23 +325,20 @@ public class CalendarWidget extends LinearLayout {
         updateYearMonthTitle();
     }
 
-    private Date getFirstDayOfMonth(int year, int month)
-    {
+    private Date getFirstDayOfMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month - 1, 1);
         return calendar.getTime();
     }
 
-    private Date getLastDayOfMonth(int year, int month)
-    {
+    private Date getLastDayOfMonth(int year, int month) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(year, month, 1);
         calendar.add(Calendar.DATE, -1);
         return calendar.getTime();
     }
 
-    private int getWeekDay(Date date)
-    {
+    private int getWeekDay(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         // Calendar.DAY_OF_WEEK 顺序为： SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
@@ -370,9 +356,8 @@ public class CalendarWidget extends LinearLayout {
         return dayOfWeekChinese;
     }
 
-    private int getDaysOfMonth(Date firstDay, Date lastDay)
-    {
-        return (int)((lastDay.getTime() - firstDay.getTime()) / 86400000);
+    private int getDaysOfMonth(Date firstDay, Date lastDay) {
+        return (int) ((lastDay.getTime() - firstDay.getTime()) / 86400000);
     }
 
     public class Day {
@@ -382,40 +367,42 @@ public class CalendarWidget extends LinearLayout {
             setDate(milliseconds);
         }
 
-        public void setDate(Long milliseconds)
-        {
+        public void setDate(Long milliseconds) {
             Calendar c = Calendar.getInstance();
             c.setTimeInMillis(milliseconds);
             this.date = c.getTime();
         }
 
-        public int getDay()
-        {
+        public int getDay() {
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(this.date);
             return calendar.get(Calendar.DAY_OF_MONTH);
         }
 
-        public boolean isToday()
-        {
+        public boolean isToday() {
             Calendar calander1 = Calendar.getInstance();
             Calendar calander2 = Calendar.getInstance();
             calander1.setTime(this.date);
             Date date2 = new Date();
             calander2.setTime(date2);
-            Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR) && calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH) && calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
+            Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR)
+                    && calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH)
+                    && calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
             return ret;
         }
 
-        public boolean isSelectedDay()
-        {
-            if (mCurrentSelectedDate == null) { return false; }
+        public boolean isSelectedDay() {
+            if (mCurrentSelectedDate == null) {
+                return false;
+            }
 
             Calendar calander1 = Calendar.getInstance();
             Calendar calander2 = Calendar.getInstance();
             calander1.setTime(this.date);
             calander2.setTime(mCurrentSelectedDate);
-            Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR) && calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH) && calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
+            Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR)
+                    && calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH)
+                    && calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
             return ret;
 
         }
@@ -424,10 +411,10 @@ public class CalendarWidget extends LinearLayout {
     class GestureListener extends SimpleOnGestureListener {
 
         @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
-        {
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             try {
-                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) return false;
+                if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH)
+                    return false;
                 // right to left swipe
                 if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
                     next();
@@ -443,9 +430,8 @@ public class CalendarWidget extends LinearLayout {
         }
 
         @Override
-        public boolean onSingleTapUp(MotionEvent e)
-        {
-            gView2.pointToPosition((int)e.getX(), (int)e.getY());
+        public boolean onSingleTapUp(MotionEvent e) {
+            gView2.pointToPosition((int) e.getX(), (int) e.getY());
             return false;
         }
 

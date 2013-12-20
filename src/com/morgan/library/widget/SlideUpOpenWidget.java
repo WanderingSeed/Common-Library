@@ -17,7 +17,7 @@ import android.widget.Scroller;
 import com.morgan.library.R;
 
 public class SlideUpOpenWidget extends LinearLayout {
-    
+
     private static final int DEFAULT_MINIMUM_VELOCITY = 2000;
     private static final int DEFAULT_ANIMATION_TIME = 800;
     private float mUpPercent = 0.5f;
@@ -81,18 +81,21 @@ public class SlideUpOpenWidget extends LinearLayout {
                 int initialVelocity = (int) velocityTracker.getYVelocity();
                 if ((Math.abs(initialVelocity) > mMinimumVelocity) && getChildCount() > 0) {
                     mScroller = new Scroller(mContext, new DecelerateInterpolator());
-                    mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (getHeight() - (mStartY - mTempY)), DEFAULT_ANIMATION_TIME);
+                    mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (getHeight() - (mStartY - mTempY)),
+                            DEFAULT_ANIMATION_TIME);
                     invalidate();
                     mGone = true;
                 } else {
                     mTempY = event.getY();
                     if ((mStartY - mTempY) > getHeight() * mUpPercent) {
                         mScroller = new Scroller(mContext, new DecelerateInterpolator());
-                        mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (getHeight() - (mStartY - mTempY)), DEFAULT_ANIMATION_TIME);
+                        mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (getHeight() - (mStartY - mTempY)),
+                                DEFAULT_ANIMATION_TIME);
                         invalidate();
                         mGone = true;
                     } else {
-                        mScroller.startScroll(0, (int) (mStartY -mTempY), 0, (int) (mTempY - mStartY), DEFAULT_ANIMATION_TIME);
+                        mScroller.startScroll(0, (int) (mStartY - mTempY), 0, (int) (mTempY - mStartY),
+                                DEFAULT_ANIMATION_TIME);
                         invalidate();
                     }
                 }

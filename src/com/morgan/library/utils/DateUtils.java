@@ -9,6 +9,7 @@ public class DateUtils {
 
     public static final String DATE_ONLY_FORMAT = "yyyy-MM-dd";
     public static final String COMPLETE_DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+
     /**
      * 按照format输出date的字符串，format格式如：yyyy-MM-dd hh:mm:ss。
      * 

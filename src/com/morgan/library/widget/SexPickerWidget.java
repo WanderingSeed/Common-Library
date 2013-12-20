@@ -25,11 +25,10 @@ public class SexPickerWidget extends Dialog {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.number_picker_dialog);
-        mSexPicker = (NumberPicker)findViewById(R.id.numberPicker);
+        mSexPicker = (NumberPicker) findViewById(R.id.numberPicker);
         mSexPicker.setMinValue(0);
         mSexPicker.setMaxValue(1);
         mSexPicker.setDisplayedValues(sex);
@@ -38,8 +37,8 @@ public class SexPickerWidget extends Dialog {
         mSexPicker.setOnValueChangedListener(mOnValueChangeListener);
         mSexPicker.setWrapSelectorWheel(false);
         mSexPicker.setInputAble(false);
-        mTitleTextView = (TextView)findViewById(R.id.title);
-        mFinishBtn = (TextView)findViewById(R.id.finish);
+        mTitleTextView = (TextView) findViewById(R.id.title);
+        mFinishBtn = (TextView) findViewById(R.id.finish);
         mFinishBtn.setOnClickListener(mFinishClickListener);
         if (null != mTitle) {
             mTitleTextView.setText(mTitle);
@@ -55,10 +54,9 @@ public class SexPickerWidget extends Dialog {
     }
 
     private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
-        
+
         @Override
-        public void onClick(View v)
-        {
+        public void onClick(View v) {
             SexPickerWidget.this.dismiss();
             mOnFinishClickListener.onClick(v);
         }
@@ -67,28 +65,24 @@ public class SexPickerWidget extends Dialog {
     private OnValueChangeListener mOnValueChangeListener = new OnValueChangeListener() {
 
         @Override
-        public void onValueChange(NumberPicker picker, int oldVal, int newVal)
-        {
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
             if (mShowValueOnTitle) {
                 mTitleTextView.setText(sex[newVal]);
             }
         }
     };
 
-    public void setInitValue(String value)
-    {
+    public void setInitValue(String value) {
         if (mSexPicker == null) {
             mValue = value;
         }
     }
 
-    public String getCurrentValue()
-    {
+    public String getCurrentValue() {
         return sex[mSexPicker.getValue()];
     }
 
-    public void setTitle(String title)
-    {
+    public void setTitle(String title) {
         if (null == mTitleTextView) {
             mTitle = title;
         } else {
@@ -96,18 +90,15 @@ public class SexPickerWidget extends Dialog {
         }
     }
 
-    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener)
-    {
+    public void setOnFinishClickListener(android.view.View.OnClickListener clickListener) {
         this.mOnFinishClickListener = clickListener;
     }
 
-    public boolean isShowValueOnTitle()
-    {
+    public boolean isShowValueOnTitle() {
         return mShowValueOnTitle;
     }
 
-    public void setShowValueOnTitle(boolean mShowValueOnTitle)
-    {
+    public void setShowValueOnTitle(boolean mShowValueOnTitle) {
         this.mShowValueOnTitle = mShowValueOnTitle;
     }
 }

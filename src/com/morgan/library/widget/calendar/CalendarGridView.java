@@ -28,18 +28,16 @@ public class CalendarGridView extends LinearLayout {
         setGirdView();
     }
 
-    private void setGirdView()
-    {
+    private void setGirdView() {
         LayoutInflater.from(mContext).inflate(R.layout.calendar_grid, this);
         for (int i = 0; i < 42; i++) {
-            TextView v = (TextView)findViewWithTag("" + i);
+            TextView v = (TextView) findViewWithTag("" + i);
             v.setText("" + i);
             mTextViews.add(v);
         }
     }
 
-    public void setListDay(ArrayList<Day> days, int indexOfFirstDay, int indexOfLastDay)
-    {
+    public void setListDay(ArrayList<Day> days, int indexOfFirstDay, int indexOfLastDay) {
         mDays = days;
         this.indexOfFirstDay = indexOfFirstDay;
         this.indexOfLastDay = indexOfLastDay;
@@ -47,8 +45,7 @@ public class CalendarGridView extends LinearLayout {
         notifyDataSetChanged();
     }
 
-    public void notifyDataSetChanged()
-    {
+    public void notifyDataSetChanged() {
         int i = 0;
         for (TextView v : mTextViews) {
             Day day = getItem(i);
@@ -72,23 +69,19 @@ public class CalendarGridView extends LinearLayout {
         }
     }
 
-    public Day getItem(int p)
-    {
+    public Day getItem(int p) {
         return mDays.get(p);
     }
 
-    public int getCount()
-    {
+    public int getCount() {
         return mDays.size();
     }
 
-    public void setSelectedPositon(int p)
-    {
+    public void setSelectedPositon(int p) {
         selectedPositon = p;
     }
 
-    public int selectedPositonToPos(int p)
-    {
+    public int selectedPositonToPos(int p) {
         if (getCount() - indexOfLastDay > 8) {
             return p + getCount() - 14;
         } else {
@@ -96,16 +89,15 @@ public class CalendarGridView extends LinearLayout {
         }
     }
 
-    public int pointToPosition(int x, int y)
-    {
+    public int pointToPosition(int x, int y) {
         int line = y / (getHeight() / 6);
-        int p = (int)(line * 7 + Math.ceil(x / (float)(getWidth() / 7)));
-        if (mOnItemClickListener != null) mOnItemClickListener.onItemClick(null, this, p - 1, 0l);
+        int p = (int) (line * 7 + Math.ceil(x / (float) (getWidth() / 7)));
+        if (mOnItemClickListener != null)
+            mOnItemClickListener.onItemClick(null, this, p - 1, 0l);
         return p;
     }
 
-    public void setOnItemClickListener(OnItemClickListener l)
-    {
+    public void setOnItemClickListener(OnItemClickListener l) {
         mOnItemClickListener = l;
     }
 }

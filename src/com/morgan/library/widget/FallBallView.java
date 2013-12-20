@@ -12,8 +12,9 @@ import android.widget.ImageView;
 
 /**
  * 一个自由落体后弹几下的ImageView
+ * 
  * @author Morgan.Ji
- *
+ * 
  */
 public class FallBallView extends ImageView {
 
@@ -31,8 +32,7 @@ public class FallBallView extends ImageView {
         mInterpolator = new BounceInterpolator();
     }
 
-    public void start()
-    {
+    public void start() {
         if (null != mOnFallListener) {
             mOnFallListener.onfallStart();
         }
@@ -42,13 +42,12 @@ public class FallBallView extends ImageView {
     @SuppressLint("HandlerLeak")
     private Handler mHandler = new Handler() {
         @Override
-        public void dispatchMessage(Message msg)
-        {
+        public void dispatchMessage(Message msg) {
             if (msg.what == ANIMATION_MOVE) {
                 // FallBallWidget.this.setTranslationX(msg.arg1);
                 // FallBallWidget.this.setTranslationY(msg.arg2);
-                FallBallView.this.layout(mStartX + msg.arg1, mStartY + msg.arg2, mStartX + msg.arg1 + getWidth(), mStartY + msg.arg2
-                        + getHeight());
+                FallBallView.this.layout(mStartX + msg.arg1, mStartY + msg.arg2, mStartX + msg.arg1 + getWidth(),
+                        mStartY + msg.arg2 + getHeight());
             } else if (msg.what == ANIMATION_END) {
                 // FallBallWidget.this.setTranslationX(0);
                 // FallBallWidget.this.setTranslationY(0);
@@ -64,8 +63,7 @@ public class FallBallView extends ImageView {
     class FallThread extends Thread {
 
         @Override
-        public void run()
-        {
+        public void run() {
             int xLength = mEndX - mStartX;
             int yLength = mEndY - mStartY;
             int start = 1;
@@ -73,8 +71,8 @@ public class FallBallView extends ImageView {
                 try {
                     Message msg = mHandler.obtainMessage();
                     msg.what = ANIMATION_MOVE;
-                    msg.arg1 = (int)(xLength * ((double)start / DIVID_COUNT));
-                    msg.arg2 = (int)(yLength * mInterpolator.getInterpolation((float)((double)start / DIVID_COUNT)));
+                    msg.arg1 = (int) (xLength * ((double) start / DIVID_COUNT));
+                    msg.arg2 = (int) (yLength * mInterpolator.getInterpolation((float) ((double) start / DIVID_COUNT)));
                     mHandler.sendMessage(msg);
                     Thread.sleep(TRANSLATE_TIME / DIVID_COUNT);
                 } catch (InterruptedException e) {
@@ -86,29 +84,23 @@ public class FallBallView extends ImageView {
         }
     }
 
-    public void setStartX(int mStartX)
-    {
+    public void setStartX(int mStartX) {
         this.mStartX = mStartX;
     }
 
-    public void setStartY(int mStartY)
-    {
+    public void setStartY(int mStartY) {
         this.mStartY = mStartY;
     }
 
-    public void setEndX(int mEndX)
-    {
+    public void setEndX(int mEndX) {
         this.mEndX = mEndX;
     }
 
-    public void setEndY(int mEndY)
-    {
+    public void setEndY(int mEndY) {
         this.mEndY = mEndY;
     }
 
-
-    public void setOnFallListener(FallListener mOnFallListener)
-    {
+    public void setOnFallListener(FallListener mOnFallListener) {
         this.mOnFallListener = mOnFallListener;
     }
 

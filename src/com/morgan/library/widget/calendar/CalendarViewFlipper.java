@@ -14,8 +14,7 @@ public class CalendarViewFlipper extends ViewFlipper {
     }
 
     @Override
-    protected void onDetachedFromWindow()
-    {
+    protected void onDetachedFromWindow() {
         try {
             super.onDetachedFromWindow();
         } catch (IllegalArgumentException e) {

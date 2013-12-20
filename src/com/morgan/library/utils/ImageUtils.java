@@ -26,8 +26,7 @@ public class ImageUtils {
      * @param originalImage
      * @return
      */
-    public static Bitmap createReflectedImage(Bitmap originalImage)
-    {
+    public static Bitmap createReflectedImage(Bitmap originalImage) {
         // The gap we want between the reflection and the original image
         final int reflectionGap = 4;
 
@@ -58,8 +57,8 @@ public class ImageUtils {
 
         // Create a shader that is a linear gradient that covers the reflection
         Paint paint = new Paint();
-        LinearGradient shader = new LinearGradient(0, originalImage.getHeight(), 0, bitmapWithReflection.getHeight() + reflectionGap,
-                0x70ffffff, 0x00ffffff, TileMode.CLAMP);
+        LinearGradient shader = new LinearGradient(0, originalImage.getHeight(), 0, bitmapWithReflection.getHeight()
+                + reflectionGap, 0x70ffffff, 0x00ffffff, TileMode.CLAMP);
         // Set the paint to use this shader (linear gradient)
         paint.setShader(shader);
         // Set the Transfer mode to be porter duff and destination in
@@ -76,8 +75,7 @@ public class ImageUtils {
      * @param drawable
      * @return
      */
-    public static Bitmap drawableToBitmap(Drawable drawable)
-    {
+    public static Bitmap drawableToBitmap(Drawable drawable) {
 
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
                 drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888 : Bitmap.Config.RGB_565);
@@ -93,8 +91,7 @@ public class ImageUtils {
      * @param bit
      * @return
      */
-    public static Bitmap toRoundBitmap(Bitmap bitmap)
-    {
+    public static Bitmap toRoundBitmap(Bitmap bitmap) {
         int width = bitmap.getWidth();
         int height = bitmap.getHeight();
         float roundPx;
@@ -127,8 +124,8 @@ public class ImageUtils {
         Canvas canvas = new Canvas(output);
         final int color = 0xff424242;
         final Paint paint = new Paint();
-        final Rect src = new Rect((int)left, (int)top, (int)right, (int)bottom);
-        final Rect dst = new Rect((int)dst_left, (int)dst_top, (int)dst_right, (int)dst_bottom);
+        final Rect src = new Rect((int) left, (int) top, (int) right, (int) bottom);
+        final Rect dst = new Rect((int) dst_left, (int) dst_top, (int) dst_right, (int) dst_bottom);
         final RectF rectF = new RectF(dst);
         paint.setAntiAlias(true);
         canvas.drawARGB(0, 0, 0, 0);
@@ -145,13 +142,15 @@ public class ImageUtils {
     /**
      * 图片水印生成的方法
      * 
-     * @param src 源图片位图
-     * @param watermark 水印图片位图
+     * @param src
+     *            源图片位图
+     * @param watermark
+     *            水印图片位图
      * @return 返回一个加了水印的图片
      */
-    public static Bitmap addWaterMark(Bitmap src, Bitmap watermark)
-    {
-        if (src == null) return null;
+    public static Bitmap addWaterMark(Bitmap src, Bitmap watermark) {
+        if (src == null)
+            return null;
         int w = src.getWidth();
         int h = src.getHeight();
         int ww = watermark.getWidth();
@@ -174,12 +173,13 @@ public class ImageUtils {
     /**
      * 把位图变成圆角位图
      * 
-     * @param bitmap 需要修改的位图
-     * @param pixels 圆角的弧度
+     * @param bitmap
+     *            需要修改的位图
+     * @param pixels
+     *            圆角的弧度
      * @return 圆角位图
      */
-    public static Bitmap toRoundCorner(Bitmap bitmap, int pixels)
-    {
+    public static Bitmap toRoundCorner(Bitmap bitmap, int pixels) {
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -204,11 +204,11 @@ public class ImageUtils {
     /**
      * 从二进制数据中得到位图
      * 
-     * @param byteArray 二进制数据
+     * @param byteArray
+     *            二进制数据
      * @return 位图
      */
-    public static Bitmap byteToBitmap(byte[] byteArray)
-    {
+    public static Bitmap byteToBitmap(byte[] byteArray) {
         if (byteArray.length != 0) {
             return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         } else {
@@ -219,11 +219,11 @@ public class ImageUtils {
     /**
      * 从二进制数据中得到Drawable对象
      * 
-     * @param byteArray 二进制数据
+     * @param byteArray
+     *            二进制数据
      * @return Drawable对象
      */
-    public static Drawable byteToDrawable(byte[] byteArray)
-    {
+    public static Drawable byteToDrawable(byte[] byteArray) {
         ByteArrayInputStream ins = new ByteArrayInputStream(byteArray);
         return Drawable.createFromStream(ins, null);
     }
@@ -231,11 +231,11 @@ public class ImageUtils {
     /**
      * 把位图转换称二进制数据
      * 
-     * @param bm 位图
+     * @param bm
+     *            位图
      * @return 二进制数据
      */
-    public static byte[] Bitmap2Bytes(Bitmap bm)
-    {
+    public static byte[] Bitmap2Bytes(Bitmap bm) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
@@ -243,13 +243,15 @@ public class ImageUtils {
 
     /**
      * 以顺序方式链接两张图片
+     * 
      * @param first
      * @param second
      * @return
      */
-    public static Bitmap mergeBitmap(Bitmap first, Bitmap second)
-    {
-        if (first == null || first.isRecycled() || second == null || second.isRecycled()) { return null; }
+    public static Bitmap mergeBitmap(Bitmap first, Bitmap second) {
+        if (first == null || first.isRecycled() || second == null || second.isRecycled()) {
+            return null;
+        }
         int fWidth = first.getWidth();
         int fHeight = first.getHeight();
         int sHeight = second.getHeight();
@@ -267,15 +269,16 @@ public class ImageUtils {
         return newbmp;
     }
 
-    
     /**
-     * 把一个图片放到另一个图片的中间， 
-     * @param bg 背景图
-     * @param bitmap 上层的图片
+     * 把一个图片放到另一个图片的中间，
+     * 
+     * @param bg
+     *            背景图
+     * @param bitmap
+     *            上层的图片
      * @return
      */
-    public static Bitmap componentBitmap(Bitmap bg, Bitmap bitmap)
-    {
+    public static Bitmap componentBitmap(Bitmap bg, Bitmap bitmap) {
         int fWidth = bg.getWidth();
         int fHeight = bg.getHeight();
         int sWidth = bitmap.getWidth();
