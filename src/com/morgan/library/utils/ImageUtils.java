@@ -258,10 +258,10 @@ public class ImageUtils {
         // create the new blank bitmap 创建一个新的和SRC长度宽度一样的位图
         Bitmap newbmp = Bitmap.createBitmap(fWidth, fHeight + sHeight, Config.ARGB_8888);
         Canvas cv = new Canvas(newbmp);
-        // draw bg into
-        cv.drawBitmap(first, 0, 0, null);// 在 0，0坐标开始画入bg
-        // draw fg into
-        cv.drawBitmap(second, 0, fHeight, null);// 在 0，0坐标开始画入fg ，可以从任意位置画入
+        // 在 0，0坐标开始画入bg
+        cv.drawBitmap(first, 0, 0, null);
+        // 在 0，0坐标开始画入fg ，可以从任意位置画入
+        cv.drawBitmap(second, 0, fHeight, null);
         // save all clip
         cv.save(Canvas.ALL_SAVE_FLAG);// 保存
         // store
@@ -286,13 +286,12 @@ public class ImageUtils {
         // create the new blank bitmap 创建一个新的和SRC长度宽度一样的位图
         Bitmap newbmp = Bitmap.createBitmap(fWidth, fHeight, Config.ARGB_8888);
         Canvas cv = new Canvas(newbmp);
-        // draw bg into
-        cv.drawBitmap(bg, 0, 0, null);// 在 0，0坐标开始画入bg
-        // draw fg into
-        cv.drawBitmap(bitmap, (fWidth - sWidth) / 2, (fHeight - sHeight) / 2, null);// 在 0，0坐标开始画入fg
-                                                                                    // ，可以从任意位置画入
-        // save all clip
-        cv.save(Canvas.ALL_SAVE_FLAG);// 保存
+        // 在 0，0坐标开始画入bg
+        cv.drawBitmap(bg, 0, 0, null);
+        // 在0，0坐标开始画入fg，可以从任意位置画入
+        cv.drawBitmap(bitmap, (fWidth - sWidth) / 2, (fHeight - sHeight) / 2, null);
+        // 保存
+        cv.save(Canvas.ALL_SAVE_FLAG);
         // store
         cv.restore();// 存储
         return newbmp;

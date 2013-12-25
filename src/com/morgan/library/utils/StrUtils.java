@@ -7,8 +7,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 public class StrUtils {
+    private final static Pattern EMAIL_PATTERN = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
     public static String encodeUrl(String requestUrl, Map<String, Object> params) {
         StringBuilder url = new StringBuilder(requestUrl);
@@ -50,16 +52,22 @@ public class StrUtils {
     }
 
     /**
-     * Whether string is empty or not.
+     * 判断给定字符串是否空白串。 空白串是指由空格、制表符、回车符、换行符组成的字符串 若输入字符串为null或空字符串，返回true
      * 
-     * @param str
-     * @return
+     * @param input
+     * @return boolean
      */
-    public static boolean isEmpty(String str) {
-        if (str == null || "".equals(str.trim())) {
+    public static boolean isEmpty(String input) {
+        if (input == null || "".equals(input)) {
             return true;
         }
-        return false;
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c != ' ' && c != '\t' && c != '\r' && c != '\n') {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static boolean isChinese(char c) {
@@ -123,5 +131,17 @@ public class StrUtils {
             }
         }
         return hs.toUpperCase(Locale.CHINESE);
+    }
+
+    /**
+     * 判断是不是一个合法的电子邮件地址
+     * 
+     * @param email
+     * @return
+     */
+    public static boolean isEmail(String email) {
+        if (email == null || email.trim().length() == 0)
+            return false;
+        return EMAIL_PATTERN.matcher(email).matches();
     }
 }

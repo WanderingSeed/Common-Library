@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">library</string>
     
-    <string name="loading_now">加载中&#8230;</string>
+    <string name="loading_now">正在加载&#8230;</string>
     <string name="refreshing_now">正在刷新&#8230;</string>
     <string name="all_data_loaded">已加载全部</string>
     <string name="refresh_after_release">松开后刷新</string>

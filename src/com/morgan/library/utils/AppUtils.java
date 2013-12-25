@@ -1,10 +1,12 @@
 package com.morgan.library.utils;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.morgan.library.app.APPContext;
 
@@ -42,5 +44,17 @@ public class AppUtils {
         if (info == null)
             info = new PackageInfo();
         return info;
+    }
+
+    public static void ToastMessage(Context cont, String msg) {
+        Toast.makeText(cont, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void ToastMessage(Context cont, int msg) {
+        Toast.makeText(cont, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    public static void ToastMessage(Context cont, String msg, int time) {
+        Toast.makeText(cont, msg, time).show();
     }
 }
