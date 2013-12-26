@@ -11,7 +11,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.language>java</sonar.language>
-		<platform.version> 4.2</platform.version>
+		<platform.version> 4.1.1.4</platform.version>
 		<android.plugin.version>3.5.3</android.plugin.version>
 	</properties>
 
@@ -79,32 +79,6 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jarsigner-plugin</artifactId>
 				<version>1.2</version>
-				<executions>
-					<execution>
-						<id>signing</id>
-						<goals>
-							<goal>sign</goal>
-						</goals>
-						<phase>package</phase>
-						<inherited>true</inherited>
-						<configuration>
-							<archiveDirectory></archiveDirectory>
-							<includes>
-								<include>target/*.apk</include>
-							</includes>
-							<keystore>morgan.keystore</keystore>
-							<storepass>123456</storepass>
-							<keypass>123456</keypass>
-							<alias>morgan</alias>
-							<arguments>
-								<argument>-sigalg</argument>
-								<argument>MD5withRSA</argument>
-								<argument>-digestalg</argument>
-								<argument>SHA1</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
