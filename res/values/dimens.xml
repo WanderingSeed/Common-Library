@@ -1,0 +1,5 @@
+<resources>
+    <dimen name="pop_width">200.0dip</dimen>
+    <dimen name="pop_xoff">0dip</dimen>
+    <dimen name="pop_yoff">0dip</dimen>
+</resources>

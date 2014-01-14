@@ -2,10 +2,15 @@
 <resources>
     <color name="black">#000</color>
     <color name="white">#fff</color>
+    <color name="gray">#f0f6fa</color>
     <color name="eight_blue">#cc33b5e5</color>
     <color name="transparent">#0000</color>
 
     <color name="canlendar_divider_color">#dbe3e5</color>
     <color name="calendar_other_day_color">#b28d99a6</color>
     <color name="calendar_select_day_color">#33b5e5</color>
+    
+    <color name="popup_bg_color">#99000000</color>
+    <color name="popup_separator_color">#19FFFFFF</color>
+    <color name="popup_text_color">#FFFFFF</color>
 </resources>

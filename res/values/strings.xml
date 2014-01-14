@@ -1,6 +1,7 @@
 <resources>
+
     <string name="app_name">library</string>
-    
+    <string name="image_description">image</string>
     <string name="loading_now">正在加载&#8230;</string>
     <string name="refreshing_now">正在刷新&#8230;</string>
     <string name="all_data_loaded">已加载全部</string>
@@ -8,7 +9,11 @@
     <string name="pull_to_refresh">下拉进行刷新</string>
     <string name="more">更多</string>
     <string name="finish_refresh">完成刷新！</string>
+
     <string name="finish">完成</string>
     <string name="select">选择</string>
     <string name="character_colon">:</string>
+
+    <string name="cancel_delete">撤销</string>
+
 </resources>

@@ -51,7 +51,7 @@
     <style name="NPWidget.Holo.Light.NumberPicker" parent="NPWidget.Holo.NumberPicker">
         <item name="virtualButtonPressedDrawable">@drawable/np_item_background_holo_light</item>
     </style>
-    
+
     <style name="wait_screen" parent="@android:Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
@@ -61,5 +61,15 @@
         <item name="android:windowIsTranslucent">false</item>
         <item name="android:background">@null</item>
         <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="popup_window_menu" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/popup_enter</item>
+        <item name="android:windowExitAnimation">@anim/popup_exit</item>
+    </style>
+    
+    <style name="fade_animation">
+        <item name="@android:windowEnterAnimation">@anim/fade_in</item>
+        <item name="@android:windowExitAnimation">@anim/fade_out</item>
     </style>
 </resources>

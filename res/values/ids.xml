@@ -6,5 +6,6 @@
     <item name="np__decrement" type="id"/>
     <item name="scrollview" type="id"/>
     <item name="menu_container" type="id"/>
-
+    <item name="front" type="id"/>
+    <item name="back" type="id"/>
 </resources>
