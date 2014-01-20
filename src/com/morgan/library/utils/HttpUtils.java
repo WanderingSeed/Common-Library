@@ -25,7 +25,7 @@ public class HttpUtils {
     private static final int TIMEOUT_SOCKET = 1000;
     private static final String HOST_URL = "";
     private static final String UTF_8 = "UTF-8";
-    private final static String SERVER_CONNECT_ERROR = "服务器连接失败";
+    public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"服务器连接失败\"";
     private final static int RETRY_TIME = 3;
     private static String appUserAgent;
 

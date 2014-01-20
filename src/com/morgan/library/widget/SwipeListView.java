@@ -5,9 +5,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.Animation.AnimationListener;
+import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -28,7 +31,7 @@ public class SwipeListView extends RelativeLayout {
 
     private ListView mListView;
     private View mCurrentItemView;
-    Animation mOpenAnimation, mCloseAnimation;
+    private Animation mOpenAnimation, mCloseAnimation;
 
     private Context mContext;
     private LinearLayout mProgressBar;
@@ -54,6 +57,7 @@ public class SwipeListView extends RelativeLayout {
         LayoutInflater.from(mContext).inflate(R.layout.swipe_listview, this, true);
         mListView = (ListView)findViewById(R.id.list);
         mListView.setOnScrollListener(mOnScrollListener);
+        mListView.setOnTouchListener(mOnTouchListener);
         mProgressBar = (LinearLayout)findViewById(R.id.profress_layout);
         initPopupView();
         initAnimation();
@@ -61,13 +65,34 @@ public class SwipeListView extends RelativeLayout {
 
     private void initAnimation()
     {
-        mOpenAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, -1, Animation.RELATIVE_TO_SELF,
+        mOpenAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF,
                 0, Animation.RELATIVE_TO_SELF, 0);
-        mOpenAnimation.setDuration(600);
-        mOpenAnimation.setFillAfter(true);
-        mCloseAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, -1, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF,
+        mOpenAnimation.setInterpolator(new DecelerateInterpolator());
+        mOpenAnimation.setDuration(300);
+        mOpenAnimation.setAnimationListener(new AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation)
+            {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation)
+            {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation)
+            {
+                if (null != mCurrentItemView) {
+                    mCurrentItemView.findViewById(R.id.front).setVisibility(INVISIBLE);
+                }
+            }
+        });
+        mCloseAnimation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 1, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF,
                 0, Animation.RELATIVE_TO_SELF, 0);
-        mCloseAnimation.setDuration(500);
+        mCloseAnimation.setInterpolator(new DecelerateInterpolator());
+        mCloseAnimation.setDuration(450);
     }
 
     private OnScrollListener mOnScrollListener = new OnScrollListener() {
@@ -75,14 +100,35 @@ public class SwipeListView extends RelativeLayout {
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState)
         {
-            if (null != mCurrentItemView) {
-                closeAnimate();
-            }
+            closeAnimate();
         }
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount)
         {
+        }
+    };
+
+    private float mStartX, mStartY;
+    private OnTouchListener mOnTouchListener = new OnTouchListener() {
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event)
+        {
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    mStartX = event.getX();
+                    mStartY = event.getY();
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    if (Math.abs(event.getX() - mStartX) > 18 || Math.abs(event.getY() - mStartY) > 18) {
+                        closeAnimate();
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
         }
     };
 
@@ -115,18 +161,9 @@ public class SwipeListView extends RelativeLayout {
         mProgressBar.setVisibility(View.GONE);
     }
 
-    public void setAdapter(ListAdapter adapter, boolean showHeadView)
-    {
-        if (showHeadView) {
-            View mHeadView = LayoutInflater.from(mContext).inflate(R.layout.actionbar_list_head_view, null);
-            mListView.addHeaderView(mHeadView);
-        }
-        mListView.setAdapter(adapter);
-    }
-
     public void setAdapter(ListAdapter adapter)
     {
-        setAdapter(adapter, true);
+        mListView.setAdapter(adapter);
     }
 
     public void showUndoPopup(OnDismissListener listener, String text, OnClickListener click)
@@ -187,21 +224,27 @@ public class SwipeListView extends RelativeLayout {
 
     public void closeAnimate()
     {
-        mCurrentItemView.findViewById(R.id.back).setVisibility(GONE);
-        mCurrentItemView.findViewById(R.id.front).startAnimation(mCloseAnimation);
-        mCurrentItemView = null;
+        if (null != mCurrentItemView) {
+            mCurrentItemView.findViewById(R.id.back).setVisibility(GONE);
+            mCurrentItemView.findViewById(R.id.front).setVisibility(VISIBLE);
+            mCurrentItemView.findViewById(R.id.front).startAnimation(mCloseAnimation);
+            mCurrentItemView = null;
+        }
+    }
+
+    public void closeWithoutAnimate()
+    {
+        if (null != mCurrentItemView) {
+            mCurrentItemView.findViewById(R.id.back).setVisibility(GONE);
+            View view = mCurrentItemView.findViewById(R.id.front);
+            view.setVisibility(VISIBLE);
+            mCurrentItemView = null;
+        }
     }
 
     public boolean openAnimate(int position)
     {
         View view = mListView.getChildAt(position + mListView.getHeaderViewsCount());
         return openAnimate(view);
-    }
-
-    public void closeAll()
-    {
-        if (null != mCurrentItemView) {
-            closeAnimate();
-        }
     }
 }
