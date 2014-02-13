@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.morgan.library.net.JsonUtils;
-import com.morgan.library.utils.HttpUtils;
+import com.morgan.library.utils.HttpClientUtils;
 
 public class NetResult<T> {
     public static final int SUCCESS_CODE = 200;
@@ -24,7 +24,7 @@ public class NetResult<T> {
     private T mObject;
 
     public NetResult(String vo) {
-        if (HttpUtils.SERVER_CONNECT_ERROR.equals(vo)) {
+        if (HttpClientUtils.SERVER_CONNECT_ERROR.equals(vo)) {
             try {
                 JSONObject jsonObject = new JSONObject(vo);
                 this.mStatusCode = jsonObject.getInt("code");

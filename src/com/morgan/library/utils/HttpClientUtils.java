@@ -18,14 +18,14 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
-public class HttpUtils {
-    private static final String TAG = HttpUtils.class.getName();
+public class HttpClientUtils {
+    private static final String TAG = HttpClientUtils.class.getName();
     private static final int CONNECT_ERROR_SLEEP_TIME = 1000;
     private static final int TIMEOUT_CONNECTION = 1000;
     private static final int TIMEOUT_SOCKET = 1000;
     private static final String HOST_URL = "";
     private static final String UTF_8 = "UTF-8";
-    public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"服务器连接失败\"";
+    public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"服务器连接失败\"}";
     private final static int RETRY_TIME = 3;
     private static String appUserAgent;
 
@@ -81,7 +81,7 @@ public class HttpUtils {
      * @throws AppException
      */
     public static String get(String url) {
-        Logger.i(TAG, "get request: " + url);
+        Logger.d(TAG, "get request: " + url);
         String userAgent = getUserAgent();
         HttpClient httpClient = null;
         GetMethod httpGet = null;
@@ -128,7 +128,7 @@ public class HttpUtils {
                 httpClient = null;
             }
         } while (time < RETRY_TIME);
-        Logger.i(TAG, "get response: " + url + "/r/n" + responseBody);
+        Logger.d(TAG, "get response: " + url + "/r/n" + responseBody);
         return responseBody;
     }
 
@@ -145,7 +145,7 @@ public class HttpUtils {
      * @throws AppException
      */
     public static String post(String url, Map<String, Object> params, Map<String, File> files) {
-        Logger.i(TAG, "post request: " + url + " params: " + params.toString());
+        Logger.d(TAG, "post request: " + url + " params: " + params.toString());
         String userAgent = getUserAgent();
         HttpClient httpClient = null;
         PostMethod httpPost = null;
@@ -212,7 +212,7 @@ public class HttpUtils {
                 httpClient = null;
             }
         } while (time < RETRY_TIME);
-        Logger.i(TAG, "post response: " + url + "/r/n" + responseBody);
+        Logger.d(TAG, "post response: " + url + "/r/n" + responseBody);
         return responseBody;
     }
 
@@ -225,7 +225,7 @@ public class HttpUtils {
      * @throws AppException
      */
     public static String postJson(String url, String json) {
-        Logger.i(TAG, "post request: " + url + " params: " + json);
+        Logger.d(TAG, "post request: " + url + " params: " + json);
         String userAgent = getUserAgent();
         HttpClient httpClient = null;
         PostMethod httpPost = null;
@@ -274,7 +274,7 @@ public class HttpUtils {
                 httpClient = null;
             }
         } while (time < RETRY_TIME);
-        Logger.i(TAG, "post response: " + url + " /r/n " + responseBody);
+        Logger.d(TAG, "post response: " + url + " /r/n " + responseBody);
         return responseBody;
     }
 }
