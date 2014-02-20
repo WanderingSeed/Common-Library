@@ -15,6 +15,12 @@ import com.morgan.library.utils.StrUtils;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
+/**
+ * 一个地址选取器。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class CityPickerWidget extends Dialog {
 
     private NumberPicker mProvincePicker, mCityPicker, mAreaPicker;

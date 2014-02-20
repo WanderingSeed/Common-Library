@@ -20,6 +20,11 @@ import android.widget.TextView;
 import com.morgan.library.R;
 import com.morgan.library.model.SpinnerItem;
 
+/**
+ * 一个基于View的弹出菜单。
+ * @author Morgan.Ji
+ *
+ */
 public class PopupMenuWidget {
 
     private Activity mContext;

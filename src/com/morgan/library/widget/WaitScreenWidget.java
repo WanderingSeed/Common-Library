@@ -8,6 +8,12 @@ import android.widget.TextView;
 
 import com.morgan.library.R;
 
+/**
+ * 一个通用的等待圆形进度条。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class WaitScreenWidget extends Dialog {
 
     private LayoutInflater mInflater;

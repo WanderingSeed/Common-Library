@@ -12,6 +12,12 @@ import com.morgan.library.utils.StrUtils;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
+/**
+ * 一个身高选取器。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class HeightPickerWidget extends Dialog {
 
     private NumberPicker mPicker;

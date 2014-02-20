@@ -11,6 +11,12 @@ import android.widget.Toast;
 
 import com.morgan.library.R;
 
+/**
+ * 一个自定义的Toast,还可以控制提示音的播放。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class CustomToast extends Toast {
 
     private MediaPlayer mPlayer;

@@ -16,6 +16,12 @@ import android.widget.Scroller;
 
 import com.morgan.library.R;
 
+/**
+ * 一个向上滑动滑动到一定程度隐藏的View,否侧回落下来，一般用于包含一个ImageView。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class SlideUpOpenWidget extends LinearLayout {
 
     private static final int DEFAULT_MINIMUM_VELOCITY = 2000;

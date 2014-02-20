@@ -10,6 +10,12 @@ import com.morgan.library.R;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
+/**
+ * 一个性别选取器。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class SexPickerWidget extends Dialog {
 
     private NumberPicker mSexPicker;

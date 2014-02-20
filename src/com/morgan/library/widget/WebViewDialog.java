@@ -21,12 +21,16 @@ import android.widget.RelativeLayout;
 
 import com.morgan.library.R;
 
+/**
+ * 一个WebView的Dialog.用于展示指定的Url.
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class WebViewDialog extends Dialog {
 
     static final FrameLayout.LayoutParams FILL = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT);
-    static final int MARGIN = 4;
-    static final int PADDING = 2;
 
     private String mUrl;
     private WebView mWebView;
