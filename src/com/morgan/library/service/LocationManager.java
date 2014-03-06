@@ -102,7 +102,14 @@ public class LocationManager {
         @Override
         public void onReceiveLocation(BDLocation location) {
             if (location == null || location.getLatitude() == NO_LOCATION) {
-                requestLocation();
+                synchronized (mCallback) {
+                    for (int i = mCallback.size() - 1; i >= 0; i--) {
+                        mCallback.get(i).onNoLocation();
+                    }
+                }
+                if (mCallback.size() > 0) {
+                    requestLocation();
+                }
             } else {
                 updateLocation(location);
             }
@@ -134,5 +141,10 @@ public class LocationManager {
          * @param location
          */
         void onReceiveLocation(BDLocation location);
+
+        /**
+         * 当获取位置失败时
+         */
+        void onNoLocation();
     }
 }

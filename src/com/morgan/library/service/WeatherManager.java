@@ -43,6 +43,10 @@ public class WeatherManager {
             getWeather(location);
         }
 
+        @Override
+        public void onNoLocation() {
+        }
+
     };
 
     private void getWeather(BDLocation location) {
