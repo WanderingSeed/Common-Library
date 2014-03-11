@@ -22,6 +22,7 @@ public class LocationManager {
 
     private LocationManager() {
         mLocClient = new LocationClient(APPContext.getContext());
+        mLastLocation = mLocClient.getLastKnownLocation();
         mCallback = new ArrayList<LocationCallBack>();
         setLocationOption();
         registerLocationListener();
@@ -82,17 +83,15 @@ public class LocationManager {
         mBDLocationListener = null;
     }
 
-    public void addCallback(LocationCallBack callback) {
-        synchronized (mCallback) {
+    public void startLocate(LocationCallBack callback) {
+        if (!mCallback.contains(callback)) {
             this.mCallback.add(callback);
         }
         startLocClient();
     }
 
     public void removeCallback(LocationCallBack callback) {
-        synchronized (mCallback) {
-            this.mCallback.remove(callback);
-        }
+        this.mCallback.remove(callback);
         if (mCallback.size() == 0) {
             stopLocClient();
         }
@@ -102,10 +101,8 @@ public class LocationManager {
         @Override
         public void onReceiveLocation(BDLocation location) {
             if (location == null || location.getLatitude() == NO_LOCATION) {
-                synchronized (mCallback) {
-                    for (int i = mCallback.size() - 1; i >= 0; i--) {
-                        mCallback.get(i).onNoLocation();
-                    }
+                for (int i = mCallback.size() - 1; i >= 0; i--) {
+                    mCallback.get(i).onNoLocation();
                 }
                 if (mCallback.size() > 0) {
                     requestLocation();
@@ -126,10 +123,8 @@ public class LocationManager {
         if (location.getAltitude() < 0 || location.getAltitude() == NO_LOCATION) {
             location.setAltitude(0);
         }
-        synchronized (mCallback) {
-            for (int i = mCallback.size() - 1; i >= 0; i--) {
-                mCallback.get(i).onReceiveLocation(location);
-            }
+        for (int i = mCallback.size() - 1; i >= 0; i--) {
+            mCallback.get(i).onReceiveLocation(location);
         }
         mLastLocation = location;
     }

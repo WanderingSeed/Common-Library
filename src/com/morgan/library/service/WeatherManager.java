@@ -29,7 +29,7 @@ public class WeatherManager {
     private void initData() {
         BDLocation location = LocationManager.getInstance().getLastLocation();
         if (null == location) {
-            LocationManager.getInstance().addCallback(mCallback);
+            LocationManager.getInstance().startLocate(mCallback);
         } else {
             getWeather(location);
         }
