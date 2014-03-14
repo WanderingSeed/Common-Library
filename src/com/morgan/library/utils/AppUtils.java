@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.morgan.library.app.APPContext;
@@ -39,7 +38,7 @@ public class AppUtils {
             info = APPContext.getContext().getPackageManager()
                     .getPackageInfo(APPContext.getContext().getPackageName(), 0);
         } catch (NameNotFoundException e) {
-            Log.e(TAG, "获取安装包信息失败", e);
+            Logger.e(TAG, "获取安装包信息失败", e);
         }
         if (info == null)
             info = new PackageInfo();

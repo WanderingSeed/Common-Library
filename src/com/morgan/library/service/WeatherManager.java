@@ -1,11 +1,10 @@
 package com.morgan.library.service;
 
-import android.util.Log;
-
 import com.baidu.location.BDLocation;
 import com.morgan.library.async.IFeedback;
 import com.morgan.library.model.Weather;
 import com.morgan.library.task.GetWeatherTask;
+import com.morgan.library.utils.Logger;
 
 public class WeatherManager {
 
@@ -63,7 +62,7 @@ public class WeatherManager {
         public boolean onFeedback(String key, boolean isSuccess, Object result) {
             if (isSuccess) {
                 Weather weather = (Weather) result;
-                Log.e("haha weather", weather.toString());
+                Logger.i("haha weather", weather.toString());
             } else {
                 // do empty
             }

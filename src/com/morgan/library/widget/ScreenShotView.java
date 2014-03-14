@@ -10,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Build;
-import android.util.Log;
 import android.view.Display;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -20,6 +19,7 @@ import android.view.View.OnTouchListener;
 import com.morgan.library.R;
 import com.morgan.library.app.BaseActivity;
 import com.morgan.library.utils.AppUtils;
+import com.morgan.library.utils.Logger;
 import com.morgan.library.utils.SDCardUtils;
 
 /**
@@ -382,7 +382,7 @@ public class ScreenShotView extends View implements OnTouchListener {
      * 设置 内层的边框坐标
      */
     private void setInnerBorder(int left, int top, int right, int bottom) {
-        Log.i("com.example", "left:" + left + ",top:" + top + ",right:" + right + ",bottom:" + bottom);
+        Logger.i("com.example", "left:" + left + ",top:" + top + ",right:" + right + ",bottom:" + bottom);
         topRect.set(0, 0, screenWidth, top);
         rightRect.set(right, top, screenWidth, bottom);
         bottomRect.set(0, bottom, screenWidth, screeenHeight);
