@@ -9,6 +9,12 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+/**
+ * 提供字符串相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class StrUtils {
     private final static Pattern EMAIL_PATTERN = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 

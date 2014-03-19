@@ -6,6 +6,12 @@ import com.morgan.library.model.Weather;
 import com.morgan.library.task.GetWeatherTask;
 import com.morgan.library.utils.Logger;
 
+/**
+ * 从天气网站上抓取当天的天气预报。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class WeatherManager {
 
     private static WeatherManager mInstance;

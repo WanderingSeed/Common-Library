@@ -20,6 +20,12 @@ import org.json.JSONObject;
 import android.graphics.Bitmap;
 import android.util.Log;
 
+/**
+ * 提供文件相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class FileUtils {
     private static final String TAG = FileUtils.class.getName();
     private static BufferedReader br;

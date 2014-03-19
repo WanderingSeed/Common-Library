@@ -1,4 +1,4 @@
-package com.morgan.library.net;
+package com.morgan.library.snippet;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,12 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+/**
+ * Socket连接中的服务端。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
  public class SocketServer {
     
     ServerSocket sever;

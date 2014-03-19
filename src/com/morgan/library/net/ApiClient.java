@@ -8,6 +8,12 @@ import com.morgan.library.model.Weather;
 import com.morgan.library.utils.HttpClientUtils;
 import com.morgan.library.utils.StrUtils;
 
+/**
+ * 真正发起网络请求的类
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class ApiClient implements IApiClient {
 
     @Override

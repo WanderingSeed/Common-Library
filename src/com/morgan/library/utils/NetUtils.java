@@ -9,6 +9,12 @@ import android.provider.Settings;
 
 import com.morgan.library.app.APPContext;
 
+/**
+ * 提供网络相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class NetUtils {
 
     public static boolean isGPSAvailable() {

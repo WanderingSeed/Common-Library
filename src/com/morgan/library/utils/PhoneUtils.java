@@ -12,6 +12,12 @@ import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 
+/**
+ * 提供手机相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class PhoneUtils {
 
     public static String TAG = PhoneUtils.class.getSimpleName();

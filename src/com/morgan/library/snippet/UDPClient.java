@@ -1,8 +1,14 @@
-package com.morgan.library.net;
+package com.morgan.library.snippet;
 
 import java.io.*;
 import java.net.*;
 
+/**
+ * UDP连接中的客户端。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 class UDPClient {
     public static void main(String[] args) throws IOException {
         DatagramSocket client = new DatagramSocket();

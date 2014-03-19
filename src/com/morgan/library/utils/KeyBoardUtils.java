@@ -6,6 +6,12 @@ import android.widget.EditText;
 
 import com.morgan.library.app.APPContext;
 
+/**
+ * 提供软键盘相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class KeyBoardUtils {
 
     public static void showKeyBoard(final EditText editText) {

@@ -1,5 +1,6 @@
 package com.morgan.library.widget;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.FloatMath;
@@ -12,7 +13,7 @@ import android.widget.ImageView;
 /**
  * 一个带有回弹动画的可缩放的图片组件。
  * 
- * @author jgc 2013-6-16
+ * @author Morgan.Ji
  */
 public class TouchZoomImageView extends ImageView {
     // 表示当前没有状态
@@ -63,6 +64,7 @@ public class TouchZoomImageView extends ImageView {
     }
 
     // 用来计算2个触摸点的距离
+    @SuppressLint("FloatMath")
     private float spacing(MotionEvent event) {
         float x = event.getX(0) - event.getX(1);
         float y = event.getY(0) - event.getY(1);

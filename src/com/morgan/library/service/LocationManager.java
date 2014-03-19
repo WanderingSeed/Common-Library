@@ -10,6 +10,12 @@ import com.baidu.location.LocationClientOption;
 import com.morgan.library.R;
 import com.morgan.library.app.APPContext;
 
+/**
+ * 提供定位功能，如果对位置要求不严格，可以先使用{@link #getLastLocation()}来获取最后一次位置.
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class LocationManager {
 
     public static final double NO_LOCATION = 4.9E-324;

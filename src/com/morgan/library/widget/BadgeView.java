@@ -154,7 +154,7 @@ public class BadgeView extends TextView {
             this.target = target;
 
             ((ViewGroup) target).addView(container,
-                    new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
+                    new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 
             this.setVisibility(View.GONE);
             container.addView(this);
@@ -270,7 +270,7 @@ public class BadgeView extends TextView {
             if (badgeBg == null) {
                 badgeBg = getDefaultBackground();
             }
-            setBackgroundDrawable(badgeBg);
+            setBackground(badgeBg);
         }
         applyLayoutParams();
 

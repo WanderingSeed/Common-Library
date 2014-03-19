@@ -1,5 +1,11 @@
 package com.morgan.library.utils;
 
+/**
+ * 提供位置相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class LocationUtils {
 
     public static double distance(double lat1, double lon1, double lat2, double lon2) {

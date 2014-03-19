@@ -5,6 +5,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * 提供日期相关的实用方法（如格式化等）。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class DateUtils {
 
     public static final String DATE_ONLY_FORMAT = "yyyy-MM-dd";

@@ -18,6 +18,12 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
+/**
+ * 提供网络发送相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class HttpClientUtils {
     private static final String TAG = HttpClientUtils.class.getName();
     private static final int CONNECT_ERROR_SLEEP_TIME = 1000;

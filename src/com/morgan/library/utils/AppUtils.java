@@ -9,6 +9,12 @@ import android.widget.Toast;
 
 import com.morgan.library.app.APPContext;
 
+/**
+ * 提供应用相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class AppUtils {
 
     private static final String TAG = AppUtils.class.getName();

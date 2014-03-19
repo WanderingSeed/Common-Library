@@ -18,6 +18,12 @@ import android.graphics.RectF;
 import android.graphics.Shader.TileMode;
 import android.graphics.drawable.Drawable;
 
+/**
+ * 提供图片操作相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class ImageUtils {
 
     /**

@@ -1,8 +1,14 @@
 package com.morgan.library.model;
 
+/**
+ * 天气的类型，他们的值是所抓取的服务器定义的。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public enum WeatherType {
-    SUNNY("01d"), FLEWCLOUDS("02d"), SCATTEREDCLOUDS("03d"), BROKENCLOUDS("04d"), SHOWERRAIN("09d"), RAIN("10d"), THUNDERSTORM("11d"), SNOW(
-            "13d"), MIST("50d");
+    SUNNY("01d"), FLEWCLOUDS("02d"), SCATTEREDCLOUDS("03d"), BROKENCLOUDS("04d"), SHOWERRAIN("09d"), RAIN("10d"), THUNDERSTORM(
+            "11d"), SNOW("13d"), MIST("50d");
 
     private String icon = "";
 
@@ -10,17 +16,17 @@ public enum WeatherType {
         this.icon = icon;
     }
 
-    public static WeatherType typeOf(String icon)
-    {
+    public static WeatherType typeOf(String icon) {
         WeatherType[] values = WeatherType.values();
         for (int i = 0; i < values.length; i++) {
-            if (values[i].icon().equals(icon)) { return values[i]; }
+            if (values[i].icon().equals(icon)) {
+                return values[i];
+            }
         }
         return WeatherType.SUNNY;
     }
 
-    public String icon()
-    {
+    public String icon() {
         return this.icon;
     }
 }
