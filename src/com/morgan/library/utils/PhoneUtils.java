@@ -3,14 +3,19 @@ package com.morgan.library.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Build;
+import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 public class PhoneUtils {
 
@@ -182,5 +187,31 @@ public class PhoneUtils {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void editMessage(Context context, String phoneNumber, String msg) {
+        Uri smsToUri = Uri.parse("smsto:" + phoneNumber);
+        Intent msgIntent = new Intent(Intent.ACTION_SENDTO, smsToUri);
+        msgIntent.putExtra("sms_body", msg);
+        context.startActivity(msgIntent);
+    }
+
+    public static void editMessage(Context context, String msg) {
+        Intent msgIntent = new Intent();
+        msgIntent.setAction(Intent.ACTION_SENDTO);
+        msgIntent.putExtra("sms_body", msg);
+        context.startActivity(msgIntent);
+    }
+
+    public static void sendMessage(Context context, String phoneNumber, String msg) {
+        SmsManager smsManager = SmsManager.getDefault();
+        PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0, new Intent(), 0);
+        smsManager.sendTextMessage(phoneNumber, null, msg, sentIntent, null);
+        context.registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Toast.makeText(context, "收信人已经成功接收", Toast.LENGTH_SHORT).show();
+            }
+        }, new IntentFilter("SENT_SMS_ACTION"));
     }
 }
