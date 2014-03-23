@@ -1,12 +1,17 @@
 package com.morgan.library.service;
 
-import android.util.Log;
-
 import com.baidu.location.BDLocation;
 import com.morgan.library.async.IFeedback;
 import com.morgan.library.model.Weather;
 import com.morgan.library.task.GetWeatherTask;
+import com.morgan.library.utils.Logger;
 
+/**
+ * 从天气网站上抓取当天的天气预报。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class WeatherManager {
 
     private static WeatherManager mInstance;
@@ -29,7 +34,7 @@ public class WeatherManager {
     private void initData() {
         BDLocation location = LocationManager.getInstance().getLastLocation();
         if (null == location) {
-            LocationManager.getInstance().addCallback(mCallback);
+            LocationManager.getInstance().startLocate(mCallback);
         } else {
             getWeather(location);
         }
@@ -41,6 +46,10 @@ public class WeatherManager {
         public void onReceiveLocation(BDLocation location) {
             LocationManager.getInstance().removeCallback(this);
             getWeather(location);
+        }
+
+        @Override
+        public void onNoLocation() {
         }
 
     };
@@ -59,7 +68,7 @@ public class WeatherManager {
         public boolean onFeedback(String key, boolean isSuccess, Object result) {
             if (isSuccess) {
                 Weather weather = (Weather) result;
-                Log.e("haha weather", weather.toString());
+                Logger.i("haha weather", weather.toString());
             } else {
                 // do empty
             }

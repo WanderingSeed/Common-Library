@@ -18,7 +18,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
+/**
+ * 提供文件相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class FileUtils {
     private static final String TAG = FileUtils.class.getName();
     private static BufferedReader br;
@@ -57,7 +64,8 @@ public class FileUtils {
             pw.close();
             fw.close();
         } catch (Exception e) {
-            Logger.e(TAG, e.getMessage());
+            //因为logger里面调用了该方法，所以此处不能再循环调用Logger的log方法
+            Log.e(TAG, e.getMessage());
         } finally {
             if (pw != null) {
                 pw.close();
@@ -66,7 +74,7 @@ public class FileUtils {
                 try {
                     fw.close();
                 } catch (IOException e) {
-                    Logger.e(TAG, e.getMessage());
+                    Log.e(TAG, e.getMessage());
                 }
             }
         }

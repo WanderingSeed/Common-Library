@@ -2,6 +2,12 @@ package com.morgan.library.utils;
 
 import java.util.Locale;
 
+/**
+ * 提供提取首字母的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class GB2Alpha {
 
     // 字母Z使用了两个标签，这里有２７个值

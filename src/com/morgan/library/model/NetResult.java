@@ -6,6 +6,13 @@ import org.json.JSONObject;
 import com.morgan.library.net.JsonUtils;
 import com.morgan.library.utils.HttpClientUtils;
 
+/**
+ * 对网络请求返回的json数据的初步解析，用于网络请求是否有错误分期，如果没错误，可以把解析后的VO存放在泛型字段里。
+ * 
+ * @author Morgan.Ji
+ * 
+ * @param <T>存放解析后的VO
+ */
 public class NetResult<T> {
     public static final int SUCCESS_CODE = 200;
     /**

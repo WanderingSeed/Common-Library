@@ -25,6 +25,12 @@ import android.widget.ViewFlipper;
 import com.morgan.library.R;
 import com.morgan.library.utils.StrUtils;
 
+/**
+ * 一个可以左右滑动的平铺的日历
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class CalendarWidget extends LinearLayout {
 
     // 判断手势用

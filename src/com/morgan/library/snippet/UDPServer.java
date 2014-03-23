@@ -1,10 +1,16 @@
-package com.morgan.library.net;
+package com.morgan.library.snippet;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 
+/**
+ * UDP连接中的服务端。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 class UDPServer{
     public static void main(String[] args)throws IOException{
         DatagramSocket  server = new DatagramSocket(5050);

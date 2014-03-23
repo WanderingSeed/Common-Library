@@ -1,20 +1,22 @@
 package com.morgan.library.utils;
 
 import java.io.File;
+import java.util.Date;
 
 import android.util.Log;
 
 /**
- * 该类是为了开发android应用时更好的调试及记录应用产生的错误信息，在开发时设置debug为true,信息会在logcat中显示出来，安装到手机上时设置debug为false, 信息会记录在SD卡上的log文件中
+ * 该类是为了开发android应用时更好的调试及记录应用产生的错误信息，在开发时设置debug为true,信息会在logcat中显示出来，
+ * 安装到手机上时设置debug为false, 信息会记录在SD卡上的log文件中
  * 
  * @author Morgan.Ji
  * 
  */
 public class Logger {
 
-    private static final boolean DEBUG = true;
+    private static final boolean ENABLE_FILE_LOG = true;
     private static final int mStoreLevel = Log.VERBOSE;
-    private static final String LOG_FILE_PATH = SDCardUtils.getSDCardPath() + File.pathSeparator + "log.txt";
+    private static final String LOG_FILE_PATH = SDCardUtils.getSDCardPath() + File.separator + "log.txt";
     private static final String DEFAULT_TAG = "default";
 
     /**
@@ -22,74 +24,69 @@ public class Logger {
      */
 
     public static void d(String msg) {
-        if (DEBUG) {
-            Log.d(DEFAULT_TAG, msg);
-        } else if (mStoreLevel >= Log.DEBUG) {
-            FileUtils.writeFile(LOG_FILE_PATH, msg);
+        Log.d(DEFAULT_TAG, msg);
+        if (mStoreLevel <= Log.DEBUG && ENABLE_FILE_LOG) {
+            writeFile(msg);
         }
     }
 
     public static void d(String tag, String msg) {
-        if (DEBUG) {
-            Log.d(tag, msg);
-        } else if (mStoreLevel >= Log.DEBUG) {
-            FileUtils.writeFile(LOG_FILE_PATH, tag + " " + msg);
+        Log.d(tag, msg);
+        if (mStoreLevel <= Log.DEBUG && ENABLE_FILE_LOG) {
+            writeFile(tag + " " + msg);
         }
     }
 
     public static void d(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            Log.d(tag, msg, tr);
-        } else if (mStoreLevel >= Log.DEBUG) {
-            FileUtils.writeFile(LOG_FILE_PATH, tag + " " + msg + "/r/n" + tr.getMessage());
+        Log.d(tag, msg, tr);
+        if (mStoreLevel <= Log.DEBUG && ENABLE_FILE_LOG) {
+            writeFile(tag + " " + msg + "/r/n" + tr.getMessage());
         }
     }
 
     public static void i(String msg) {
-        if (DEBUG) {
-            Log.i(DEFAULT_TAG, msg);
-        } else if (mStoreLevel >= Log.INFO) {
-            FileUtils.writeFile(LOG_FILE_PATH, msg);
+        Log.i(DEFAULT_TAG, msg);
+        if (mStoreLevel <= Log.INFO && ENABLE_FILE_LOG) {
+            writeFile(msg);
         }
     }
 
     public static void i(String tag, String msg) {
-        if (DEBUG) {
-            Log.i(tag, msg);
-        } else if (mStoreLevel >= Log.INFO) {
-            FileUtils.writeFile(LOG_FILE_PATH, tag + " " + msg);
+        Log.i(tag, msg);
+        if (mStoreLevel <= Log.INFO && ENABLE_FILE_LOG) {
+            writeFile(tag + " " + msg);
         }
     }
 
     public static void i(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            Log.i(tag, msg, tr);
-        } else if (mStoreLevel >= Log.INFO) {
-            FileUtils.writeFile(LOG_FILE_PATH, tag + " " + msg + "/r/n" + tr.getMessage());
+        Log.i(tag, msg, tr);
+        if (mStoreLevel <= Log.INFO && ENABLE_FILE_LOG) {
+            writeFile(tag + " " + msg + "/r/n" + tr.getMessage());
         }
     }
 
     public static void e(String msg) {
-        if (DEBUG) {
-            Log.e(DEFAULT_TAG, msg);
-        } else if (mStoreLevel >= Log.ERROR) {
-            FileUtils.writeFile(LOG_FILE_PATH, msg);
+        Log.e(DEFAULT_TAG, msg);
+        if (mStoreLevel <= Log.ERROR && ENABLE_FILE_LOG) {
+            writeFile(msg);
         }
     }
 
     public static void e(String tag, String msg) {
-        if (DEBUG) {
-            Log.e(tag, msg);
-        } else if (mStoreLevel >= Log.ERROR) {
-            FileUtils.writeFile(LOG_FILE_PATH, tag + " " + msg);
+        Log.e(tag, msg);
+        if (mStoreLevel <= Log.ERROR && ENABLE_FILE_LOG) {
+            writeFile(tag + " " + msg);
         }
     }
 
     public static void e(String tag, String msg, Throwable tr) {
-        if (DEBUG) {
-            Log.e(tag, msg, tr);
-        } else if (mStoreLevel >= Log.ERROR) {
-            FileUtils.writeFile(LOG_FILE_PATH, tag + " " + msg + "/r/n" + tr.getMessage());
+        Log.e(tag, msg, tr);
+        if (mStoreLevel <= Log.ERROR && ENABLE_FILE_LOG) {
+            writeFile(tag + " " + msg + "/r/n" + tr.getMessage());
         }
+    }
+
+    private static void writeFile(String msg) {
+        FileUtils.writeFile(LOG_FILE_PATH, new Date().toString() + " " + msg);
     }
 }

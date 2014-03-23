@@ -8,6 +8,12 @@ import com.morgan.library.model.Weather;
 import com.morgan.library.model.WeatherType;
 import com.morgan.library.utils.Logger;
 
+/**
+ * 用于解析网络请求返回来的json字符串，解析成VO对象。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class JsonUtils {
 
     public static final String TAG = JsonUtils.class.getName();

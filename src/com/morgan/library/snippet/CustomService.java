@@ -1,4 +1,4 @@
-package com.morgan.library.service;
+package com.morgan.library.snippet;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -15,6 +15,12 @@ import android.support.v4.app.NotificationCompat;
 import com.morgan.library.R;
 import com.morgan.library.utils.Logger;
 
+/**
+ * 提升Service的优先级（低版本的通过反射调用），Service启动时发送Notification
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class CustomService extends Service {
 
     private static final String TAG = CustomService.class.getName();
@@ -48,7 +54,8 @@ public class CustomService extends Service {
     }
 
     /**
-     * This is a wrapper around the new startForeground method, using the older APIs if it is not available.
+     * This is a wrapper around the new startForeground method, using the older
+     * APIs if it is not available.
      */
     private void startForegroundCompat(int id, Notification notification) {
         // If we have the new startForeground API, then use it.
@@ -89,7 +96,8 @@ public class CustomService extends Service {
     }
 
     /**
-     * This is a wrapper around the new stopForeground method, using the older APIs if it is not available.
+     * This is a wrapper around the new stopForeground method, using the older
+     * APIs if it is not available.
      */
     private void stopForegroundCompat(int id) {
         // If we have the new stopForeground API, then use it.

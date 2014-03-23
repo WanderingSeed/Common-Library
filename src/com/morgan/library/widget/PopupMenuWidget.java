@@ -21,7 +21,7 @@ import com.morgan.library.R;
 import com.morgan.library.model.SpinnerItem;
 
 /**
- * 一个基于View的弹出菜单。
+ * 一个基于View的弹出的下拉菜单（对PopupWindow的封装，内容为一个ListView）。
  * @author Morgan.Ji
  *
  */

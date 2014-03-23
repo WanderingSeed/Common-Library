@@ -2,6 +2,12 @@ package com.morgan.library.utils;
 
 import android.content.Context;
 
+/**
+ * 提供分辨率相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class DensityUtils {
 
     /**

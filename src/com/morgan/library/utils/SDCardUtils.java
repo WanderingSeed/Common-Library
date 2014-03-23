@@ -5,6 +5,12 @@ import java.io.File;
 import android.os.Environment;
 import android.os.StatFs;
 
+/**
+ * 提供SD卡相关的实用方法。
+ * 
+ * @author Morgan.Ji
+ * 
+ */
 public class SDCardUtils {
 
     public static String getSDCardPath() {
