@@ -47,11 +47,6 @@ public class CookieShare {
             HttpResponse response = client.execute(get);
             // 拿body
             String bodyAsString = EntityUtils.toString(response.getEntity());
-            // 拿jsessionid
-            String action = bodyAsString.substring(bodyAsString.indexOf("action") + 8,
-                    bodyAsString.indexOf("action") + 64);
-            String jessionid = action.split("=")[1];
-            Logger.i("jessionid", jessionid);
             // 拿lt
             String lt = bodyAsString.substring(bodyAsString.indexOf("name=\"lt\"") + 17,
                     bodyAsString.indexOf("name=\"lt\"") + 56);
@@ -93,25 +88,25 @@ public class CookieShare {
      * 同步一下cookie
      * 
      * @param url
-     *            cookie所属的url
+     *            cookie所属的url,这个url必须要和domain相同(cookie内的domain字段可以去掉);
      * @param cookieList
      *            cookie列表
      */
     public void synCookies(String url, List<Cookie> cookieList) {
-        String cookies = "";
+        String cookie = "";
         if (cookieList.isEmpty()) {
             return;
-        }
-        for (int i = 0; i < cookieList.size(); i++) {
-            cookies = cookieList.get(i).getName() + "=" + cookieList.get(i).getValue() + ";domain="
-                    + cookieList.get(i).getDomain();
         }
         CookieSyncManager.createInstance(APPContext.getContext());
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         // 移除老的cookie（但是这个调用会报错,故暂时注释掉）
         // cookieManager.removeSessionCookie();
-        cookieManager.setCookie(url, cookies);
+        for (int i = 0; i < cookieList.size(); i++) {
+            cookie = cookieList.get(i).getName() + "=" + cookieList.get(i).getValue() + ";domain="
+                    + cookieList.get(i).getDomain();
+            cookieManager.setCookie(url, cookie);
+        }
         CookieSyncManager.getInstance().sync();
     }
 }
