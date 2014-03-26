@@ -19,7 +19,7 @@ import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
 /**
- * 提供网络发送相关的实用方法。
+ * 使用第三方包，提供网络发送相关的实用方法。
  * 
  * @author Morgan.Ji
  * 

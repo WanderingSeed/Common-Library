@@ -31,7 +31,6 @@ public class GetWeatherTask extends AsyncTask<Double, Void, Object> {
 
     @Override
     protected void onPostExecute(Object result) {
-        super.onPostExecute(result);
         feedback.onFeedback(FEED_BACK_KEY, mIsSuccess, result);
     }
 }
