@@ -2,7 +2,6 @@ package com.morgan.library.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Map;
 
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
@@ -18,8 +17,10 @@ import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
 import org.apache.commons.httpclient.params.HttpMethodParams;
 
+import android.util.Log;
+
 /**
- * 使用第三方包，提供网络发送相关的实用方法。
+ * 使用第三方包，提供网络发送相关的实用方法。(commons-httpclient-3.1.jar)
  * 
  * @author Morgan.Ji
  * 
@@ -105,17 +106,6 @@ public class HttpClientUtils {
                     responseBody = httpGet.getResponseBodyAsString();
                     break;
                 }
-            } catch (IOException e) {
-                time++;
-                if (time < RETRY_TIME) {
-                    try {
-                        Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
-                    } catch (InterruptedException e1) {
-                    }
-                    continue;
-                }
-                // 发生网络异常
-                responseBody = SERVER_CONNECT_ERROR;
             } catch (Exception e) {
                 time++;
                 if (time < RETRY_TIME) {
@@ -183,23 +173,17 @@ public class HttpClientUtils {
                 httpPost.setRequestEntity(new MultipartRequestEntity(parts, httpPost.getParams()));
                 int statusCode = httpClient.executeMethod(httpPost);
                 if (statusCode != HttpStatus.SC_OK) {
-                    responseBody = SERVER_CONNECT_ERROR;
-                    break;
-                } else {
                     responseBody = httpPost.getResponseBodyAsString();
                     break;
+                } else if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY
+                        || statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
+                    Log.e(TAG, httpPost.getResponseHeader("Location").getValue());
+                    responseBody = post(httpPost.getResponseHeader("Location").getValue(), params, files);
+                    break;
+                } else {
+                    responseBody = SERVER_CONNECT_ERROR;
+                    break;
                 }
-            } catch (IOException e) {
-                time++;
-                if (time < RETRY_TIME) {
-                    try {
-                        Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
-                    } catch (InterruptedException e1) {
-                    }
-                    continue;
-                }
-                // 发生网络异常
-                responseBody = SERVER_CONNECT_ERROR;
             } catch (Exception e) {
                 time++;
                 if (time < RETRY_TIME) {
@@ -251,17 +235,6 @@ public class HttpClientUtils {
                     responseBody = httpPost.getResponseBodyAsString();
                     break;
                 }
-            } catch (IOException e) {
-                time++;
-                if (time < RETRY_TIME) {
-                    try {
-                        Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
-                    } catch (InterruptedException e1) {
-                    }
-                    continue;
-                }
-                // 发生网络异常
-                responseBody = SERVER_CONNECT_ERROR;
             } catch (Exception e) {
                 time++;
                 if (time < RETRY_TIME) {

@@ -22,8 +22,8 @@ public class SDCardUtils {
             return 0;
         final File path = Environment.getExternalStorageDirectory();
         final StatFs stat = new StatFs(path.getPath());
-        final long blockSize = stat.getBlockSize();
-        final long availableBlocks = stat.getAvailableBlocks();
+        final long blockSize = stat.getBlockSizeLong();
+        final long availableBlocks = stat.getAvailableBlocksLong();
         return blockSize * (availableBlocks - 4);
     }
 

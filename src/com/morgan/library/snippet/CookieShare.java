@@ -88,7 +88,7 @@ public class CookieShare {
      * 同步一下cookie
      * 
      * @param url
-     *            cookie所属的url,这个url必须要和domain相同(cookie内的domain字段可以去掉);
+     *            cookie所属的url,这个url必须要和domain相同(cookie内的domain字段可以去掉，不要带http://);
      * @param cookieList
      *            cookie列表
      */
