@@ -50,7 +50,7 @@ public class HttpClientUtil {
         do {
             try {
                 httpClient = new DefaultHttpClient();
-                httpGet = new HttpGet();
+                httpGet = new HttpGet(url);
                 HttpResponse response = httpClient.execute(httpGet);
                 int statusCode = response.getStatusLine().getStatusCode();
                 if (statusCode != HttpStatus.SC_OK) {
