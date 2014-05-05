@@ -91,7 +91,7 @@ public class FileUtils {
         String content = "";
         try {
             File file = new File(filePath);
-            if (file.exists()) {
+            if (!file.exists()) {
                 return "";
             }
             buffered = new BufferedInputStream(new FileInputStream(file));
@@ -262,6 +262,10 @@ public class FileUtils {
         return cities;
     }
 
+    /**
+     * 好像是不成功的，文件不存在，
+     * @return
+     */
     public static List<List<List<String>>> getAllAreas() {
         List<List<List<String>>> areas = new ArrayList<List<List<String>>>();
         String json = "";
