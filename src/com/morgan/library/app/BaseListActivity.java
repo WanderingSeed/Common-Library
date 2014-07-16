@@ -18,13 +18,13 @@ public class BaseListActivity extends ListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// 新建时添加Activity到列表中
-		AppManager.getAppManager().addActivity(this);
+		AppManager.getInstance().addActivity(this);
 	}
 
 	@Override
 	protected void onDestroy() {
 		// 结束时把Activity从列表中移除
-		AppManager.getAppManager().removeActivity(this);
+		AppManager.getInstance().removeActivity(this);
 		super.onDestroy();
 	}
 }
