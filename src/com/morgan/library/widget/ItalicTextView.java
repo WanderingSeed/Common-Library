@@ -14,11 +14,11 @@ import android.widget.TextView;
  */
 public class ItalicTextView extends TextView {
 
-    public ItalicTextView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        setTypeface(Typeface.MONOSPACE, Typeface.ITALIC);
-        TextPaint paint = this.getPaint();
-        paint.setFakeBoldText(true);
-    }
+	public ItalicTextView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		setTypeface(Typeface.MONOSPACE, Typeface.ITALIC);
+		TextPaint paint = this.getPaint();
+		paint.setFakeBoldText(true);
+	}
 
 }

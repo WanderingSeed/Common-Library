@@ -13,38 +13,38 @@ import android.view.MotionEvent;
  */
 public class CustomViewPager extends ViewPager {
 
-    private boolean scrollAble = true;
+	private boolean scrollAble = true;
 
-    public CustomViewPager(Context context) {
-        super(context);
-    }
+	public CustomViewPager(Context context) {
+		super(context);
+	}
 
-    public CustomViewPager(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public CustomViewPager(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    @Override
-    public void scrollTo(int x, int y) {
-        if (scrollAble) {
-            super.scrollTo(x, y);
-        }
-    }
+	@Override
+	public void scrollTo(int x, int y) {
+		if (scrollAble) {
+			super.scrollTo(x, y);
+		}
+	}
 
-    public boolean isScrollAble() {
-        return scrollAble;
-    }
+	public boolean isScrollAble() {
+		return scrollAble;
+	}
 
-    public void setScrollAble(boolean scrollAble) {
-        this.scrollAble = scrollAble;
-    }
+	public void setScrollAble(boolean scrollAble) {
+		this.scrollAble = scrollAble;
+	}
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent arg0) {
-        if (scrollAble) {
-            return super.onInterceptTouchEvent(arg0);
-        } else {
-            return false;
-        }
-    }
+	@Override
+	public boolean onInterceptTouchEvent(MotionEvent arg0) {
+		if (scrollAble) {
+			return super.onInterceptTouchEvent(arg0);
+		} else {
+			return false;
+		}
+	}
 
 }

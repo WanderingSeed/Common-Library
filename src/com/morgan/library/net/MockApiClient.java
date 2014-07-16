@@ -11,9 +11,9 @@ import com.morgan.library.model.Weather;
  */
 public class MockApiClient implements IApiClient {
 
-    @Override
-    public NetResult<Weather> getWeather(double lat, double lon) {
-        return null;
-    }
+	@Override
+	public NetResult<Weather> getWeather(double lat, double lon) {
+		return null;
+	}
 
 }

@@ -12,11 +12,11 @@ import android.widget.LinearLayout;
  */
 public class InterceptPressLayout extends LinearLayout {
 
-    public InterceptPressLayout(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+	public InterceptPressLayout(Context context, AttributeSet attrs) {
+		super(context, attrs);
+	}
 
-    @Override
-    protected void dispatchSetPressed(boolean pressed) {
-    }
+	@Override
+	protected void dispatchSetPressed(boolean pressed) {
+	}
 }

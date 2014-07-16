@@ -7,13 +7,13 @@ package com.morgan.library.async;
  */
 public interface Destroyable {
 
-    /**
-     * 异步线程是否可以cancel掉
-     */
-    public boolean cancelable();
+	/**
+	 * 异步线程是否可以cancel掉
+	 */
+	public boolean cancelable();
 
-    /**
-     * 销毁对象，释放资源
-     */
-    public void onDestory();
+	/**
+	 * 销毁对象，释放资源
+	 */
+	public void onDestory();
 }

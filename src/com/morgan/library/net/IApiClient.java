@@ -11,5 +11,5 @@ import com.morgan.library.model.Weather;
  */
 public interface IApiClient {
 
-    public NetResult<Weather> getWeather(double lat, double lon);
+	public NetResult<Weather> getWeather(double lat, double lon);
 }

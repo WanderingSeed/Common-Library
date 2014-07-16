@@ -16,17 +16,18 @@ import com.morgan.library.utils.StrUtils;
  */
 public class ApiClient implements IApiClient {
 
-    @Override
-    public NetResult<Weather> getWeather(double lat, double lon) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("lat", lat);
-        map.put("lon", lon);
-        String url = StrUtils.encodeUrl(ApiUrl.GET_WEATHER_API, map);
-        NetResult<Weather> result = new NetResult<Weather>(HttpClientUtils.get(url));
-        if (result.isSuccess()) {
-            JsonUtils.JsonToWeather(result);
-        }
-        return result;
-    }
+	@Override
+	public NetResult<Weather> getWeather(double lat, double lon) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("lat", lat);
+		map.put("lon", lon);
+		String url = StrUtils.encodeUrl(ApiUrl.GET_WEATHER_API, map);
+		NetResult<Weather> result = new NetResult<Weather>(
+				HttpClientUtils.get(url));
+		if (result.isSuccess()) {
+			JsonUtils.JsonToWeather(result);
+		}
+		return result;
+	}
 
 }
