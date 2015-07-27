@@ -5,15 +5,15 @@ package com.morgan.library.async;
  * 
  * @author Morgan.Ji
  */
-public interface Destroyable {
+public interface IDestroy {
 
 	/**
-	 * 异步线程是否可以cancel掉
+	 * 异步线程是否可以cancel掉，例如有的后台处理不能终端。
 	 */
 	public boolean cancelable();
 
 	/**
 	 * 销毁对象，释放资源
 	 */
-	public void onDestory();
+	public void destory();
 }

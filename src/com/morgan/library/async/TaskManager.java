@@ -5,16 +5,16 @@ import java.util.Map;
 
 /**
  * 在应用运行过程中，Activity或Fragment已经被销毁而在它们内部启动的一些异步线程却没有被销毁，当这些线程回调时就会出现一些意想不到的错误，
- * 该类就是用来解决这类问题的。 你所需要做的是，让你的异步线程或那些会启动异步线程的widget实现{@link Destroyable}
+ * 该类就是用来解决这类问题的。 你所需要做的是，让你的异步线程或那些会启动异步线程的widget实现{@link IDestroy}
  * 接口,然后把这些对象通过 {@link #addItem(String, DestroyAble)}
- * 方法加入管理，当然你需要在Activity或Fragment销毁的地方调用{@link #onDestory()}方法。
+ * 方法加入管理，当然你需要在Activity或Fragment销毁的地方调用{@link #destory()}方法。
  * 
  * @author Morgan.Ji
  * 
  */
 public class TaskManager {
 
-	private Map<String, Destroyable> mItems = new HashMap<String, Destroyable>();
+	private Map<String, IDestroy> mTasks = new HashMap<String, IDestroy>();
 
 	/**
 	 * @param key
@@ -22,20 +22,22 @@ public class TaskManager {
 	 * @param item
 	 *            可销毁对象的
 	 */
-	public void addItem(String key, Destroyable item) {
-		Destroyable old = mItems.get(key);
+	public void addItem(String key, IDestroy item) {
+		IDestroy old = mTasks.get(key);
 		if (null != old) {
-			old.onDestory();
+			old.destory();
 		}
-		mItems.put(key, item);
+		if (item != null) {
+			mTasks.put(key, item);
+		}
 	}
 
 	/**
 	 * 调用所有可销毁对象的销毁方法
 	 */
-	public void onDestory() {
-		for (String key : mItems.keySet()) {
-			mItems.get(key).onDestory();
+	public void destoryAll() {
+		for (String key : mTasks.keySet()) {
+			mTasks.get(key).destory();
 		}
 	}
 }

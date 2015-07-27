@@ -1,9 +1,9 @@
 package com.morgan.library.service;
 
 import com.baidu.location.BDLocation;
+import com.morgan.demo.model.Weather;
+import com.morgan.demo.task.GetWeatherTask;
 import com.morgan.library.async.IFeedback;
-import com.morgan.library.model.Weather;
-import com.morgan.library.task.GetWeatherTask;
 import com.morgan.library.utils.Logger;
 
 /**
