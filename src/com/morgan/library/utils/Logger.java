@@ -79,6 +79,13 @@ public class Logger {
 			writeFile(tag + " " + msg);
 		}
 	}
+	
+	public static void e(String tag, Throwable tr) {
+		Log.e(tag, tr.getMessage());
+		if (mStoreLevel <= Log.ERROR && ENABLE_FILE_LOG) {
+			writeFile(tag + " " + tr.getMessage());
+		}
+	}
 
 	public static void e(String tag, String msg, Throwable tr) {
 		Log.e(tag, msg, tr);
@@ -88,6 +95,6 @@ public class Logger {
 	}
 
 	private static void writeFile(String msg) {
-		FileUtils.writeFile(LOG_FILE_PATH, new Date().toString() + " " + msg);
+		FileUtils.appendFile(LOG_FILE_PATH, new Date().toString() + " " + msg);
 	}
 }

@@ -1,4 +1,4 @@
-package com.morgan.library.snippet;
+package com.morgan.demo.web;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,27 +35,25 @@ public class CookieShare {
 	 * @param pass
 	 * @return
 	 */
-	public boolean login(String name, String pass) {
+	public boolean login(String url, String name, String pass) {
 		boolean result = false;
 		try {
-			String loginUrl = "http://10.1.1.157:8080/cas/login";
 			BasicCookieStore bcsc = new BasicCookieStore();
 			DefaultHttpClient client = new DefaultHttpClient();
 			client.setCookieStore(bcsc);
 			// get访问登陆页面
-			HttpGet get = new HttpGet(loginUrl);
+			HttpGet get = new HttpGet(url);
 			HttpResponse response = client.execute(get);
 			// 拿body
 			String bodyAsString = EntityUtils.toString(response.getEntity());
 			// 拿lt
-			String lt = bodyAsString.substring(
-					bodyAsString.indexOf("name=\"lt\"") + 17,
+			String lt = bodyAsString.substring(bodyAsString.indexOf("name=\"lt\"") + 17,
 					bodyAsString.indexOf("name=\"lt\"") + 56);
 			Logger.i("lt", lt);
 			// 拿excution
 			String execution = "e1s1";
 			// post提交表单
-			HttpPost post = new HttpPost(loginUrl);
+			HttpPost post = new HttpPost(url);
 			// 设置一系列的值
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 			nvps.add(new BasicNameValuePair("username", name));
@@ -74,14 +72,13 @@ public class CookieShare {
 				result = true;
 				synCookies("http://10.1.1.175", bcsc.getCookies());
 				// 访问其他的api
-				get = new HttpGet(
-						"http://10.1.1.175:8088/ioc/restapi/emergencyEvent/getEventByReportName");
+				get = new HttpGet("http://10.1.1.175:8088");
 				response = client.execute(get);
 				bodyAsString = EntityUtils.toString(response.getEntity());
 				Logger.i("get list response", bodyAsString);
 			}
 		} catch (Exception e) {
-			Logger.i("error", e.getMessage());
+			Logger.i("login error", e.getMessage());
 		}
 		return result;
 	}
@@ -106,9 +103,8 @@ public class CookieShare {
 		// 移除老的cookie（但是这个调用会报错,故暂时注释掉）
 		// cookieManager.removeSessionCookie();
 		for (int i = 0; i < cookieList.size(); i++) {
-			cookie = cookieList.get(i).getName() + "="
-					+ cookieList.get(i).getValue() + ";domain="
-					+ cookieList.get(i).getDomain();
+			cookie = cookieList.get(i).getName() + "=" + cookieList.get(i).getValue()
+					+ ";domain=" + cookieList.get(i).getDomain();
 			cookieManager.setCookie(url, cookie);
 		}
 		CookieSyncManager.getInstance().sync();

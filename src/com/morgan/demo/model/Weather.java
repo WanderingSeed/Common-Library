@@ -2,7 +2,7 @@ package com.morgan.demo.model;
 
 
 /**
- * {@link com.morgan.library.service.WeatherManager}类中抓取的天气的model
+ * {@link com.morgan.demo.manager.WeatherManager}类中抓取的天气的model
  * 
  * @author Morgan.Ji
  * 

@@ -10,8 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.morgan.library.R;
-import com.morgan.library.utils.FileUtils;
 import com.morgan.library.utils.StrUtils;
+import com.morgan.library.utils.citydata.CityManager;
 import com.morgan.library.widget.numberpicker.NumberPicker;
 import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
@@ -46,9 +46,9 @@ public class CityPickerWidget extends Dialog {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.city_picker_dialog);
 
-		mProvinces = FileUtils.getAllProvinces();
-		mCitys = FileUtils.getAllCities();
-		mAreas = FileUtils.getAllAreas();
+		mProvinces = CityManager.getAllProvinces();
+		mCitys = CityManager.getAllCities();
+		mAreas = CityManager.getAllAreas();
 
 		mProvincePicker = (NumberPicker) findViewById(R.id.provincePicker);
 		mCityPicker = (NumberPicker) findViewById(R.id.cityPicker);

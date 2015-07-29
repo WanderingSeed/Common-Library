@@ -11,7 +11,7 @@ import com.morgan.library.R;
 import com.morgan.library.app.APPContext;
 
 /**
- * 提供定位功能，如果对位置要求不严格，可以先使用{@link #getLastLocation()}来获取最后一次位置.
+ * 提供定位功能（百度的定位包），如果对位置要求不严格，可以先使用{@link #getLastLocation()}来获取最后一次位置.
  * 
  * @author Morgan.Ji
  * 
@@ -34,6 +34,9 @@ public class LocationManager {
 		registerLocationListener();
 	}
 
+	/**
+	 * 设置获取的位置信息类型
+	 */
 	private void setLocationOption() {
 		LocationClientOption option = new LocationClientOption();
 		// 打开gps
@@ -55,28 +58,45 @@ public class LocationManager {
 		return instance;
 	}
 
+	/**
+	 * 使用百度定位端开始定位
+	 */
 	private void startLocClient() {
 		if (mLocClient != null && !mLocClient.isStarted()) {
 			mLocClient.start();
 		}
 	}
 
+	/**
+	 * 请求一次位置
+	 */
 	private void requestLocation() {
 		if (mLocClient != null && !mLocClient.isStarted()) {
 			mLocClient.requestLocation();
 		}
 	}
 
+	/**
+	 * 停止定位
+	 */
 	private void stopLocClient() {
 		if (mLocClient != null) {
 			mLocClient.stop();
 		}
 	}
 
+	/**
+	 * 获取最后一次的位置信息
+	 * 
+	 * @return
+	 */
 	public BDLocation getLastLocation() {
 		return mLastLocation;
 	}
 
+	/**
+	 * 注册位置监听器
+	 */
 	private void registerLocationListener() {
 		if (mBDLocationListener == null) {
 			mBDLocationListener = new MyLocationListenner();
@@ -84,11 +104,20 @@ public class LocationManager {
 		}
 	}
 
+	/**
+	 * 移除位置监听器
+	 */
 	public void destoryLocationListener() {
 		mLocClient.unRegisterLocationListener(mBDLocationListener);
 		mBDLocationListener = null;
 	}
 
+	/**
+	 * 开始定位，如果只想获取一次位置信息，则需要在回调接口内移除回调
+	 * 
+	 * @param callback
+	 *            获取到位置后的回调
+	 */
 	public void startLocate(LocationCallBack callback) {
 		if (!mCallback.contains(callback)) {
 			this.mCallback.add(callback);
@@ -96,6 +125,11 @@ public class LocationManager {
 		startLocClient();
 	}
 
+	/**
+	 * 移除定位后的回调接口
+	 * 
+	 * @param callback
+	 */
 	public void removeCallback(LocationCallBack callback) {
 		this.mCallback.remove(callback);
 		if (mCallback.size() == 0) {
@@ -125,6 +159,11 @@ public class LocationManager {
 		}
 	}
 
+	/**
+	 * 通知所有监听器当前的位置信息
+	 * 
+	 * @param location
+	 */
 	private void updateLocation(BDLocation location) {
 		if (location.getAltitude() < 0 || location.getAltitude() == NO_LOCATION) {
 			location.setAltitude(0);

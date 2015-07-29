@@ -27,20 +27,30 @@ import android.util.Log;
  */
 public class HttpClientUtils {
 	private static final String TAG = HttpClientUtils.class.getName();
+	/**
+	 * 请求失败时和下次请求间隔时间
+	 */
 	private static final int CONNECT_ERROR_SLEEP_TIME = 1000;
 	private static final int TIMEOUT_CONNECTION = 1000;
 	private static final int TIMEOUT_SOCKET = 1000;
 	private static final String HOST_URL = "";
 	private static final String UTF_8 = "UTF-8";
-	public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"服务器连接失败\"}";
+	public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"connect server fail\"}";
+	/**
+	 * 网络请求失败重试次数
+	 */
 	private final static int RETRY_TIME = 3;
 	private static String appUserAgent;
 
+	/**
+	 * 获取HttpClient对象
+	 * 
+	 * @return
+	 */
 	private static HttpClient getHttpClient() {
 		HttpClient httpClient = new HttpClient();
 		// 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
-		httpClient.getParams().setCookiePolicy(
-				CookiePolicy.BROWSER_COMPATIBILITY);
+		httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
 		// 设置 默认的超时重试处理策略
 		httpClient.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
 				new DefaultHttpMethodRetryHandler());
@@ -48,13 +58,19 @@ public class HttpClientUtils {
 		httpClient.getHttpConnectionManager().getParams()
 				.setConnectionTimeout(TIMEOUT_CONNECTION);
 		// 设置 读数据超时时间
-		httpClient.getHttpConnectionManager().getParams()
-				.setSoTimeout(TIMEOUT_SOCKET);
+		httpClient.getHttpConnectionManager().getParams().setSoTimeout(TIMEOUT_SOCKET);
 		// 设置 字符集
 		httpClient.getParams().setContentCharset(UTF_8);
 		return httpClient;
 	}
 
+	/**
+	 * 获取Get请求对象
+	 * 
+	 * @param url
+	 * @param userAgent
+	 * @return
+	 */
 	private static GetMethod getHttpGet(String url, String userAgent) {
 		GetMethod httpGet = new GetMethod(url);
 		httpGet.getParams().setSoTimeout(TIMEOUT_SOCKET);
@@ -64,6 +80,13 @@ public class HttpClientUtils {
 		return httpGet;
 	}
 
+	/**
+	 * 获取Post请求对象
+	 * 
+	 * @param url
+	 * @param userAgent
+	 * @return
+	 */
 	private static PostMethod getHttpPost(String url, String userAgent) {
 		PostMethod httpPost = new PostMethod(url);
 		httpPost.getParams().setSoTimeout(TIMEOUT_SOCKET);
@@ -73,9 +96,14 @@ public class HttpClientUtils {
 		return httpPost;
 	}
 
+	/**
+	 * 获取用户相关信息
+	 * 
+	 * @return
+	 */
 	private static String getUserAgent() {
 		if (appUserAgent == null || appUserAgent == "") {
-			StringBuilder ua = new StringBuilder("Morgan");
+			StringBuilder ua = new StringBuilder("");
 			ua.append('/' + AppUtils.getPackageInfo().versionName + '_'
 					+ AppUtils.getPackageInfo().versionCode);// App版本
 			ua.append("/Android");// 手机系统平台
@@ -98,7 +126,7 @@ public class HttpClientUtils {
 		HttpClient httpClient = null;
 		GetMethod httpGet = null;
 		String responseBody = "";
-		int time = 0;
+		int retryTime = 0;
 		do {
 			try {
 				httpClient = getHttpClient();
@@ -112,8 +140,8 @@ public class HttpClientUtils {
 					break;
 				}
 			} catch (Exception e) {
-				time++;
-				if (time < RETRY_TIME) {
+				retryTime++;
+				if (retryTime < RETRY_TIME) {
 					try {
 						Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
 					} catch (InterruptedException e1) {
@@ -128,11 +156,18 @@ public class HttpClientUtils {
 				}
 				httpClient = null;
 			}
-		} while (time < RETRY_TIME);
+		} while (retryTime < RETRY_TIME);
 		Logger.d(TAG, "get response: " + url + "/r/n" + responseBody);
 		return responseBody;
 	}
 
+	/**
+	 * post请求
+	 * 
+	 * @param url
+	 * @param params
+	 * @return
+	 */
 	public static String post(String url, Map<String, Object> params) {
 		return post(url, params, null);
 	}
@@ -159,8 +194,7 @@ public class HttpClientUtils {
 		int i = 0;
 		if (params != null) {
 			for (String name : params.keySet()) {
-				parts[i++] = new StringPart(name, String.valueOf(params
-						.get(name)), UTF_8);
+				parts[i++] = new StringPart(name, String.valueOf(params.get(name)), UTF_8);
 			}
 		}
 		if (files != null) {
@@ -173,31 +207,31 @@ public class HttpClientUtils {
 			}
 		}
 		String responseBody = "";
-		int time = 0;
+		int retryTime = 0;
 		do {
 			try {
 				httpClient = getHttpClient();
 				httpPost = getHttpPost(url, userAgent);
-				httpPost.setRequestEntity(new MultipartRequestEntity(parts,
-						httpPost.getParams()));
+				httpPost.setRequestEntity(new MultipartRequestEntity(parts, httpPost
+						.getParams()));
 				int statusCode = httpClient.executeMethod(httpPost);
 				if (statusCode != HttpStatus.SC_OK) {
 					responseBody = httpPost.getResponseBodyAsString();
 					break;
 				} else if (statusCode == HttpStatus.SC_MOVED_PERMANENTLY
 						|| statusCode == HttpStatus.SC_MOVED_TEMPORARILY) {
-					Log.e(TAG, httpPost.getResponseHeader("Location")
-							.getValue());
-					responseBody = post(httpPost.getResponseHeader("Location")
-							.getValue(), params, files);
+					Log.e(TAG, httpPost.getResponseHeader("Location").getValue());
+					responseBody = post(
+							httpPost.getResponseHeader("Location").getValue(), params,
+							files);
 					break;
 				} else {
 					responseBody = SERVER_CONNECT_ERROR;
 					break;
 				}
 			} catch (Exception e) {
-				time++;
-				if (time < RETRY_TIME) {
+				retryTime++;
+				if (retryTime < RETRY_TIME) {
 					try {
 						Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
 					} catch (InterruptedException e1) {
@@ -212,7 +246,7 @@ public class HttpClientUtils {
 				}
 				httpClient = null;
 			}
-		} while (time < RETRY_TIME);
+		} while (retryTime < RETRY_TIME);
 		Logger.d(TAG, "post response: " + url + "/r/n" + responseBody);
 		return responseBody;
 	}
@@ -231,13 +265,13 @@ public class HttpClientUtils {
 		HttpClient httpClient = null;
 		PostMethod httpPost = null;
 		String responseBody = "";
-		int time = 0;
+		int retryTime = 0;
 		do {
 			try {
 				httpClient = getHttpClient();
 				httpPost = getHttpPost(url, userAgent);
-				StringRequestEntity requestEntity = new StringRequestEntity(
-						json, "application/json", "UTF-8");
+				StringRequestEntity requestEntity = new StringRequestEntity(json,
+						"application/json", "UTF-8");
 				httpPost.setRequestEntity(requestEntity);
 				int statusCode = httpClient.executeMethod(httpPost);
 				if (statusCode != HttpStatus.SC_OK) {
@@ -248,8 +282,8 @@ public class HttpClientUtils {
 					break;
 				}
 			} catch (Exception e) {
-				time++;
-				if (time < RETRY_TIME) {
+				retryTime++;
+				if (retryTime < RETRY_TIME) {
 					try {
 						Thread.sleep(1000);
 					} catch (InterruptedException e1) {
@@ -264,7 +298,7 @@ public class HttpClientUtils {
 				}
 				httpClient = null;
 			}
-		} while (time < RETRY_TIME);
+		} while (retryTime < RETRY_TIME);
 		Logger.d(TAG, "post response: " + url + " /r/n " + responseBody);
 		return responseBody;
 	}

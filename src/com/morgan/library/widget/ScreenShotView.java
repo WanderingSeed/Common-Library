@@ -15,9 +15,9 @@ import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.Toast;
 
 import com.morgan.library.R;
-import com.morgan.library.utils.AppUtils;
 import com.morgan.library.utils.Logger;
 import com.morgan.library.utils.SDCardUtils;
 
@@ -116,7 +116,7 @@ public class ScreenShotView extends View implements OnTouchListener {
 					.openRawResource(R.drawable.double_click));
 		}
 
-		AppUtils.ToastMessage(mContext, "请滑动手指确定选区!");
+		Toast.makeText(mContext, "请滑动手指确定选区!", Toast.LENGTH_SHORT).show();
 	}
 
 	@SuppressLint("DrawAllocation")

@@ -1,4 +1,4 @@
-package com.morgan.library.snippet;
+package com.morgan.demo.codetest;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -25,6 +25,9 @@ public class ProxyUsage {
 		testCGLibProxy();
 	}
 
+	/**
+	 * 静态代理测试
+	 */
 	private static void testStaticProxy() {
 		Request req = new HttpRequest();
 		RequestProxy proxy = new RequestProxy();
@@ -32,18 +35,24 @@ public class ProxyUsage {
 		proxy.request();
 	}
 
+	/**
+	 * CGLib动态代理测试
+	 */
 	private static void testCGLibProxy() {
-		Request req = new HttpRequest();
-		JDKProxy proxy = new JDKProxy();
-		Request reqProxy = (Request) proxy.createProxy(req);
-		reqProxy.request();
-	}
-
-	private static void testJDKProxy() {
 		Student stu = new Student();
 		CGLibProxy proxy = new CGLibProxy();
 		Student stuProxy = (Student) proxy.createProxy(stu);
 		stuProxy.doSomeThing();
+	}
+
+	/**
+	 * JDK动态代理测试
+	 */
+	private static void testJDKProxy() {
+		Request req = new HttpRequest();
+		JDKProxy proxy = new JDKProxy();
+		Request reqProxy = (Request) proxy.createProxy(req);
+		reqProxy.request();
 	}
 
 }
@@ -102,8 +111,8 @@ class JDKProxy implements InvocationHandler {
 
 	public Object createProxy(Object target) {
 		this.target = target;
-		return Proxy.newProxyInstance(target.getClass().getClassLoader(),
-				target.getClass().getInterfaces(), this);
+		return Proxy.newProxyInstance(target.getClass().getClassLoader(), target
+				.getClass().getInterfaces(), this);
 	}
 
 	/**
@@ -116,8 +125,7 @@ class JDKProxy implements InvocationHandler {
 	 *            可以将InvocationHandler接口的子类想象成一个代理的最终操作类，替换掉ProxySubject
 	 */
 	@Override
-	public Object invoke(Object proxy, Method method, Object[] args)
-			throws Throwable {
+	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
 		Object retVal = null;
 		// 调用之前

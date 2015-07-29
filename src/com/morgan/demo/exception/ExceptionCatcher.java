@@ -1,4 +1,4 @@
-package com.morgan.library.snippet;
+package com.morgan.demo.exception;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,7 +28,7 @@ public class ExceptionCatcher implements UncaughtExceptionHandler {
 	/** Debug Log tag */
 	public static final String TAG = "CrashHandler";
 	/**
-	 * 是否开启日志输出,在Debug状态下开启, 在Release状态下关闭以提示程序性能
+	 * 是否开启日志输出,在Debug状态下开启, 在Release状态下关闭以提升程序性能
 	 * */
 	public static final boolean DEBUG = false;
 	/** 系统默认的UncaughtException处理类 */
@@ -112,7 +112,6 @@ public class ExceptionCatcher implements UncaughtExceptionHandler {
 						Toast.LENGTH_LONG);
 				toast.setGravity(Gravity.CENTER, 0, 0);
 				toast.show();
-				// MsgPrompt.showMsg(mContext, "程序出错啦", msg+"\n点确认退出");
 				Looper.loop();
 			}
 		}.start();
@@ -204,7 +203,7 @@ public class ExceptionCatcher implements UncaughtExceptionHandler {
 			trace.close();
 			return fileName;
 		} catch (Exception e) {
-			Log.e(TAG, "an error occured while writing report file...", e);
+			Log.e(TAG, "An error occured while writing report file...", e);
 		}
 		return null;
 	}

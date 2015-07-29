@@ -18,17 +18,26 @@ import android.graphics.BitmapFactory;
 import com.nostra13.universalimageloader.core.assist.FlushedInputStream;
 
 /**
- * This class implement IHttpSend interface, sample implement send request by
- * post or get method in both TCP and UDP Protocol.
+ * 使用URL方式请求和发送数据
  * 
- * @author Morgan.Ji
+ * @author JiGuoChao
+ * 
+ * @version 1.0
+ * 
+ * @date 2015-7-29
  */
 public class HttpURLUtil {
 
-	private static final String LOG = HttpURLUtil.class.getName();
+	private static final String TAG = HttpURLUtil.class.getName();
 	private static final String UTF_8 = "utf-8";
-	public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"服务器连接失败\"}";
+	public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"connect server fail\"}";
 
+	/**
+	 * 发起Get请求
+	 * 
+	 * @param requestUrl
+	 * @return
+	 */
 	public String sendGetRequest(String requestUrl) {
 		Logger.d("sendGetRequest url=", requestUrl);
 		HttpURLConnection urlConnection = null;
@@ -77,12 +86,18 @@ public class HttpURLUtil {
 				urlConnection.disconnect();
 			}
 		}
-		Logger.d(LOG, "get response: " + requestUrl + "/r/n" + responseBody);
+		Logger.d(TAG, "get response: " + requestUrl + "/r/n" + responseBody);
 		return responseBody;
 	}
 
+	/**
+	 * 获取网络图片
+	 * 
+	 * @param requestUrl
+	 * @return
+	 */
 	public Bitmap getNetBitmap(String requestUrl) {
-		Logger.d(LOG, "Bitmap get url : " + requestUrl);
+		Logger.d(TAG, "get bitmap url : " + requestUrl);
 		HttpURLConnection urlConnection = null;
 		FlushedInputStream in = null;
 		try {
@@ -97,7 +112,7 @@ public class HttpURLUtil {
 				return BitmapFactory.decodeStream(in);
 			}
 		} catch (Exception e) {
-			Logger.e(LOG, "get bitmap error!", e);
+			Logger.e(TAG, "get bitmap error!", e);
 		} finally {
 			if (in != null) {
 				try {
@@ -113,9 +128,15 @@ public class HttpURLUtil {
 		return null;
 	}
 
+	/**
+	 * 发送Post请求
+	 * 
+	 * @param requestUrl
+	 * @param content
+	 * @return
+	 */
 	public String sendPostRequest(String requestUrl, String content) {
-		Logger.d("sendPostRequest", "url=" + requestUrl + ", content="
-				+ content);
+		Logger.d("sendPostRequest", "url=" + requestUrl + ", content=" + content);
 		HttpURLConnection urlConnection = null;
 		BufferedInputStream bis = null;
 		BufferedOutputStream out = null;
@@ -134,8 +155,7 @@ public class HttpURLUtil {
 			urlConnection.setUseCaches(false);
 			urlConnection.setConnectTimeout(20000);
 			urlConnection.setReadTimeout(50000);
-			urlConnection
-					.setRequestProperty("Content-Type", "application/json");
+			urlConnection.setRequestProperty("Content-Type", "application/json");
 			out = new BufferedOutputStream(urlConnection.getOutputStream());
 			out.write(content.getBytes(), 0, content.getBytes().length);
 			out.flush();
@@ -175,7 +195,7 @@ public class HttpURLUtil {
 				urlConnection.disconnect();
 			}
 		}
-		Logger.d(LOG, "get response: " + requestUrl + "/r/n" + responseBody);
+		Logger.d(TAG, "get response: " + requestUrl + "/r/n" + responseBody);
 		return responseBody;
 	}
 
@@ -185,12 +205,11 @@ public class HttpURLUtil {
 	 * @param params
 	 *            text content
 	 * @param files
-	 *            pictures
+	 *            files
 	 * @return String result of Service response
 	 * @throws IOException
 	 */
-	public String postFile(String url, Map<String, String> params,
-			Map<String, File> files) {
+	public String postFile(String url, Map<String, String> params, Map<String, File> files) {
 		Logger.d("postFile", "url=" + url + " content" + params.toString());
 		String BOUNDARY = java.util.UUID.randomUUID().toString();
 		String PREFIX = "--", LINEND = "\r\n";
@@ -211,8 +230,8 @@ public class HttpURLUtil {
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("connection", "keep-alive");
 			conn.setRequestProperty("Charsert", UTF_8);
-			conn.setRequestProperty("Content-Type", MULTIPART_FROM_DATA
-					+ ";boundary=" + BOUNDARY);
+			conn.setRequestProperty("Content-Type", MULTIPART_FROM_DATA + ";boundary="
+					+ BOUNDARY);
 
 			// params data
 			StringBuilder headPara = new StringBuilder();
@@ -300,7 +319,7 @@ public class HttpURLUtil {
 				}
 			}
 		}
-		Logger.d(LOG, "get response: " + url + "/r/n" + responseBody);
+		Logger.d(TAG, "get response: " + url + "/r/n" + responseBody);
 		return responseBody;
 	}
 }

@@ -31,8 +31,14 @@ import org.apache.http.util.EntityUtils;
 public class HttpClientUtil {
 
 	private static final String TAG = HttpClientUtil.class.getName();
+	/**
+	 * 请求失败时和下次请求间隔时间
+	 */
 	private static final int CONNECT_ERROR_SLEEP_TIME = 1000;
-	public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"服务器连接失败\"}";
+	public final static String SERVER_CONNECT_ERROR = "{code:0,message:\"connect server fail\"}";
+	/**
+	 * 网络请求失败重试次数
+	 */
 	private final static int RETRY_TIME = 3;
 
 	/**
@@ -46,7 +52,7 @@ public class HttpClientUtil {
 		HttpClient httpClient = null;
 		HttpGet httpGet = null;
 		String responseBody = "";
-		int time = 0;
+		int retryTime = 0;
 		do {
 			try {
 				httpClient = new DefaultHttpClient();
@@ -61,8 +67,8 @@ public class HttpClientUtil {
 					break;
 				}
 			} catch (Exception e) {
-				time++;
-				if (time < RETRY_TIME) {
+				retryTime++;
+				if (retryTime < RETRY_TIME) {
 					try {
 						Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
 					} catch (InterruptedException e1) {
@@ -73,7 +79,7 @@ public class HttpClientUtil {
 			} finally {
 				httpClient = null;
 			}
-		} while (time < RETRY_TIME);
+		} while (retryTime < RETRY_TIME);
 		Logger.d(TAG, "get response: " + url + "/r/n" + responseBody);
 		return responseBody;
 	}
@@ -88,7 +94,7 @@ public class HttpClientUtil {
 		HttpClient httpClient = null;
 		HttpPost post = null;
 		String responseBody = "";
-		int time = 0;
+		int retryTime = 0;
 		do {
 			try {
 				httpClient = new DefaultHttpClient();
@@ -96,8 +102,8 @@ public class HttpClientUtil {
 				if (null != params) {
 					List<NameValuePair> nvps = new ArrayList<NameValuePair>();
 					for (String name : params.keySet()) {
-						nvps.add(new BasicNameValuePair(name, String
-								.valueOf(params.get(name))));
+						nvps.add(new BasicNameValuePair(name, String.valueOf(params
+								.get(name))));
 					}
 					post.setEntity(new UrlEncodedFormEntity(nvps, "utf-8"));
 				}
@@ -111,8 +117,8 @@ public class HttpClientUtil {
 					break;
 				}
 			} catch (Exception e) {
-				time++;
-				if (time < RETRY_TIME) {
+				retryTime++;
+				if (retryTime < RETRY_TIME) {
 					try {
 						Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
 					} catch (InterruptedException e1) {
@@ -123,13 +129,13 @@ public class HttpClientUtil {
 			} finally {
 				httpClient = null;
 			}
-		} while (time < RETRY_TIME);
+		} while (retryTime < RETRY_TIME);
 		Logger.d(TAG, "post response: " + url + "/r/n" + responseBody);
 		return responseBody;
 	}
 
 	/**
-	 * 公用post方法
+	 * 公用post方法，可上传文件
 	 * 
 	 * @param url
 	 * @param params
@@ -142,19 +148,18 @@ public class HttpClientUtil {
 		DefaultHttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(url);
 		String responseBody = "";
-		int time = 0;
+		int retryTime = 0;
 		do {
 			try {
-				MultipartEntityBuilder builder = MultipartEntityBuilder
-						.create();
+				MultipartEntityBuilder builder = MultipartEntityBuilder.create();
 				builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
 				builder.setCharset(Charset.forName(HTTP.UTF_8));
 				ContentType TEXT_PLAIN = ContentType.create("text/plain",
 						Charset.forName(HTTP.UTF_8));
 				if (null != params) {
 					for (String name : params.keySet()) {
-						builder.addTextBody(name,
-								String.valueOf(params.get(name)), TEXT_PLAIN);
+						builder.addTextBody(name, String.valueOf(params.get(name)),
+								TEXT_PLAIN);
 					}
 				}
 				if (null != files) {
@@ -175,8 +180,8 @@ public class HttpClientUtil {
 					break;
 				}
 			} catch (Exception e) {
-				time++;
-				if (time < RETRY_TIME) {
+				retryTime++;
+				if (retryTime < RETRY_TIME) {
 					try {
 						Thread.sleep(CONNECT_ERROR_SLEEP_TIME);
 					} catch (InterruptedException e1) {
@@ -187,7 +192,7 @@ public class HttpClientUtil {
 			} finally {
 				httpClient = null;
 			}
-		} while (time < RETRY_TIME);
+		} while (retryTime < RETRY_TIME);
 		Logger.d(TAG, "post response: " + url + " /r/n " + responseBody);
 		return responseBody;
 	}
