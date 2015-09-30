@@ -86,7 +86,6 @@ public class ImageUtils {
 	 * @return
 	 */
 	public static Bitmap drawableToBitmap(Drawable drawable) {
-
 		Bitmap bitmap = Bitmap
 				.createBitmap(
 						drawable.getIntrinsicWidth(),
@@ -202,11 +201,11 @@ public class ImageUtils {
 				bitmap.getHeight(), Config.ARGB_8888);
 		Canvas canvas = new Canvas(output);
 
-		final int color = 0xff424242;
-		final Paint paint = new Paint();
-		final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-		final RectF rectF = new RectF(rect);
-		final float roundPx = pixels;
+		int color = 0xff424242;
+		Paint paint = new Paint();
+		Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+		RectF rectF = new RectF(rect);
+		float roundPx = pixels;
 
 		paint.setAntiAlias(true);
 		canvas.drawARGB(0, 0, 0, 0);

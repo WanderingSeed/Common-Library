@@ -38,4 +38,13 @@ public class DateUtils {
 		}
 		return timeString;
 	}
+
+	/**
+	 * 获取当前系统时间（年-月-日 时:分:秒）
+	 * 
+	 * @return 当前系统时间字符串
+	 */
+	public static String getCurrentTime() {
+		return dateToString(new Date(), COMPLETE_DATE_FORMAT);
+	}
 }

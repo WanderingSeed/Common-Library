@@ -8,8 +8,16 @@ package com.morgan.library.utils;
  */
 public class LocationUtils {
 
-	public static double distance(double lat1, double lon1, double lat2,
-			double lon2) {
+	/**
+	 * 获取两个位置之间的距离
+	 * 
+	 * @param lat1
+	 * @param lon1
+	 * @param lat2
+	 * @param lon2
+	 * @return
+	 */
+	public static double distance(double lat1, double lon1, double lat2, double lon2) {
 		if (lat1 == lat2 && lon1 == lon2) {
 			return 0;
 		}
@@ -28,10 +36,22 @@ public class LocationUtils {
 		return dist / 1000;
 	}
 
+	/**
+	 * 角度转弧度
+	 * 
+	 * @param deg
+	 * @return
+	 */
 	private static double deg2rad(double deg) {
 		return (deg * Math.PI / 180.0);
 	}
 
+	/**
+	 * 弧度转角度
+	 * 
+	 * @param rad
+	 * @return
+	 */
 	private static double rad2deg(double rad) {
 		return (rad * 180.0 / Math.PI);
 	}

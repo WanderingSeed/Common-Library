@@ -18,8 +18,13 @@ import android.text.TextUtils;
  */
 public class PreferenceUtil {
 
+	/**
+	 * 单例
+	 */
 	private static PreferenceUtil mInstance;
-
+	/**
+	 * 实际工作是它做的
+	 */
 	private SharedPreferences mPreference;
 
 	/**

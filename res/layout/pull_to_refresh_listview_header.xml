@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:minHeight="50dp"
             android:minWidth="50dp"
-            android:contentDescription="@string/app_name"
+            android:contentDescription="@string/image_description"
             android:src="@drawable/icon_refresh_arrow" />
 
         <TextView

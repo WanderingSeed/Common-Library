@@ -13,10 +13,20 @@ import android.os.StatFs;
  */
 public class SDCardUtils {
 
+	/**
+	 * 获取SD卡路径
+	 * 
+	 * @return
+	 */
 	public static String getSDCardPath() {
 		return Environment.getExternalStorageDirectory().getAbsolutePath();
 	}
 
+	/**
+	 * 获取SD卡可用空间大小
+	 * 
+	 * @return
+	 */
 	public static long getSDCardAvailableBytes() {
 		if (isSDCardBusy())
 			return 0;
@@ -27,8 +37,12 @@ public class SDCardUtils {
 		return blockSize * (availableBlocks - 4);
 	}
 
+	/**
+	 * 当前SD是否可用
+	 * 
+	 * @return
+	 */
 	public static boolean isSDCardBusy() {
-		return !Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED);
+		return !Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED);
 	}
 }

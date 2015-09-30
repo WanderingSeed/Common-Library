@@ -44,38 +44,42 @@ public class CalendarWidget extends LinearLayout {
 	private int mIndexOfLastDay;
 
 	private ViewFlipper mViewFlipper;
-	private CalendarGridView gView1;// 上一个月
-	private CalendarGridView gView2;// 当前月
-	private CalendarGridView gView3;// 下一个月
+	private CalendarGridView mLastMonthView;// 上一个月
+	private CalendarGridView mCurrentMonthView;// 当前月
+	private CalendarGridView mNextMonthView;// 下一个月
 
 	// 动画
-	private Animation slideLeftIn;
-	private Animation slideLeftOut;
-	private Animation slideRightIn;
-	private Animation slideRightOut;
+	private Animation mSlideLeftIn;
+	private Animation mSlideLeftOut;
+	private Animation mSlideRightIn;
+	private Animation mSlideRightOut;
 
-	private int mSeletectDate = -1;
 	private Context mContext;
 	private ArrayList<Day> mDays = new ArrayList<Day>();
-	TextView mYearMonthTextView;
-	GestureDetector mGesture = null;
-	Date mCurrentSelectedDate = null;
+	private TextView mYearMonthTextView;
+	private GestureDetector mGesture = null;
+	private Date mCurrentSelectedDate = null;
 
-	private boolean inAnimation;
+	private boolean mInAnimation;
 	private CalendarWidgetListener mCalendarWidgetListener;
 
 	public interface CalendarWidgetListener {
 		void onSelectedDate(Date date);
 	}
 
+	/**
+	 * 设置日期选择监听器
+	 * 
+	 * @param l
+	 */
 	public void setCalendarWidgetListener(CalendarWidgetListener l) {
 		mCalendarWidgetListener = l;
 	}
 
-	AnimationListener animationListener = new AnimationListener() {
+	private AnimationListener mAnimationListener = new AnimationListener() {
 		@Override
 		public void onAnimationStart(Animation animation) {
-			inAnimation = true;
+			mInAnimation = true;
 		}
 
 		@Override
@@ -89,10 +93,10 @@ public class CalendarWidget extends LinearLayout {
 
 				@Override
 				public void run() {
-					CreateGirdView();
-					inAnimation = false;
+					updateGirdView();
+					mInAnimation = false;
 				}
-			}, 100);
+			}, 50);
 		}
 	};
 
@@ -102,28 +106,30 @@ public class CalendarWidget extends LinearLayout {
 		initView();
 	}
 
+	/**
+	 * 控件初始化
+	 */
 	private void initView() {
-		LayoutInflater.from(mContext).inflate(R.layout.calendar_widget_view,
-				this);
+		LayoutInflater.from(mContext).inflate(R.layout.widget_calendar_view, this);
 		// Get first day of week based on locale and populate the day headers
-		initDateTime();
+		initDate();
 
-		mViewFlipper = (ViewFlipper) findViewById(R.id.journal_calender_flipper);
+		mViewFlipper = (ViewFlipper) findViewById(R.id.calender_flipper);
 		mYearMonthTextView = (TextView) findViewById(R.id.year_month_text);
 
-		CreateGirdView();
+		updateGirdView();
 
-		slideLeftIn = AnimationUtils.loadAnimation(mContext,
+		mSlideLeftIn = AnimationUtils.loadAnimation(mContext,
 				R.anim.calendar_slide_left_in);
-		slideLeftOut = AnimationUtils.loadAnimation(mContext,
+		mSlideLeftOut = AnimationUtils.loadAnimation(mContext,
 				R.anim.calendar_slide_left_out);
-		slideRightIn = AnimationUtils.loadAnimation(mContext,
+		mSlideRightIn = AnimationUtils.loadAnimation(mContext,
 				R.anim.calendar_slide_right_in);
-		slideRightOut = AnimationUtils.loadAnimation(mContext,
+		mSlideRightOut = AnimationUtils.loadAnimation(mContext,
 				R.anim.calendar_slide_right_out);
 
-		slideLeftIn.setAnimationListener(animationListener);
-		slideRightIn.setAnimationListener(animationListener);
+		mSlideLeftIn.setAnimationListener(mAnimationListener);
+		mSlideRightIn.setAnimationListener(mAnimationListener);
 
 		mGesture = new GestureDetector(mContext, new GestureListener());
 		mViewFlipper.setOnTouchListener(new OnTouchListener() {
@@ -137,98 +143,102 @@ public class CalendarWidget extends LinearLayout {
 		updateYearMonthTitle();
 	}
 
-	private void CreateGirdView() {
+	/**
+	 * 更新日历控件，切换前一月后一月和页面初始化时调用
+	 */
+	private void updateGirdView() {
 		initList();
 		if (mViewFlipper.getChildCount() > 0) {
 			mViewFlipper.removeAllViews();
 		}
-		if (gView1 == null)
-			gView1 = new CalendarGridView(mContext);
-		Date firstDayOfMonth = getFirstDayOfMonth((mMonth == 1 ? mYear - 1
-				: mYear), (mMonth == 1 ? 12 : mMonth - 1));
-		int f = getWeekDay(firstDayOfMonth);
-		Date lastDayOfMonth = getLastDayOfMonth((mMonth == 1 ? mYear - 1
-				: mYear), (mMonth == 1 ? 12 : mMonth - 1));
-		int l = f + getDaysOfMonth(firstDayOfMonth, lastDayOfMonth);
+		if (mLastMonthView == null) {
+			mLastMonthView = new CalendarGridView(mContext);
+		}
+		Date firstDayOfMonth = getFirstDayOfMonth((mMonth == 1 ? mYear - 1 : mYear),
+				(mMonth == 1 ? 12 : mMonth - 1));
+		int indexOfFirstDay = getWeekDay(firstDayOfMonth);
+		Date lastDayOfMonth = getLastDayOfMonth((mMonth == 1 ? mYear - 1 : mYear),
+				(mMonth == 1 ? 12 : mMonth - 1));
+		int indexOfLastDay = indexOfFirstDay
+				+ getDaysBetweenDate(firstDayOfMonth, lastDayOfMonth);
 
-		gView1.setListDay(initList(firstDayOfMonth, f), f, l);
-		if (gView2 == null)
-			gView2 = new CalendarGridView(mContext);
-		if (mSeletectDate >= 0)
-			gView2.setSelectedPositon(mSeletectDate);
-		gView2.setListDay(mDays, mIndexOfFirstDay, mIndexOfLastDay);
+		mLastMonthView.setListDay(initList(firstDayOfMonth, indexOfFirstDay),
+				indexOfFirstDay, indexOfLastDay);
+		if (mCurrentMonthView == null) {
+			mCurrentMonthView = new CalendarGridView(mContext);
+		}
+		mCurrentMonthView.setListDay(mDays, mIndexOfFirstDay, mIndexOfLastDay);
 
-		if (gView3 == null)
-			gView3 = new CalendarGridView(mContext);
-		firstDayOfMonth = getFirstDayOfMonth(
-				(mMonth == 12 ? mYear + 1 : mYear), (mMonth == 12 ? 1
-						: mMonth + 1));
-		f = getWeekDay(firstDayOfMonth);
+		if (mNextMonthView == null)
+			mNextMonthView = new CalendarGridView(mContext);
+		firstDayOfMonth = getFirstDayOfMonth((mMonth == 12 ? mYear + 1 : mYear),
+				(mMonth == 12 ? 1 : mMonth + 1));
+		indexOfFirstDay = getWeekDay(firstDayOfMonth);
 		lastDayOfMonth = getLastDayOfMonth((mMonth == 12 ? mYear + 1 : mYear),
 				(mMonth == 12 ? 1 : mMonth + 1));
-		l = f + getDaysOfMonth(firstDayOfMonth, lastDayOfMonth);
+		indexOfLastDay = indexOfFirstDay
+				+ getDaysBetweenDate(firstDayOfMonth, lastDayOfMonth);
 
-		gView3.setListDay(initList(firstDayOfMonth, f), f, l);
-		mViewFlipper.addView(gView2);
-		mViewFlipper.addView(gView3);
-		mViewFlipper.addView(gView1);
+		mNextMonthView.setListDay(initList(firstDayOfMonth, indexOfFirstDay),
+				indexOfFirstDay, indexOfLastDay);
+		mViewFlipper.addView(mCurrentMonthView);
+		mViewFlipper.addView(mNextMonthView);
+		mViewFlipper.addView(mLastMonthView);
 
-		gView2.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				Day day = null;
+		mCurrentMonthView.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view, int position,
+					long id) {
 				if (position < mIndexOfFirstDay) {
-					pre();
-					int preMonthPosition = gView1
-							.selectedPositonToPos(position);
-					mSeletectDate = preMonthPosition;
-					day = gView1.getItem(preMonthPosition);
+					showPrePage();
+					int preMonthPosition = mLastMonthView.selectedPositonToPos(position);
+					mCurrentSelectedDate = mLastMonthView.getItem(preMonthPosition).date;
 				} else if (position > mIndexOfLastDay) {
 					int nextMonthPosition = -1;
-					if (gView2.getCount() - mIndexOfLastDay > 8) {
+					if (mCurrentMonthView.getCount() - (mIndexOfLastDay + 1) > 7) {
 						nextMonthPosition = position % 14;
 					} else {
 						nextMonthPosition = position % 7;
 					}
-					next();
-					mSeletectDate = nextMonthPosition;
-					day = gView3.getItem(nextMonthPosition);
+					showNextPage();
+					mCurrentSelectedDate = mNextMonthView.getItem(nextMonthPosition).date;
 				} else {
-					day = (Day) gView2.getItem(position);
-					gView2.setSelectedPositon(position);
-					mSeletectDate = position;
-					mCurrentSelectedDate = day.date;
-					gView2.notifyDataSetChanged();
+					mCurrentSelectedDate = mCurrentMonthView.getItem(position).date;
+					mCurrentMonthView.notifyDataSetChanged();
 				}
-				mCurrentSelectedDate = day.date;
-				if (mCalendarWidgetListener != null)
-					mCalendarWidgetListener
-							.onSelectedDate(mCurrentSelectedDate);
+				if (mCalendarWidgetListener != null) {
+					mCalendarWidgetListener.onSelectedDate(mCurrentSelectedDate);
+				}
 			}
 		});
 	}
 
-	public void pre() {
-		if (inAnimation)
+	/**
+	 * 显示前一页
+	 */
+	public void showPrePage() {
+		if (mInAnimation) {
 			return;
-		mSeletectDate = -1;
-		mViewFlipper.setInAnimation(slideRightIn);
-		mViewFlipper.setOutAnimation(slideRightOut);
+		}
+		mViewFlipper.setInAnimation(mSlideRightIn);
+		mViewFlipper.setOutAnimation(mSlideRightOut);
 		mViewFlipper.showPrevious();
 
-		calculateYear(false);
+		updateYearAndMonth(false);
 		updateYearMonthTitle();
 	}
 
-	public void next() {
-		if (inAnimation)
+	/**
+	 * 显示后一页
+	 */
+	public void showNextPage() {
+		if (mInAnimation) {
 			return;
-		mSeletectDate = -1;
-		mViewFlipper.setInAnimation(slideLeftIn);
-		mViewFlipper.setOutAnimation(slideLeftOut);
+		}
+		mViewFlipper.setInAnimation(mSlideLeftIn);
+		mViewFlipper.setOutAnimation(mSlideLeftOut);
 		mViewFlipper.showNext();
 
-		calculateYear(true);
+		updateYearAndMonth(true);
 		updateYearMonthTitle();
 	}
 
@@ -236,40 +246,43 @@ public class CalendarWidget extends LinearLayout {
 	 * 
 	 * 初始化日历打开时所显示的时间
 	 * 
-	 * @param bundle
 	 */
-	private void initDateTime() {
+	private void initDate() {
 		Calendar calendar = Calendar.getInstance();
 		mYear = calendar.get(Calendar.YEAR);
 		mMonth = calendar.get(Calendar.MONTH) + 1;
 	}
 
-	private ArrayList<Day> initList(Date firstDayOfMonth, int f) {
+	/**
+	 * 初始化某个月份的日期列表
+	 * 
+	 * @param firstDayOfMonth
+	 * @param indexOfFirstDay
+	 * @return
+	 */
+	private ArrayList<Day> initList(Date firstDayOfMonth, int indexOfFirstDay) {
 		ArrayList<Day> days = new ArrayList<Day>();
-
 		int listSize = 42;
 		// 如果本月第一天不是周日，在日志对象数组最前面填入上月日志对象
-		if (f > 0) {
-			for (int i = 0; i < f; i++) {
-				Day day = new Day(firstDayOfMonth.getTime() - (f - i)
+		if (indexOfFirstDay > 0) {
+			for (int i = 0; i < indexOfFirstDay; i++) {
+				Day day = new Day(firstDayOfMonth.getTime() - (indexOfFirstDay - i)
 						* 86400000);
 				days.add(day);
 			}
 		}
 		// 填上剩下的所有日期
 		long monthStart = firstDayOfMonth.getTime();
-		for (int i = f; i < listSize; i++) {
-
-			long mills = monthStart + (i - f) * (long) 86400000;
+		for (int i = indexOfFirstDay; i < listSize; i++) {
+			long mills = monthStart + (i - indexOfFirstDay) * (long) 86400000;
 			Day day = new Day(mills);
 			days.add(day);
 		}
-
 		return days;
 	}
 
 	/**
-	 * 初始化日历
+	 * 初始化当前选中月份的日期列表
 	 */
 	private void initList() {
 		mDays.clear();
@@ -277,14 +290,14 @@ public class CalendarWidget extends LinearLayout {
 		mIndexOfFirstDay = getWeekDay(firstDayOfMonth);
 		Date lastDayOfMonth = getLastDayOfMonth(mYear, mMonth);
 		mIndexOfLastDay = mIndexOfFirstDay
-				+ getDaysOfMonth(firstDayOfMonth, lastDayOfMonth);
+				+ getDaysBetweenDate(firstDayOfMonth, lastDayOfMonth);
 
 		int listSize = 42;
-		// 如果本月第一天不是周日，在日志对象数组最前面填入上月日志对象
+		// 如果本月第一天不是周一，在日志对象数组最前面填入上月日志对象
 		if (mIndexOfFirstDay > 0) {
 			for (int i = 0; i < mIndexOfFirstDay; i++) {
-				Day day = new Day(firstDayOfMonth.getTime()
-						- (mIndexOfFirstDay - i) * 86400000);
+				Day day = new Day(firstDayOfMonth.getTime() - (mIndexOfFirstDay - i)
+						* 86400000);
 				mDays.add(day);
 			}
 		}
@@ -298,13 +311,22 @@ public class CalendarWidget extends LinearLayout {
 		}
 	}
 
+	/**
+	 * 更新日历头部
+	 */
 	public void updateYearMonthTitle() {
-		String strYearMonth = mMonth + "月  " + mYear;
+		String strYearMonth = mMonth > 9 ? mYear + "-" + mMonth : mYear + "-0" + mMonth;
 		mYearMonthTextView.setText(strYearMonth);
 	}
 
-	private void calculateYear(boolean isNext) {
-		if (isNext) {
+	/**
+	 * 更新年月,加一月或者减一月
+	 * 
+	 * @param isNextMonth
+	 *            是不是下个月，false则是上个月
+	 */
+	private void updateYearAndMonth(boolean isNextMonth) {
+		if (isNextMonth) {
 			mMonth += 1;
 		} else {
 			mMonth -= 1;
@@ -319,40 +341,62 @@ public class CalendarWidget extends LinearLayout {
 		}
 	}
 
-	public void showDate(String date) {
+	/**
+	 * 选中指定日期
+	 * 
+	 * @param date
+	 */
+	public void selectDate(String date) {
 		if (!StrUtils.isEmpty(date)) {
 			StringTokenizer t = new StringTokenizer(date, "-");
 			int size = t.countTokens();
 			if (size >= 3) {
 				mYear = Integer.valueOf(t.nextToken());
-				mMonth = Integer.valueOf(t.nextToken()) - 1;
+				mMonth = Integer.valueOf(t.nextToken());
 				int day = Integer.valueOf(t.nextToken());
 				Calendar calendar = Calendar.getInstance();
-				calendar.set(mYear, mMonth, day);
-				showDate(calendar.getTime());
+				calendar.set(mYear, mMonth - 1, day);
+				selectDate(calendar.getTime());
 			}
 		}
 	}
 
-	public void showDate(Date date) {
-		mSeletectDate = -1;
-
+	/**
+	 * 选中指定日期
+	 * 
+	 * @param date
+	 */
+	public void selectDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
 		mYear = calendar.get(Calendar.YEAR);
 		mMonth = calendar.get(Calendar.MONTH) + 1;
 		mCurrentSelectedDate = date;
 
-		CreateGirdView();
+		updateGirdView();
 		updateYearMonthTitle();
 	}
 
+	/**
+	 * 获取一个月的第一天
+	 * 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
 	private Date getFirstDayOfMonth(int year, int month) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month - 1, 1);
 		return calendar.getTime();
 	}
 
+	/**
+	 * 获取一个月的最后一天
+	 * 
+	 * @param year
+	 * @param month
+	 * @return
+	 */
 	private Date getLastDayOfMonth(int year, int month) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(year, month, 1);
@@ -360,6 +404,12 @@ public class CalendarWidget extends LinearLayout {
 		return calendar.getTime();
 	}
 
+	/**
+	 * 获取一个日期是周几
+	 * 
+	 * @param date
+	 * @return
+	 */
 	private int getWeekDay(Date date) {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
@@ -378,10 +428,26 @@ public class CalendarWidget extends LinearLayout {
 		return dayOfWeekChinese;
 	}
 
-	private int getDaysOfMonth(Date firstDay, Date lastDay) {
+	/**
+	 * 获取两个日期之间的的天数
+	 * 
+	 * @param firstDay
+	 * @param lastDay
+	 * @return
+	 */
+	private int getDaysBetweenDate(Date firstDay, Date lastDay) {
 		return (int) ((lastDay.getTime() - firstDay.getTime()) / 86400000);
 	}
 
+	/**
+	 * 日期类，提供是否为当前选中日期或是否为当前日期的判断
+	 * 
+	 * @author JiGuoChao
+	 * 
+	 * @version 1.0
+	 * 
+	 * @date 2015-7-31
+	 */
 	public class Day {
 		private Date date;
 
@@ -395,47 +461,64 @@ public class CalendarWidget extends LinearLayout {
 			this.date = c.getTime();
 		}
 
-		public int getDay() {
+		/**
+		 * 获取一天在当月是第几天
+		 * 
+		 * @return
+		 */
+		public int getDayOfMonth() {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(this.date);
 			return calendar.get(Calendar.DAY_OF_MONTH);
 		}
 
+		/**
+		 * 当前对象是否为当前日期
+		 * 
+		 * @return
+		 */
 		public boolean isToday() {
 			Calendar calander1 = Calendar.getInstance();
 			Calendar calander2 = Calendar.getInstance();
 			calander1.setTime(this.date);
 			Date date2 = new Date();
 			calander2.setTime(date2);
-			Boolean ret = calander1.get(Calendar.YEAR) == calander2
-					.get(Calendar.YEAR)
-					&& calander1.get(Calendar.MONTH) == calander2
-							.get(Calendar.MONTH)
-					&& calander1.get(Calendar.DATE) == calander2
-							.get(Calendar.DATE);
+			Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR)
+					&& calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH)
+					&& calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
 			return ret;
 		}
 
+		/**
+		 * 当前对象值是否为选中日期
+		 * 
+		 * @return
+		 */
 		public boolean isSelectedDay() {
 			if (mCurrentSelectedDate == null) {
 				return false;
 			}
-
 			Calendar calander1 = Calendar.getInstance();
 			Calendar calander2 = Calendar.getInstance();
 			calander1.setTime(this.date);
 			calander2.setTime(mCurrentSelectedDate);
-			Boolean ret = calander1.get(Calendar.YEAR) == calander2
-					.get(Calendar.YEAR)
-					&& calander1.get(Calendar.MONTH) == calander2
-							.get(Calendar.MONTH)
-					&& calander1.get(Calendar.DATE) == calander2
-							.get(Calendar.DATE);
+			Boolean ret = calander1.get(Calendar.YEAR) == calander2.get(Calendar.YEAR)
+					&& calander1.get(Calendar.MONTH) == calander2.get(Calendar.MONTH)
+					&& calander1.get(Calendar.DATE) == calander2.get(Calendar.DATE);
 			return ret;
 
 		}
 	}
 
+	/**
+	 * 手续监听器，用于支持每月之间的滑动，和点击哪个日期的监听
+	 * 
+	 * @author JiGuoChao
+	 * 
+	 * @version 1.0
+	 * 
+	 * @date 2015-7-31
+	 */
 	class GestureListener extends SimpleOnGestureListener {
 
 		@Override
@@ -447,11 +530,11 @@ public class CalendarWidget extends LinearLayout {
 				// right to left swipe
 				if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE
 						&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-					next();
+					showNextPage();
 					return true;
 				} else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE
 						&& Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-					pre();
+					showPrePage();
 					return true;
 				}
 			} catch (Exception e) {
@@ -462,7 +545,7 @@ public class CalendarWidget extends LinearLayout {
 
 		@Override
 		public boolean onSingleTapUp(MotionEvent e) {
-			gView2.pointToPosition((int) e.getX(), (int) e.getY());
+			mCurrentMonthView.pointToPosition((int) e.getX(), (int) e.getY());
 			return false;
 		}
 

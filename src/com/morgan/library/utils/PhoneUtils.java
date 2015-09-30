@@ -37,10 +37,8 @@ public class PhoneUtils {
 			Object telephonyObject = getTelephonyObject(context);
 			if (null != telephonyObject) {
 				Class telephonyClass = telephonyObject.getClass();
-
 				Method endCallMethod = telephonyClass.getMethod("endCall");
 				endCallMethod.setAccessible(true);
-
 				endCallMethod.invoke(telephonyObject);
 			}
 		} catch (SecurityException e) {
@@ -54,9 +52,14 @@ public class PhoneUtils {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-
 	}
 
+	/**
+	 * 获取ITelephony实现对象
+	 * 
+	 * @param context
+	 * @return
+	 */
 	private static Object getTelephonyObject(Context context) {
 		Object telephonyObject = null;
 		try {
@@ -66,8 +69,7 @@ public class PhoneUtils {
 			// Will be used to invoke hidden methods with reflection
 			// Get the current object implementing ITelephony interface
 			Class telManager = telephonyManager.getClass();
-			Method getITelephony = telManager
-					.getDeclaredMethod("getITelephony");
+			Method getITelephony = telManager.getDeclaredMethod("getITelephony");
 			getITelephony.setAccessible(true);
 			telephonyObject = getITelephony.invoke(telephonyManager);
 		} catch (SecurityException e) {
@@ -94,13 +96,9 @@ public class PhoneUtils {
 			Object telephonyObject = getTelephonyObject(context);
 			if (null != telephonyObject) {
 				Class telephonyClass = telephonyObject.getClass();
-				Method endCallMethod = telephonyClass
-						.getMethod("answerRingingCall");
+				Method endCallMethod = telephonyClass.getMethod("answerRingingCall");
 				endCallMethod.setAccessible(true);
-
 				endCallMethod.invoke(telephonyObject);
-				// ITelephony iTelephony = (ITelephony) telephonyObject;
-				// iTelephony.answerRingingCall();
 			}
 		} catch (SecurityException e) {
 			e.printStackTrace();
@@ -139,8 +137,7 @@ public class PhoneUtils {
 			meidaButtonIntent.putExtra(Intent.EXTRA_KEY_EVENT, keyEvent);
 			context.sendOrderedBroadcast(meidaButtonIntent, null);
 
-			Intent headsetUnpluggedIntent = new Intent(
-					Intent.ACTION_HEADSET_PLUG);
+			Intent headsetUnpluggedIntent = new Intent(Intent.ACTION_HEADSET_PLUG);
 			headsetUnpluggedIntent.putExtra("state", 0);
 			headsetUnpluggedIntent.putExtra("microphone", 0);
 			headsetUnpluggedIntent.putExtra("name", "");
@@ -177,8 +174,8 @@ public class PhoneUtils {
 	public static void callPhone(Context context, String phoneNumber) {
 		if (!TextUtils.isEmpty(phoneNumber)) {
 			try {
-				Intent callIntent = new Intent(Intent.ACTION_CALL,
-						Uri.parse("tel:" + phoneNumber));
+				Intent callIntent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"
+						+ phoneNumber));
 				context.startActivity(callIntent);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -195,8 +192,8 @@ public class PhoneUtils {
 	public static void dialPhone(Context context, String phoneNumber) {
 		if (!TextUtils.isEmpty(phoneNumber)) {
 			try {
-				Intent callIntent = new Intent(Intent.ACTION_DIAL,
-						Uri.parse("tel:" + phoneNumber));
+				Intent callIntent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"
+						+ phoneNumber));
 				context.startActivity(callIntent);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -204,8 +201,7 @@ public class PhoneUtils {
 		}
 	}
 
-	public static void editMessage(Context context, String phoneNumber,
-			String msg) {
+	public static void editMessage(Context context, String phoneNumber, String msg) {
 		Uri smsToUri = Uri.parse("smsto:" + phoneNumber);
 		Intent msgIntent = new Intent(Intent.ACTION_SENDTO, smsToUri);
 		msgIntent.putExtra("sms_body", msg);
@@ -219,11 +215,10 @@ public class PhoneUtils {
 		context.startActivity(msgIntent);
 	}
 
-	public static void sendMessage(Context context, String phoneNumber,
-			String msg) {
+	public static void sendMessage(Context context, String phoneNumber, String msg) {
 		SmsManager smsManager = SmsManager.getDefault();
-		PendingIntent sentIntent = PendingIntent.getBroadcast(context, 0,
-				new Intent(), 0);
+		PendingIntent sentIntent = PendingIntent
+				.getBroadcast(context, 0, new Intent(), 0);
 		smsManager.sendTextMessage(phoneNumber, null, msg, sentIntent, null);
 		context.registerReceiver(new BroadcastReceiver() {
 			@Override

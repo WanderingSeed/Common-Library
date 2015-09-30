@@ -19,6 +19,13 @@ public class StrUtils {
 	private final static Pattern EMAIL_PATTERN = Pattern
 			.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
 
+	/**
+	 * 编码GET请求
+	 * 
+	 * @param requestUrl
+	 * @param params
+	 * @return
+	 */
 	public static String encodeUrl(String requestUrl, Map<String, Object> params) {
 		StringBuilder url = new StringBuilder(requestUrl);
 		if (url.indexOf("?") < 0)
@@ -29,8 +36,7 @@ public class StrUtils {
 			url.append(name);
 			url.append('=');
 			try {
-				url.append(URLEncoder.encode(String.valueOf(params.get(name)),
-						"utf-8"));
+				url.append(URLEncoder.encode(String.valueOf(params.get(name)), "utf-8"));
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -53,8 +59,7 @@ public class StrUtils {
 			startPoint = result.indexOf('{');
 			endPoint = result.indexOf('}');
 			if (startPoint >= 0 && endPoint > startPoint) {
-				result = result.substring(0, startPoint)
-						+ parameter[i].toString()
+				result = result.substring(0, startPoint) + parameter[i].toString()
 						+ result.substring(endPoint + 1);
 			}
 		}
@@ -80,6 +85,12 @@ public class StrUtils {
 		return true;
 	}
 
+	/**
+	 * 判断一个字符是否为中文
+	 * 
+	 * @param c
+	 * @return
+	 */
 	private static boolean isChinese(char c) {
 		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
 		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
@@ -94,7 +105,12 @@ public class StrUtils {
 		return false;
 	}
 
-	// 完整的判断中文汉字和符号
+	/**
+	 * 判断中字符串内是否包含文汉字和符号
+	 * 
+	 * @param strName
+	 * @return
+	 */
 	public static boolean isChinese(String strName) {
 		char[] ch = strName.toCharArray();
 		for (int i = 0; i < ch.length; i++) {
@@ -106,12 +122,23 @@ public class StrUtils {
 		return false;
 	}
 
+	/**
+	 * 生成一个UUID
+	 * 
+	 * @return
+	 */
 	public static String generateId() {
 		UUID uuid = UUID.randomUUID();
 		String uniqueId = uuid.toString();
 		return uniqueId;
 	}
 
+	/**
+	 * MD5加密字符串
+	 * 
+	 * @param info
+	 * @return
+	 */
 	public static String encryptToMD5(String info) {
 		byte[] digesta = null;
 		try {
@@ -129,6 +156,12 @@ public class StrUtils {
 		return rs;
 	}
 
+	/**
+	 * byte转16进制字符串
+	 * 
+	 * @param b
+	 * @return
+	 */
 	public static String byte2hex(byte[] b) {
 		String hs = "";
 		String stmp = "";

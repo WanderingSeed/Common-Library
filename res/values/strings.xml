@@ -1,19 +1,27 @@
 <resources>
 
-    <string name="app_name">library</string>
-    <string name="image_description">image</string>
+    <!-- 公用 -->
+    <string name="more">更多</string>
+    <string name="finish">完成</string>
+    <string name="select">选择</string>
+    <string name="character_colon">:</string>
+    <string name="image_description">图片</string>
+
+    <!-- 下拉刷新组件 -->
     <string name="loading_now">正在加载&#8230;</string>
     <string name="refreshing_now">正在刷新&#8230;</string>
     <string name="all_data_loaded">已加载全部</string>
     <string name="refresh_after_release">松开后刷新</string>
     <string name="pull_to_refresh">下拉进行刷新</string>
-    <string name="more">更多</string>
     <string name="finish_refresh">完成刷新！</string>
-
-    <string name="finish">完成</string>
-    <string name="select">选择</string>
-    <string name="character_colon">:</string>
-
     <string name="cancel_delete">撤销</string>
+    <!-- 日历控件 -->
+    <string name="week_one">一</string>
+    <string name="week_two">二</string>
+    <string name="week_three">三</string>
+    <string name="week_four">四</string>
+    <string name="week_five">五</string>
+    <string name="week_six">六</string>
+    <string name="week_seven">日</string>
 
 </resources>

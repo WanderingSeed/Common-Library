@@ -14,6 +14,11 @@ import com.morgan.library.app.APPContext;
  */
 public class KeyBoardUtils {
 
+	/**
+	 * 弹出软键盘
+	 * 
+	 * @param editText
+	 */
 	public static void showKeyBoard(final EditText editText) {
 		if (editText == null) {
 			return;
@@ -21,16 +26,19 @@ public class KeyBoardUtils {
 		editText.requestFocus();
 		editText.post(new Runnable() {
 			public void run() {
-				InputMethodManager imm = (InputMethodManager) APPContext
-						.getContext().getSystemService(
-								Context.INPUT_METHOD_SERVICE);
-				imm.showSoftInput(editText,
-						InputMethodManager.RESULT_UNCHANGED_SHOWN);
+				InputMethodManager imm = (InputMethodManager) APPContext.getContext()
+						.getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.showSoftInput(editText, InputMethodManager.RESULT_UNCHANGED_SHOWN);
 			}
 
 		});
 	}
 
+	/**
+	 * 隐藏软键盘
+	 * 
+	 * @param editText
+	 */
 	public static void hideSoftInput(EditText editText) {
 		if (editText == null) {
 			return;

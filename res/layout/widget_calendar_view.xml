@@ -31,7 +31,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="一"
+            android:text="@string/week_one"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -45,7 +45,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="二"
+            android:text="@string/week_two"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -59,7 +59,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="三"
+            android:text="@string/week_three"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -73,7 +73,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="四"
+            android:text="@string/week_four"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -87,7 +87,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="五"
+            android:text="@string/week_five"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -101,7 +101,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="六"
+            android:text="@string/week_six"
             android:textColor="@color/black"
             android:textSize="16sp" />
 
@@ -115,7 +115,7 @@
             android:layout_height="32dp"
             android:layout_weight="1.0"
             android:gravity="center"
-            android:text="日"
+            android:text="@string/week_seven"
             android:textColor="@color/black"
             android:textSize="16sp" />
     </LinearLayout>
@@ -125,8 +125,8 @@
         android:layout_height="0.7dp"
         android:background="@color/canlendar_divider_color" />
 
-    <com.morgan.library.widget.CalendarViewFlipper
-        android:id="@+id/journal_calender_flipper"
+    <com.morgan.library.widget.calendar.CalendarViewFlipper
+        android:id="@+id/calender_flipper"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
     <View
