@@ -1,32 +1,37 @@
-package com.morgan.library.widget;
+package com.morgan.library.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.morgan.library.R;
-import com.morgan.library.widget.numberpicker.NumberPicker;
-import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
+import com.morgan.library.utils.StrUtils;
 
 /**
- * 一个性别选取器。
+ * 一个身高选取器。
  * 
  * @author Morgan.Ji
  * 
  */
-public class SexPickerWidget extends Dialog {
+public class HeightPickerWidget extends Dialog {
 
-	private NumberPicker mSexPicker;
+	private NumberPicker mPicker;
 	private TextView mTitleTextView, mFinishBtn;
+	private static final int FIRST_HEIGHT = 140;
+	private static final int START_HEIGHT = 160;
+	private static final int LAST_HEIGHT = 200;
+	public static final String UNIT = "cm";
 	private android.view.View.OnClickListener mOnFinishClickListener;
 	private boolean mShowValueOnTitle = true;
-	private String mValue;
 	private String mTitle;
-	private final String[] sex = new String[] { "男", "女" };
+	private int mCurrentValue;
 
-	public SexPickerWidget(Context context) {
+	public HeightPickerWidget(Context context) {
 		super(context, R.style.picker_dialog);
 	}
 
@@ -34,36 +39,41 @@ public class SexPickerWidget extends Dialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.number_picker_dialog);
-		mSexPicker = (NumberPicker) findViewById(R.id.numberPicker);
-		mSexPicker.setMinValue(0);
-		mSexPicker.setMaxValue(1);
-		mSexPicker.setDisplayedValues(sex);
-		mSexPicker.setFocusable(true);
-		mSexPicker.setFocusableInTouchMode(true);
-		mSexPicker.setOnValueChangedListener(mOnValueChangeListener);
-		mSexPicker.setWrapSelectorWheel(false);
-		mSexPicker.setInputAble(false);
+		mPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		mPicker.setMinValue(FIRST_HEIGHT);
+		mPicker.setMaxValue(LAST_HEIGHT);
+		mPicker.setValue(START_HEIGHT);
+		mPicker.setFocusable(true);
+		mPicker.setFocusableInTouchMode(true);
 		mTitleTextView = (TextView) findViewById(R.id.title);
 		mFinishBtn = (TextView) findViewById(R.id.finish);
 		mFinishBtn.setOnClickListener(mFinishClickListener);
-		if (null != mTitle) {
+		mPicker.setOnValueChangedListener(mOnValueChangeListener);
+		mPicker.setWrapSelectorWheel(false);
+		if (!StrUtils.isEmpty(mTitle)) {
 			mTitleTextView.setText(mTitle);
 		}
-		if (null == mValue) {
-			mValue = sex[0];
-		} else if (sex[1].equals(mValue)) {
-			mSexPicker.setValue(1);
+		if (mCurrentValue != 0) {
+			mPicker.setValue(mCurrentValue);
 		}
 		if (mShowValueOnTitle) {
-			mTitleTextView.setText(mValue);
+			mTitleTextView.setText(mPicker.getValue() + UNIT);
 		}
+		this.setOnDismissListener(mOnDissmissListener);
 	}
+
+	private OnDismissListener mOnDissmissListener = new OnDismissListener() {
+
+		@Override
+		public void onDismiss(DialogInterface dialog) {
+		}
+	};
 
 	private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			SexPickerWidget.this.dismiss();
+			HeightPickerWidget.this.dismiss();
 			mOnFinishClickListener.onClick(v);
 		}
 	};
@@ -73,27 +83,23 @@ public class SexPickerWidget extends Dialog {
 		@Override
 		public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 			if (mShowValueOnTitle) {
-				mTitleTextView.setText(sex[newVal]);
+				mTitleTextView.setText(newVal + UNIT);
 			}
 		}
 	};
 
-	public void setInitValue(String value) {
-		if (mSexPicker == null) {
-			mValue = value;
+	public void setInitValue(int value) {
+		if (null == mPicker) {
+			mCurrentValue = value;
 		}
 	}
 
 	public String getCurrentValue() {
-		return sex[mSexPicker.getValue()];
+		return mPicker.getValue() + UNIT;
 	}
 
 	public void setTitle(String title) {
-		if (null == mTitleTextView) {
-			mTitle = title;
-		} else {
-			mTitleTextView.setText(title);
-		}
+		mTitle = title;
 	}
 
 	public void setOnFinishClickListener(

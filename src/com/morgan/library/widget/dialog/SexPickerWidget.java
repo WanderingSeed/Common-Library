@@ -1,37 +1,32 @@
-package com.morgan.library.widget;
+package com.morgan.library.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.morgan.library.R;
-import com.morgan.library.utils.StrUtils;
-import com.morgan.library.widget.numberpicker.NumberPicker;
-import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
 /**
- * 一个设置身高的选取器。
+ * 一个性别选取器。
  * 
  * @author Morgan.Ji
  * 
  */
-public class WeightPickerWidget extends Dialog {
+public class SexPickerWidget extends Dialog {
 
-	private NumberPicker mPicker;
+	private NumberPicker mSexPicker;
 	private TextView mTitleTextView, mFinishBtn;
-	private static final int FIRST_HEIGHT = 40;
-	private static final int START_HEIGHT = 60;
-	private static final int LAST_HEIGHT = 100;
-	public static final String UNIT = "kg";
 	private android.view.View.OnClickListener mOnFinishClickListener;
 	private boolean mShowValueOnTitle = true;
+	private String mValue;
 	private String mTitle;
-	private int mCurrentValue;
+	private final String[] sex = new String[] { "男", "女" };
 
-	public WeightPickerWidget(Context context) {
+	public SexPickerWidget(Context context) {
 		super(context, R.style.picker_dialog);
 	}
 
@@ -39,44 +34,35 @@ public class WeightPickerWidget extends Dialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.number_picker_dialog);
-		mPicker = (NumberPicker) findViewById(R.id.numberPicker);
-		mPicker.setMinValue(FIRST_HEIGHT);
-		mPicker.setMaxValue(LAST_HEIGHT);
-		mPicker.setValue(START_HEIGHT);
-		mPicker.setFocusable(true);
-		mPicker.setFocusableInTouchMode(true);
+		mSexPicker = (NumberPicker) findViewById(R.id.numberPicker);
+		mSexPicker.setMinValue(0);
+		mSexPicker.setMaxValue(1);
+		mSexPicker.setDisplayedValues(sex);
+		mSexPicker.setFocusable(true);
+		mSexPicker.setFocusableInTouchMode(true);
+		mSexPicker.setOnValueChangedListener(mOnValueChangeListener);
+		mSexPicker.setWrapSelectorWheel(false);
 		mTitleTextView = (TextView) findViewById(R.id.title);
 		mFinishBtn = (TextView) findViewById(R.id.finish);
 		mFinishBtn.setOnClickListener(mFinishClickListener);
-		mPicker.setOnValueChangedListener(mOnValueChangeListener);
-		mPicker.setUnit(UNIT);
-		mPicker.setWrapSelectorWheel(false);
-		if (!StrUtils.isEmpty(mTitle)) {
+		if (null != mTitle) {
 			mTitleTextView.setText(mTitle);
 		}
-		if (mCurrentValue != 0) {
-			mPicker.setValue(mCurrentValue);
+		if (null == mValue) {
+			mValue = sex[0];
+		} else if (sex[1].equals(mValue)) {
+			mSexPicker.setValue(1);
 		}
 		if (mShowValueOnTitle) {
-			mTitleTextView.setText(mPicker.getValue() + UNIT);
+			mTitleTextView.setText(mValue);
 		}
-		this.setOnDismissListener(mOnDissmissListener);
 	}
-
-	private OnDismissListener mOnDissmissListener = new OnDismissListener() {
-
-		@Override
-		public void onDismiss(DialogInterface dialog) {
-			mPicker.clearInputTextFocus();
-		}
-	};
 
 	private android.view.View.OnClickListener mFinishClickListener = new android.view.View.OnClickListener() {
 
 		@Override
 		public void onClick(View v) {
-			mPicker.clearInputTextFocus();
-			WeightPickerWidget.this.dismiss();
+			SexPickerWidget.this.dismiss();
 			mOnFinishClickListener.onClick(v);
 		}
 	};
@@ -86,23 +72,27 @@ public class WeightPickerWidget extends Dialog {
 		@Override
 		public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
 			if (mShowValueOnTitle) {
-				mTitleTextView.setText(newVal + UNIT);
+				mTitleTextView.setText(sex[newVal]);
 			}
 		}
 	};
 
-	public void setInitValue(int value) {
-		if (null == mPicker) {
-			mCurrentValue = value;
+	public void setInitValue(String value) {
+		if (mSexPicker == null) {
+			mValue = value;
 		}
 	}
 
 	public String getCurrentValue() {
-		return mPicker.getValue() + UNIT;
+		return sex[mSexPicker.getValue()];
 	}
 
 	public void setTitle(String title) {
-		mTitle = title;
+		if (null == mTitleTextView) {
+			mTitle = title;
+		} else {
+			mTitleTextView.setText(title);
+		}
 	}
 
 	public void setOnFinishClickListener(

@@ -1,37 +1,37 @@
-package com.morgan.library.widget;
+package com.morgan.library.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.morgan.library.R;
 import com.morgan.library.utils.StrUtils;
-import com.morgan.library.widget.numberpicker.NumberPicker;
-import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
 /**
- * 一个身高选取器。
+ * 一个设置身高的选取器。
  * 
  * @author Morgan.Ji
  * 
  */
-public class HeightPickerWidget extends Dialog {
+public class WeightPickerWidget extends Dialog {
 
 	private NumberPicker mPicker;
 	private TextView mTitleTextView, mFinishBtn;
-	private static final int FIRST_HEIGHT = 140;
-	private static final int START_HEIGHT = 160;
-	private static final int LAST_HEIGHT = 200;
-	public static final String UNIT = "cm";
+	private static final int FIRST_HEIGHT = 40;
+	private static final int START_HEIGHT = 60;
+	private static final int LAST_HEIGHT = 100;
+	public static final String UNIT = "kg";
 	private android.view.View.OnClickListener mOnFinishClickListener;
 	private boolean mShowValueOnTitle = true;
 	private String mTitle;
 	private int mCurrentValue;
 
-	public HeightPickerWidget(Context context) {
+	public WeightPickerWidget(Context context) {
 		super(context, R.style.picker_dialog);
 	}
 
@@ -49,7 +49,6 @@ public class HeightPickerWidget extends Dialog {
 		mFinishBtn = (TextView) findViewById(R.id.finish);
 		mFinishBtn.setOnClickListener(mFinishClickListener);
 		mPicker.setOnValueChangedListener(mOnValueChangeListener);
-		mPicker.setUnit(UNIT);
 		mPicker.setWrapSelectorWheel(false);
 		if (!StrUtils.isEmpty(mTitle)) {
 			mTitleTextView.setText(mTitle);
@@ -67,7 +66,6 @@ public class HeightPickerWidget extends Dialog {
 
 		@Override
 		public void onDismiss(DialogInterface dialog) {
-			mPicker.clearInputTextFocus();
 		}
 	};
 
@@ -75,8 +73,7 @@ public class HeightPickerWidget extends Dialog {
 
 		@Override
 		public void onClick(View v) {
-			mPicker.clearInputTextFocus();
-			HeightPickerWidget.this.dismiss();
+			WeightPickerWidget.this.dismiss();
 			mOnFinishClickListener.onClick(v);
 		}
 	};

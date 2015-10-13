@@ -1,4 +1,4 @@
-package com.morgan.library.widget;
+package com.morgan.library.widget.dialog;
 
 import java.util.Calendar;
 
@@ -7,12 +7,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.morgan.library.R;
 import com.morgan.library.utils.StrUtils;
-import com.morgan.library.widget.numberpicker.NumberPicker;
-import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
 /**
  * 一个时间选取器。
@@ -43,16 +43,15 @@ public class TimePickerWidget extends Dialog {
 		mMinutePicker = (NumberPicker) findViewById(R.id.minutePicker);
 		mHourPicker.setMinValue(0);
 		mHourPicker.setMaxValue(23);
-		mHourPicker.setFormatter(NumberPicker.getTwoDigitFormatter());
+		mHourPicker.setFormatter(StrUtils.getTwoDigitFormatter());
 		mHourPicker.setOnValueChangedListener(mOnHourChangeListener);
 		mHourPicker.setFocusable(false);
 		mHourPicker.setFocusableInTouchMode(false);
-
 		mMinutePicker.setMinValue(0);
 		mMinutePicker.setFocusable(true);
 		mMinutePicker.setFocusableInTouchMode(true);
 		mMinutePicker.setMaxValue(59);
-		mMinutePicker.setFormatter(NumberPicker.getTwoDigitFormatter());
+		mMinutePicker.setFormatter(StrUtils.getTwoDigitFormatter());
 		mMinutePicker.setOnValueChangedListener(mOnMinuteChangeListener);
 
 		mTitleTextView = (TextView) findViewById(R.id.title);
@@ -81,8 +80,6 @@ public class TimePickerWidget extends Dialog {
 
 		@Override
 		public void onDismiss(DialogInterface dialog) {
-			mHourPicker.clearInputTextFocus();
-			mMinutePicker.clearInputTextFocus();
 		}
 	};
 
@@ -90,8 +87,6 @@ public class TimePickerWidget extends Dialog {
 
 		@Override
 		public void onClick(View v) {
-			mHourPicker.clearInputTextFocus();
-			mMinutePicker.clearInputTextFocus();
 			TimePickerWidget.this.dismiss();
 			mOnFinishClickListener.onClick(v);
 		}

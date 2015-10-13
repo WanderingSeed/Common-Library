@@ -4,10 +4,14 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 import java.util.regex.Pattern;
+
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.Formatter;
 
 /**
  * 提供字符串相关的实用方法。
@@ -18,6 +22,11 @@ import java.util.regex.Pattern;
 public class StrUtils {
 	private final static Pattern EMAIL_PATTERN = Pattern
 			.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+
+	/**
+	 * 两位数字的格式化，为了公用写成静态变量
+	 */
+	private static final TwoDigitFormatter sTwoDigitFormatter = new TwoDigitFormatter();
 
 	/**
 	 * 编码GET请求
@@ -186,5 +195,54 @@ public class StrUtils {
 		if (email == null || email.trim().length() == 0)
 			return false;
 		return EMAIL_PATTERN.matcher(email).matches();
+	}
+
+	public static final Formatter getTwoDigitFormatter() {
+		return sTwoDigitFormatter;
+	}
+
+	/**
+	 * Use a custom NumberPicker formatting callback to use two-digit minutes
+	 * strings like "01". Keeping a static formatter etc. is the most efficient
+	 * way to do this; it avoids creating temporary objects on every call to
+	 * format().
+	 */
+	private static class TwoDigitFormatter implements NumberPicker.Formatter {
+		final StringBuilder mBuilder = new StringBuilder();
+
+		char mZeroDigit;
+		java.util.Formatter mFmt;
+
+		final Object[] mArgs = new Object[1];
+
+		TwoDigitFormatter() {
+			final Locale locale = Locale.getDefault();
+			init(locale);
+		}
+
+		private void init(Locale locale) {
+			mFmt = createFormatter(locale);
+			mZeroDigit = getZeroDigit(locale);
+		}
+
+		public String format(int value) {
+			final Locale currentLocale = Locale.getDefault();
+			if (mZeroDigit != getZeroDigit(currentLocale)) {
+				init(currentLocale);
+			}
+			mArgs[0] = value;
+			mBuilder.delete(0, mBuilder.length());
+			mFmt.format("%02d", mArgs);
+			return mFmt.toString();
+		}
+
+		private static char getZeroDigit(Locale locale) {
+			return new DecimalFormatSymbols(locale).getZeroDigit();
+			// return LocaleData.get(locale).zeroDigit;
+		}
+
+		private java.util.Formatter createFormatter(Locale locale) {
+			return new java.util.Formatter(mBuilder, locale);
+		}
 	}
 }

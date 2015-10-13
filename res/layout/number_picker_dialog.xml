@@ -29,7 +29,7 @@
             android:layout_height="1.4dp"
             android:background="#33b5e5" />
 
-        <net.simonvt.numberpicker.NumberPicker
+        <NumberPicker
             android:id="@+id/numberPicker"
             android:layout_width="wrap_content"
             android:background="@color/white"

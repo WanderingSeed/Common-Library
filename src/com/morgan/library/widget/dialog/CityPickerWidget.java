@@ -1,4 +1,4 @@
-package com.morgan.library.widget;
+package com.morgan.library.widget.dialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,13 +7,13 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.morgan.library.R;
 import com.morgan.library.utils.StrUtils;
 import com.morgan.library.utils.citydata.CityManager;
-import com.morgan.library.widget.numberpicker.NumberPicker;
-import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
 /**
  * 一个地址选取器。
@@ -61,22 +61,16 @@ public class CityPickerWidget extends Dialog {
 		mProvincePicker.setFocusable(false);
 		mProvincePicker.setFocusableInTouchMode(false);
 		mProvincePicker.setWrapSelectorWheel(false);
-		mProvincePicker.setMaxTextLength(4);
-		mProvincePicker.setInputAble(false);
 
 		mCityPicker.setMinValue(0);
 		mCityPicker.setFocusable(true);
 		mCityPicker.setFocusableInTouchMode(true);
 		mCityPicker.setOnValueChangedListener(mOnCityChangeListener);
-		mCityPicker.setMaxTextLength(4);
-		mCityPicker.setInputAble(false);
 
 		mAreaPicker.setMinValue(0);
 		mAreaPicker.setFocusable(true);
 		mAreaPicker.setFocusableInTouchMode(true);
 		mAreaPicker.setOnValueChangedListener(mOnAreaChangeListener);
-		mAreaPicker.setMaxTextLength(4);
-		mAreaPicker.setInputAble(false);
 
 		mTitleTextView = (TextView) findViewById(R.id.title);
 		mFinishBtn = (TextView) findViewById(R.id.finish);

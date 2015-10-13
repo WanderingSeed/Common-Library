@@ -1,4 +1,4 @@
-package com.morgan.library.widget;
+package com.morgan.library.widget.dialog;
 
 import java.util.Calendar;
 import java.util.StringTokenizer;
@@ -8,12 +8,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.NumberPicker;
+import android.widget.NumberPicker.OnValueChangeListener;
 import android.widget.TextView;
 
 import com.morgan.library.R;
 import com.morgan.library.utils.StrUtils;
-import com.morgan.library.widget.numberpicker.NumberPicker;
-import com.morgan.library.widget.numberpicker.NumberPicker.OnValueChangeListener;
 
 /**
  * 一个通用的时间选取器。
@@ -64,10 +64,9 @@ public class DatePickerWidget extends Dialog {
 
 		mMonthPicker.setFocusable(true);
 		mMonthPicker.setFocusableInTouchMode(true);
-		mMonthPicker.setUnit("月");
 		mMonthPicker.setOnValueChangedListener(mOnMonthChangeListener);
 
-		mDayPicker.setFormatter(NumberPicker.getTwoDigitFormatter());
+		mDayPicker.setFormatter(StrUtils.getTwoDigitFormatter());
 		mDayPicker.setFocusable(true);
 		mDayPicker.setFocusableInTouchMode(true);
 		mDayPicker.setOnValueChangedListener(mOnDayChangeListener);
@@ -116,9 +115,7 @@ public class DatePickerWidget extends Dialog {
 
 		@Override
 		public void onDismiss(DialogInterface dialog) {
-			mYearPicker.clearInputTextFocus();
-			mMonthPicker.clearInputTextFocus();
-			mDayPicker.clearInputTextFocus();
+			// TODO
 		}
 	};
 
@@ -126,9 +123,6 @@ public class DatePickerWidget extends Dialog {
 
 		@Override
 		public void onClick(View v) {
-			mYearPicker.clearInputTextFocus();
-			mMonthPicker.clearInputTextFocus();
-			mDayPicker.clearInputTextFocus();
 			DatePickerWidget.this.dismiss();
 			mOnFinishClickListener.onClick(v);
 		}
@@ -221,8 +215,7 @@ public class DatePickerWidget extends Dialog {
 		mTitle = title;
 	}
 
-	public void setOnFinishClickListener(
-			android.view.View.OnClickListener clickListener) {
+	public void setOnFinishClickListener(android.view.View.OnClickListener clickListener) {
 		this.mOnFinishClickListener = clickListener;
 	}
 
