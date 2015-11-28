@@ -25,11 +25,11 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 import com.morgan.library.R;
-import com.morgan.library.widget.slidemenu.ScrollDetectors.ScrollDetector;
+import com.morgan.library.widget.slidemenu.ScrollDetectors.IScrollDetector;
 
 /**
  * Swipe left/right to show the hidden menu behind the content view, Use
- * {@link ScrollDetector} to custom the rule of MotionEvent intercept
+ * {@link IScrollDetector} to custom the rule of MotionEvent intercept
  * 
  */
 public class SlideMenu extends ViewGroup {
