@@ -10,19 +10,36 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.HorizontalScrollView;
 
+/**
+ * 滑动探测器，根据控件类型使用相应的滑动探测器来探测该控件是否能够继续往某个方向滑动
+ * 
+ * @author JiGuoChao
+ * 
+ * @version 1.0
+ * 
+ * @date 2015-11-09
+ */
 public class ScrollDetectors {
-	private static final WeakHashMap<Class<?>, ScrollDetector> IMPLES = new WeakHashMap<Class<?>, ScrollDetector>();
-	private static ScrollDetectorFactory mFactory;
+	/**
+	 * 以享元模式分享已构造的探测器对象
+	 */
+	private static final WeakHashMap<Class<?>, IScrollDetector> IMPLES = new WeakHashMap<Class<?>, IScrollDetector>();
+	/**
+	 * 滑动探测器工厂
+	 */
+	private static IScrollDetectorFactory mFactory;
 
 	/**
-	 * Check the view is horizontal scrollable
+	 * 探测一个View是否能继续横向滑动
 	 * 
 	 * @param v
+	 *            探测的View
 	 * @param direction
+	 *            手指滑动方向left: direction<0, right: direction>0
 	 * @return
 	 */
 	public static boolean canScrollHorizontal(View v, int direction) {
-		ScrollDetector imples = getImplements(v);
+		IScrollDetector imples = getImplements(v);
 		if (null == imples) {
 			return false;
 		}
@@ -30,23 +47,32 @@ public class ScrollDetectors {
 	}
 
 	/**
-	 * Check the view is vertical scrollable
+	 * 探测一个View是否能继续纵向滑动
 	 * 
 	 * @param v
+	 *            探测的View
 	 * @param direction
+	 *            手指滑动方向bottom: direction<0, top: direction>0
 	 * @return
 	 */
 	public static boolean canScrollVertical(View v, int direction) {
-		ScrollDetector imples = getImplements(v);
+		IScrollDetector imples = getImplements(v);
 		if (null == imples) {
 			return false;
 		}
 		return imples.canScrollVertical(v, direction);
 	}
 
-	private static ScrollDetector getImplements(View v) {
+	/**
+	 * 获取相应控件的滑动探测器
+	 * 
+	 * @param v
+	 *            要探测的View
+	 * @return
+	 */
+	private static IScrollDetector getImplements(View v) {
 		Class<?> clazz = v.getClass();
-		ScrollDetector imple = IMPLES.get(clazz);
+		IScrollDetector imple = IMPLES.get(clazz);
 
 		if (null != imple) {
 			return imple;
@@ -68,7 +94,16 @@ public class ScrollDetectors {
 		return imple;
 	}
 
-	private static class ViewPagerScrollDetector implements ScrollDetector {
+	/**
+	 * ViewPager滑动探测器
+	 * 
+	 * @author JiGuoChao
+	 * 
+	 * @version 1.0
+	 * 
+	 * @date 2015-11-09
+	 */
+	private static class ViewPagerScrollDetector implements IScrollDetector {
 
 		@Override
 		public boolean canScrollHorizontal(View v, int direction) {
@@ -85,18 +120,26 @@ public class ScrollDetectors {
 
 		@Override
 		public boolean canScrollVertical(View v, int direction) {
-			// TODO
 			return false;
 		}
 
 	}
 
-	private static class WebViewScrollDetector implements ScrollDetector {
+	/**
+	 * WebView滑动探测器
+	 * 
+	 * @author JiGuoChao
+	 * 
+	 * @version 1.0
+	 * 
+	 * @date 2015-11-09
+	 */
+	private static class WebViewScrollDetector implements IScrollDetector {
 
 		@Override
 		public boolean canScrollHorizontal(View v, int direction) {
 			try {
-				// Because this method is protected
+				// 要调用的方法是protected，需要反射机制
 				Method computeHorizontalScrollOffsetMethod = WebView.class
 						.getDeclaredMethod("computeHorizontalScrollOffset");
 				Method computeHorizontalScrollRangeMethod = WebView.class
@@ -126,50 +169,82 @@ public class ScrollDetectors {
 
 		@Override
 		public boolean canScrollVertical(View v, int direction) {
-			// TODO
-			return false;
-		}
-
-	}
-
-	private static class HorizontalScrollViewScrollDetector implements
-			ScrollDetector {
-
-		@Override
-		public boolean canScrollHorizontal(View v, int direction) {
-			HorizontalScrollView horizontalScrollView = (HorizontalScrollView) v;
-			final int scrollX = horizontalScrollView.getScrollX();
-
-			// Without scroll wrapper, can't scroll
-			if (0 == horizontalScrollView.getChildCount()) {
-				return false;
-			}
-			return (direction < 0 && scrollX < horizontalScrollView.getChildAt(
-					0).getWidth()
-					- horizontalScrollView.getWidth())
-					|| (direction > 0 && scrollX > 0);
-		}
-
-		@Override
-		public boolean canScrollVertical(View v, int direction) {
-			// TODO
 			return false;
 		}
 
 	}
 
 	/**
-	 * Factory for create new scroll detector
+	 * HorizontalScrollView滑动探测器
+	 * 
+	 * @author JiGuoChao
+	 * 
+	 * @version 1.0
+	 * 
+	 * @date 2015-11-09
+	 */
+	private static class HorizontalScrollViewScrollDetector implements IScrollDetector {
+
+		@Override
+		public boolean canScrollHorizontal(View v, int direction) {
+			HorizontalScrollView horizontalScrollView = (HorizontalScrollView) v;
+			final int scrollX = horizontalScrollView.getScrollX();
+
+			// 没有子控件就不需要滑动
+			if (0 == horizontalScrollView.getChildCount()) {
+				return false;
+			}
+			return (direction < 0 && scrollX < horizontalScrollView.getChildAt(0)
+					.getWidth() - horizontalScrollView.getWidth())
+					|| (direction > 0 && scrollX > 0);
+		}
+
+		@Override
+		public boolean canScrollVertical(View v, int direction) {
+			return false;
+		}
+
+	}
+
+	/**
+	 * 设置能够根据控件类型创造探测器的工厂
 	 * 
 	 * @param factory
 	 */
-	public static void setScrollDetectorFactory(ScrollDetectorFactory factory) {
+	public static void setScrollDetectorFactory(IScrollDetectorFactory factory) {
 		mFactory = factory;
 	}
 
-	public interface ScrollDetector {
+	/**
+	 * 滑动探测器接口，探测是否能够朝某个方向滑动
+	 * 
+	 * @author JiGuoChao
+	 * 
+	 * @version 1.0
+	 * 
+	 * @date 2015-11-09
+	 */
+	public interface IScrollDetector {
+		/**
+		 * 探测一个View是否能继续横向滑动
+		 * 
+		 * @param v
+		 *            探测的View
+		 * @param direction
+		 *            手指滑动方向left: direction<0, right: direction>0
+		 * @return
+		 */
 		public boolean canScrollHorizontal(View v, int direction);
 
+		/**
+		 * 探测一个View是否能继续纵向滑动
+		 * 
+		 * @param v
+		 *            探测的View
+		 * @param direction
+		 *            手指滑动方向bottom: direction<0, top: direction>0
+		 * @return
+		 */
 		public boolean canScrollVertical(View v, int direction);
 	}
 }
