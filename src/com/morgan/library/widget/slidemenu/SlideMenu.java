@@ -25,7 +25,6 @@ import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
 import com.morgan.library.R;
-import com.morgan.library.widget.slidemenu.ScrollDetectors.ScrollDetector;
 
 /**
  * 通过滑动可以显示界面两侧的菜单，使用 {@link ScrollDetector}自定义界面的滑动规则
